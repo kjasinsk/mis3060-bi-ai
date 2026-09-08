@@ -67,3 +67,26 @@ At the borrower level, the three metrics that carry the most underwriting weight
 ## Conclusion
 
 The zero-shot response was generic and not tailored to the exact situation the Treasury needed. The role-assigned prompt produced the most polished response because the stakes were higher than a routine answer — the audience was leadership, not just a standard reader. Strategy 3 (few-shot) was well organized and surfaced many individual rates, making it ideal for an analyst to grab quick points from, but the outputs don't carry much detail on their own — an analyst would need to build a larger conclusion and add more context before presenting it to leadership. Overall, the role-assigned version is the better choice because it explicitly accounts for the audience the information needs to be catered to.
+
+## Fact-Check
+
+**Claim source:** Part 3, Strategy 1 — Zero-Shot (the question was asked exactly as written, with no additional context, role, or format instructions). Question tested: "What are the most important metrics for measuring credit risk in a consumer loan portfolio?" The claim appears in the first main paragraph, where Claude explains the three borrower-level underwriting metrics — credit score, DTI, and LTV.
+
+**The exact claim Claude made:**
+
+> "...loan-to-value ratio for secured loans like auto or home-related lending (how much cushion exists if the lender has to repossess and sell the collateral)..."
+
+**The source used and the URL:**
+
+CFPB — "What is a loan-to-value ratio and how does it relate to my costs?"
+https://www.consumerfinance.gov/ask-cfpb/what-is-a-loan-to-value-ratio-and-how-does-it-relate-to-my-costs-en-121/
+
+**What the source says:**
+
+The CFPB defines LTV as "a measure comparing the amount you are financing with the appraised value of the property." A higher LTV means less equity behind the loan and more risk to the lender (often resulting in a higher interest rate or a requirement for mortgage insurance), while a lower LTV means the collateral provides more protection if the borrower defaults.
+
+**Whether they agree, and what that says about reliability:**
+
+They basically agree. What Claude said — that LTV measures how much cushion a lender has if it ends up repossessing and selling the collateral. This lines up almost exactly with how the CFPB explains it: the lower the LTV, the more equity sits between the loan balance and what the collateral is actually worth, and that gap is the cushion Claude was describing.
+
+The CFPB page is written specifically about mortgages and real estate, but Claude applied the same idea to auto loans too. Overall, this is a good sign for Claude's reliability on definitional claims like this one; it got the underlying mechanism right. It's just a reminder to check whether Claude is quoting a source directly or quietly stretching it to cover a related situation.
