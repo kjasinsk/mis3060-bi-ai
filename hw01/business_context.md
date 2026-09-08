@@ -16,6 +16,16 @@
 
 **3. Delinquency vs. default:** Delinquency means a borrower has missed payments but the loan is still considered collectible, while default means the lender has concluded it's a loss and written it off — the move between them usually happens after a sustained period of nonpayment (commonly around 90 days), passing through stages along the way. Because defaults are drawn from the pool of delinquent loans, delinquency is generally a leading indicator rather than noise. A committee that watches only the Default number is looking at a lagging metric and would miss the early warning the Delinquent bucket provides.
 
-## Follow-Up Question
+## Follow-Up Questions
 
-*Given that Business loans are a small share of loan count but a disproportionate share of dollar exposure, does Wildcat have a concentration limit on Business lending? Too much invested in one area is not always a good thing. Whhat would trigger the committee to set a llimit? *
+**1. Credit Metrics**
+
+If a good credit score but a high DTI really does mean someone's stretched thin, does Wildcat Capital actually do anything about that? Would the loan be limited or will the person be charged more?
+
+**2. Portfolio Committee Review**
+
+Has anyone actually pulled the real default and delinquency numbers by loan purpose and by year? Business loans being bigger and fewer sounds risky in theory, but does the actual data back that up? All the eggs in one basket is not always a good thing; there needs to be diversification to ensure not bad things happen. 
+
+**3. Delinquency vs. Default**
+
+Out of the loans that go delinquent, how many actually recover and go back to Current versus how many end up in Default? Is Wilcat tracking that to improve who they give loans to in the future?
