@@ -18,4 +18,4 @@
 
 ## Follow-Up Question
 
-*Given that Business loans are a small share of loan count but a disproportionate share of dollar exposure, does Wildcat have a concentration limit on Business lending — and if not, what would trigger the committee to set a limit?*
+*Given that Business loans are a small share of loan count but a disproportionate share of dollar exposure, does Wildcat have a concentration limit on Business lending? Too much invested in one area is not always a good thing. Whhat would trigger the committee to set a llimit? *
