@@ -5,7 +5,7 @@ Villanova School of Business — Fall 2026
 **GitHub:** [kjasinsk]
 
 ## About This Repository
-This repository contains all lab exercises, homework assignments, and project
+This repository contains all lab exercises, homework assignments, and project 
 deliverables for MIS3060. Later assignments use the Vibe Coding workflow —
 specify in natural language → generate with Claude Code → validate → commit —
 introduced once Claude Code is covered later in the course. HW1 has no code.
