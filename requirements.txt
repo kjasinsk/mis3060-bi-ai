@@ -1,0 +1,25 @@
+# Core data handling
+pandas
+numpy
+
+# Visualization
+matplotlib
+seaborn
+plotly
+
+# Statistics / modeling
+scipy
+statsmodels
+scikit-learn
+
+# Notebook environment
+jupyter
+ipykernel
+
+# Excel / file I/O
+openpyxl
+xlrd
+
+# Nice-to-haves for data cleaning & progress
+python-dotenv
+tqdm
