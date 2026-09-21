@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ── Python ──────────────────────────────────────────────
 __pycache__/
 *.py[cod]
@@ -46,3 +47,53 @@ Thumbs.db
 .pytest_cache/
 .mypy_cache/
 .ipynb_checkpoints
+=======
+# ── Python ──────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+build/
+dist/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# ── Jupyter ─────────────────────────────────────────────
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+
+# ── Environment / secrets ──────────────────────────────
+.env
+.env.*
+*.pem
+*.key
+secrets.*
+
+# ── Data (often large / sensitive — track intentionally) ─
+02_Data/**
+!02_Data/.gitkeep
+*.csv
+*.xlsx
+*.parquet
+*.h5
+*.pkl
+*.db
+*.sqlite3
+
+# ── OS / editor cruft ───────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/
+*.swp
+
+# ── Logs / misc ─────────────────────────────────────────
+*.log
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints
+>>>>>>> ffc5ab56632722c9a20776dc335bc12df85d538c
