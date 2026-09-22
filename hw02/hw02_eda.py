@@ -5,7 +5,7 @@ Exploratory Data Analysis (EDA) script for Wildcat Capital's transaction
 portfolio dataset.
 
 Dataset: data/raw/fact_transactions.csv
-Author: [Your Name]
+Author: [Kaitlyn Jasinski]
 Generated: 2026-09-20
 
 This script loads the transaction dataset, profiles its structure and
