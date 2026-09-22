@@ -24,7 +24,6 @@ Complete this table in `hw02/validation.md`. Every row must be filled in.
 | Chart files created (3) | Yes | Yes | Yes | |
 
 For any row where Match = No: describe the discrepancy and paste the Claude Cowork conversation you used to investigate it.
-## 6. Follow-up question and answer
 
 **My question:**
 "For txn_date, Claude got object, but it is really string. What is the correct answer?"
