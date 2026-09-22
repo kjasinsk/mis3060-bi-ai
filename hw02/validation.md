@@ -76,6 +76,7 @@ If the txn_date stays a string, the average days between transactions need actua
 5. 836 `Buy` transactions have negative `shares` values (as low as −499.63), while every other transaction type in the dataset has only positive share values. What are two plausible business explanations for a negative share count on a Buy transaction (for example, a data-entry sign error versus a legitimate correction or reversal entry), and what would you do next to determine which explanation is more likely?
 There could be a negative share count because there is a data entry error where a value got flipped to a negative by mistake. Also, there could be a legitimate reversal where a buy gets cancelled, but it is logged as a negative instead of beig changed to a new diversifiaction type.
 
+### 2C — Business Check & Cross-Validation
 Prompt A: "Write Python to count rows in fact_transactions.csv where txn_type equals exactly 'Buy'."
 """Prompt A: Write Python to count rows in fact_transactions.csv where txn_type equals exactly 'Buy'."""
 
@@ -106,3 +107,54 @@ print(f"Rows in other 5 types: {other_count:,}")
 print(f"Buy count (by subtraction): {buy_count_by_subtraction:,}")
 
 Both Print 83,556 when we run the project from the root. 
+
+### 2C — Cross-Validation
+
+**Prompt A:** "Write Python to count rows in fact_transactions.csv where txn_type equals exactly 'Buy'."
+
+```python
+"""Prompt A: Write Python to count rows in fact_transactions.csv where txn_type equals exactly 'Buy'."""
+
+import pandas as pd
+
+df = pd.read_csv("data/raw/fact_transactions.csv")
+
+buy_count = (df["txn_type"] == "Buy").sum()
+
+print(f"Buy count (direct filter): {buy_count:,}")
+```
+
+**Prompt B:** "Write Python to count the total rows in fact_transactions.csv, then subtract the count of rows where txn_type is Sell, Deposit, Withdrawal, Dividend, or Advisory Fee."
+
+```python
+"""Prompt B: Write Python to count the total rows in fact_transactions.csv, then subtract the
+count of rows where txn_type is Sell, Deposit, Withdrawal, Dividend, or Advisory Fee."""
+
+import pandas as pd
+
+df = pd.read_csv("data/raw/fact_transactions.csv")
+
+total_rows = len(df)
+other_types = ["Sell", "Deposit", "Withdrawal", "Dividend", "Advisory Fee"]
+other_count = df["txn_type"].isin(other_types).sum()
+
+buy_count_by_subtraction = total_rows - other_count
+
+print(f"Total rows:            {total_rows:,}")
+print(f"Rows in other 5 types: {other_count:,}")
+print(f"Buy count (by subtraction): {buy_count_by_subtraction:,}")
+```
+
+**6. What did each script return?**
+
+- Prompt A (direct filter): **83,556**
+- Prompt B (subtraction): Total rows = 298,772; rows in the other five types = 215,216; 298,772 − 215,216 = **83,556**
+
+**7. Do the results agree? If not, which one is wrong and why?**
+
+Yes, both scripts return exactly 83,556. Since they agree, there's no evidence either one is wrong.
+
+**8. Why is it useful to verify a count using subtraction rather than direct filtering?**
+
+Because it is independent check rather than running the same logic twice. A direct filter and a subtraction approach can fail in different ways — a typo in the filter string, an unexpected extra category, or inconsistent text formatting in `txn_type` would likely throw off one method but not necessarily the other. Getting the same number from both methods is much stronger evidence the count is correct than getting the same answer from the same method run twice.
+

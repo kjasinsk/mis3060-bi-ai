@@ -217,87 +217,51 @@ if df.shape != EXPECTED_SHAPE:
 # ---------------------------------------------------------------------------
 # 15. Charts
 # ---------------------------------------------------------------------------
-# Each chart is wrapped in its own try/except so that a problem with one
-# chart does not stop the others -- or the text summary below -- from being
-# created. Anything that goes wrong is written to hw02/chart_errors.log.
-
-import traceback
-
-chart_error_lines = []
-print("\nGenerating charts...")
 
 # Histogram of amount with mean/median lines
-try:
-    print("  - hist_amount.png ...", end=" ", flush=True)
-    plt.figure(figsize=(10, 6))
-    plt.hist(df["amount"], bins=50, color="#4C72B0", edgecolor="white")
-    plt.axvline(amount_mean, color="red", linestyle="--", linewidth=2,
-                label=f"Mean: ${amount_mean:,.2f}")
-    plt.axvline(amount_median, color="green", linestyle="--", linewidth=2,
-                label=f"Median: ${amount_median:,.2f}")
-    plt.title("Distribution of Transaction Amount")
-    plt.xlabel("Amount ($)")
-    plt.ylabel("Frequency")
-    plt.legend()
-    plt.tight_layout()
-    plt.savefig(os.path.join(CHARTS_DIR, "hist_amount.png"), dpi=150)
-    plt.close()
-    print("done")
-except Exception:
-    plt.close()
-    print("FAILED")
-    chart_error_lines.append("hist_amount.png failed:\n" + traceback.format_exc())
+plt.figure(figsize=(10, 6))
+plt.hist(df["amount"], bins=50, color="#4C72B0", edgecolor="white")
+plt.axvline(amount_mean, color="red", linestyle="--", linewidth=2,
+            label=f"Mean: ${amount_mean:,.2f}")
+plt.axvline(amount_median, color="green", linestyle="--", linewidth=2,
+            label=f"Median: ${amount_median:,.2f}")
+plt.title("Distribution of Transaction Amount")
+plt.xlabel("Amount ($)")
+plt.ylabel("Frequency")
+plt.legend()
+plt.tight_layout()
+plt.savefig(os.path.join(CHARTS_DIR, "hist_amount.png"), dpi=150)
+plt.close()
 
 # Horizontal box plot of amount by txn_type
-try:
-    print("  - box_amount_by_type.png ...", end=" ", flush=True)
-    plt.figure(figsize=(10, 6))
-    txn_order = list(
-        df.groupby("txn_type")["amount"].median().sort_values(ascending=False).index
-    )
-    data_by_type = [df.loc[df["txn_type"] == t, "amount"].dropna().values for t in txn_order]
-    plt.boxplot(data_by_type, tick_labels=txn_order, vert=False)
-    plt.title("Transaction Amount by Type")
-    plt.xlabel("Amount ($)")
-    plt.ylabel("Transaction Type")
-    plt.tight_layout()
-    plt.savefig(os.path.join(CHARTS_DIR, "box_amount_by_type.png"), dpi=150)
-    plt.close()
-    print("done")
-except Exception:
-    plt.close()
-    print("FAILED")
-    chart_error_lines.append("box_amount_by_type.png failed:\n" + traceback.format_exc())
+plt.figure(figsize=(10, 6))
+txn_order = df.groupby("txn_type")["amount"].median().sort_values(ascending=False).index
+data_by_type = [df.loc[df["txn_type"] == t, "amount"] for t in txn_order]
+plt.boxplot(data_by_type, labels=txn_order, vert=False)
+plt.title("Transaction Amount by Type")
+plt.xlabel("Amount ($)")
+plt.ylabel("Transaction Type")
+plt.tight_layout()
+plt.savefig(os.path.join(CHARTS_DIR, "box_amount_by_type.png"), dpi=150)
+plt.close()
 
 # Scatter plot of shares vs. amount, colored by txn_type
-try:
-    print("  - scatter_shares_amount.png ...", end=" ", flush=True)
-    plt.figure(figsize=(10, 6))
-    txn_types = df["txn_type"].unique()
-    colors = plt.cm.tab10(np.linspace(0, 1, len(txn_types)))
-    for txn_type, color in zip(txn_types, colors):
-        subset = df[df["txn_type"] == txn_type]
-        plt.scatter(subset["shares"], subset["amount"], s=8, alpha=0.5,
-                    color=color, label=txn_type)
-    plt.title("Shares vs. Amount by Transaction Type")
-    plt.xlabel("Shares")
-    plt.ylabel("Amount ($)")
-    plt.legend(markerscale=2, loc="best")
-    plt.tight_layout()
-    plt.savefig(os.path.join(CHARTS_DIR, "scatter_shares_amount.png"), dpi=150)
-    plt.close()
-    print("done")
-except Exception:
-    plt.close()
-    print("FAILED")
-    chart_error_lines.append("scatter_shares_amount.png failed:\n" + traceback.format_exc())
+plt.figure(figsize=(10, 6))
+txn_types = df["txn_type"].unique()
+colors = plt.cm.tab10(np.linspace(0, 1, len(txn_types)))
+for txn_type, color in zip(txn_types, colors):
+    subset = df[df["txn_type"] == txn_type]
+    plt.scatter(subset["shares"], subset["amount"], s=8, alpha=0.5,
+                color=color, label=txn_type)
+plt.title("Shares vs. Amount by Transaction Type")
+plt.xlabel("Shares")
+plt.ylabel("Amount ($)")
+plt.legend(markerscale=2, loc="best")
+plt.tight_layout()
+plt.savefig(os.path.join(CHARTS_DIR, "scatter_shares_amount.png"), dpi=150)
+plt.close()
 
-if chart_error_lines:
-    with open("hw02/chart_errors.log", "w") as f:
-        f.write("\n\n".join(chart_error_lines))
-    print(f"\nSome charts failed -- see hw02/chart_errors.log for details.")
-else:
-    print(f"\nAll charts saved to {CHARTS_DIR}/")
+print(f"\nCharts saved to {CHARTS_DIR}/")
 
 # ---------------------------------------------------------------------------
 # 16. Save the plain-text summary (items 2-13)
@@ -307,3 +271,4 @@ with open(PROFILE_PATH, "w") as f:
     f.write("\n".join(profile_lines))
 
 print(f"Profile summary saved to {PROFILE_PATH}")
+ 
