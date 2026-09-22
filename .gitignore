@@ -14,7 +14,7 @@ venv/
 env/
 ENV/
 
-# ── Jupyter ─────────────────────────────────────────────
+# zz── Jupyter ─────────────────────────────────────────────
 .ipynb_checkpoints/
 *.nbconvert.ipynb
 
