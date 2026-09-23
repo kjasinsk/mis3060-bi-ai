@@ -1,3 +1,17 @@
+### Part 1C — Errors Encountered While Running the Script
+
+**Error 1: FileNotFoundError**
+`FileNotFoundError: [Errno 2] No such file or directory: 'data/raw/fact_transactions.csv'`
+Cause: the script's path is relative to the folder you run it from, and the CSV
+wasn't in `data/raw/` yet on my first attempt; therefore, there was an error. 
+Fix: I moved the file into the correct place in my files.
+
+**Error 2: TypeError on the box plot**
+`TypeError: boxplot() got an unexpected keyword argument 'labels'`
+Cause: the installed matplotlib version renamed the `labels` argument to `tick_labels`
+for `boxplot()`, and the generated script originally used the old name.
+Fix: I changed `labels=txn_order` to `tick_labels=txn_order` in the box plot section.
+
 ### 2A — Known-Answer Benchmarks (8 points)
 
 Complete this table in `hw02/validation.md`. Every row must be filled in.
@@ -19,9 +33,9 @@ Complete this table in `hw02/validation.md`. Every row must be filled in.
 | Correlation `shares`–`amount` | 0.65 | 0.65 | Yes | |
 | Correlation `price`–`amount` | 0.64 | 0.64| Yes | |
 | Correlation `shares`–`price` | 0.00 | 0.00 | Yes| |
-| Negative `shares` count (Buy only) | 836 | 836 | Yes | |
-| Profile file created | Yes | Yes | Yes | |
-| Chart files created (3) | Yes | Yes | Yes | |
+| Negative `shares` count (Buy only) | 836 | 836 | Yes| |
+| Profile file created | Yes | Yes| | |
+| Chart files created (3) | 3 | Yes | | |
 
 For any row where Match = No: describe the discrepancy and paste the Claude Cowork conversation you used to investigate it.
 
@@ -53,7 +67,7 @@ pandas version shows text columns as `str` instead."
 ### 2B — Explain the Code and Output (16 points) 
 1. Did Claude's predicted outputs (from Prompt 1) match what you actually saw in the terminal? List any discrepancies.
 
-No not at all. At least Claude was honest that it was guessing since it didn't have the actual CSV yet. A few things it got wrong:
+No not at all. Claude was honest that it was guessing since it didn't have the actual CSV yet. A few things it got wrong:
 
 It assumed missing values would be zero across the board for "clean" data. In reality, security_id, shares, and price are each missing 101,597 values. 
 It guessed security_id would be a whole-number column (int64). It's actually float64, because of those missing values.
@@ -92,7 +106,7 @@ Claude's Answer: Good question — and the honest answer is: don't remove them y
 **Business-reasonableness questions.** Apply your knowledge of Wildcat Capital's business. Answer each question in your own words in `hw02/validation.md` — do not paste Claude's response as your answer here.
 
 1. `security_id`, `shares`, and `price` are all null in exactly 101,597 rows. Looking at the `txn_type` value counts, which three transaction types would you expect to have no security — and why? Do the counts add up to 101,597?
-I would expect the Deposit, Withdrawa, and Advisory fee are the 3 types with no security_id, Shares, and price because none of them are involved in buyin,selling or holding a specific security. They are cash-in, cash-out or a service charge. Yes, they add up (35,981+29,850+35,766)=101,597. 
+I would expect the Deposit, Withdrawal, and Advisory fee are the 3 types with no security_id, Shares, and price because none of them are involved in buyin,selling or holding a specific security. They are cash-in, cash-out or a service charge. Yes, they add up (35,981+29,850+35,766)=101,597. 
 2. There are 83,556 Buy transactions and 59,755 Sell transactions. What does it mean for a wealth management firm to have significantly more Buys than Sells over a five-year period?
 If there are more buys, the firm is growing because they are accumulating more assets (and money) overtime. This wealth management firm must be in their growth phase as more people are buying with them than selling. AS new clients deposits, dividends that the clients obtan, get reinvested. 
 3. The `txn_date` column is stored as a string (type `object`) rather than a date. If Claude Cowork generated code to compute the average number of days between transactions, what would go wrong if the dates remained as strings?
