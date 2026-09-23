@@ -34,8 +34,8 @@ Complete this table in `hw02/validation.md`. Every row must be filled in.
 | Correlation `price`–`amount` | 0.64 | 0.64| Yes | |
 | Correlation `shares`–`price` | 0.00 | 0.00 | Yes| |
 | Negative `shares` count (Buy only) | 836 | 836 | Yes| |
-| Profile file created | Yes | Yes| | |
-| Chart files created (3) | 3 | Yes | | |
+| Profile file created | Yes | Yes | Yes | |
+| Chart files created (3) | Yes | Yes | Yes | |
 
 For any row where Match = No: describe the discrepancy and paste the Claude Cowork conversation you used to investigate it.
 
