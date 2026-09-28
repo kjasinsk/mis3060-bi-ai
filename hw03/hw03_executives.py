@@ -48,7 +48,7 @@ from bs4 import BeautifulSoup  # noqa: E402
 
 
 # --- 1. Required SEC EDGAR identification header ---
-USER_AGENT = "MIS3060 Villanova abc123@villanova.edu"
+USER_AGENT = "MIS3060 Villanova kjasinsk@villanova.edu"
 HEADERS = {"User-Agent": USER_AGENT}
 
 LOOKBACK_DAYS = 365
