@@ -26,6 +26,7 @@ import sys
 import subprocess
 import importlib
 from datetime import datetime, timedelta
+from pathlib import Path
 
 
 # --- 0. Make sure the packages we need are installed ---
@@ -152,7 +153,35 @@ NAME_STOPWORDS = {
     "Election", "Departure", "Appointment", "Effective", "Under", "Pursuant", "Registrant",
     "On", "In", "As", "The", "That", "This", "During", "Following", "Prior", "After",
     "Before", "Mr", "Ms", "Mrs", "Dr", "Also", "However", "Additionally", "Furthermore",
+    # Added after seeing real filings: routine governance/proxy boilerplate
+    # (annual-meeting director re-elections, auditor mentions, compensation
+    # plan language) satisfies the "two capitalized words in a row" name
+    # pattern just as well as an actual person's name does, and was showing
+    # up as fake "names" like "Hoffman Re-elected" or "Annual Shareholders".
+    "Re-elected", "Reelected", "Elected", "Nominee", "Nominees", "Annual", "Meeting",
+    "Meetings", "Shareholders", "Stockholders", "Press", "Release", "Touche", "Deloitte",
+    "LLP", "PricewaterhouseCoopers", "Ernst", "Young", "KPMG", "Certified", "Public",
+    "Accountants", "Auditor", "Auditors", "Firm", "Plan", "Program", "Equity", "Incentive",
+    "Compensation", "Base", "Salary", "Bonus", "Severance", "Employment", "Independent",
+    "Registered", "Proxy", "Statement", "Target", "Award", "Opportunity", "Agreement",
+    "Termination", "Change", "Control", "Named", "Approved", "Ratified",
+    # Added after the first real run produced fake names like "Advisory Vote",
+    # "Fiscal Year", and "Covenant Not".
+    "Advisory", "Vote", "Votes", "Fiscal", "Year", "Quarter", "Covenant", "Covenants",
+    "Not", "Non", "Say", "Pay", "Frequency", "Amendment", "Amended", "Bylaws", "Restated",
+    "Certificate", "Exhibit", "Stock", "Units", "Restricted", "Performance", "Shares",
+    "Holders", "Class", "Common", "Letter", "Offer", "Retention", "Transition", "Services",
+    "Against", "Abstain", "Abstentions", "Broker", "Withheld", "For",
+    "Shareholder", "Stockholder", "Proposal", "Proposals", "Report", "Policy",
 } | MONTH_NAMES
+
+# A second word that looks like a past-tense/participle verb ("Re-elected",
+# "Terminated", "Approved") rather than a surname is a strong sign the match
+# is boilerplate governance text, not an actual person's name — this catches
+# cases the fixed stopword list above doesn't anticipate. It can occasionally
+# reject a real surname that happens to end in "ed" (e.g. "Reed"); that's a
+# known, documented trade-off in exchange for cutting out far more noise.
+TRAILING_VERB_PATTERN = re.compile(r"^[A-Za-z]{3,}ed$")
 
 TITLE_PATTERN = re.compile(
     r"\b((?:Executive |Senior |Interim |Acting )?(?:Chief [A-Z][a-zA-Z]+ Officer"
@@ -173,6 +202,11 @@ def find_name_in_sentence(sentence: str):
         candidate = match.group(1)
         words = candidate.replace(".", "").split()
         if any(word in NAME_STOPWORDS for word in words):
+            continue
+        # Skip a trailing word that looks like a past-tense verb rather
+        # than a surname (e.g. "Hoffman Re-elected") — see comment above
+        # TRAILING_VERB_PATTERN.
+        if any(TRAILING_VERB_PATTERN.match(word.replace("-", "")) for word in words[1:]):
             continue
         return candidate
     return None
@@ -223,6 +257,12 @@ def extract_events(text: str) -> list:
             # or Certain Officers.") — not a description of an actual event.
             continue
 
+        # Skip shareholder-vote sentences (annual meeting results). Their
+        # proposal titles ("Censorship Risk Audit", "Advisory Vote") look like
+        # names but are not people.
+        if any(w in lower for w in ("proposal", "broker non-vote", "votes cast", "abstain", "withheld", "votes for")):
+            continue
+
         is_departure = any(p.search(sentence) for p in DEPARTURE_PATTERNS)
         is_appointment = any(p.search(sentence) for p in APPOINTMENT_PATTERNS)
         if not is_departure and not is_appointment:
@@ -233,6 +273,16 @@ def extract_events(text: str) -> list:
             "title": find_title_in_sentence(sentence) or "NOT_FOUND",
             "effective_date": find_effective_date_in_sentence(sentence) or "NOT_FOUND",
         }
+        if candidate["person_name"] == "NOT_FOUND" and candidate["title"] == "NOT_FOUND":
+            # Neither a name nor a title could be pulled out of this
+            # sentence — it just happened to contain a departure/appointment
+            # keyword (e.g. a generic disclosure sentence), so it wouldn't
+            # add any real information as a row. Real filings produced a lot
+            # of these NOT_FOUND/NOT_FOUND rows sitting right alongside a
+            # second, more complete row for what was clearly the same
+            # underlying event — dropping the empty one keeps the real row
+            # without losing anything.
+            continue
         if is_departure:
             departure_candidates.append(candidate)
         if is_appointment:
@@ -289,11 +339,26 @@ def extract_events(text: str) -> list:
         seen.add(key)
         deduped.append(event)
 
-    return deduped
+    # Drop partial-name duplicates from the same filing, e.g. "Di Sibio" when
+    # "Carmine Di Sibio" was also found, or "Nora Johnson" vs "Suzanne Nora Johnson".
+    names = [e["person_name"] for e in deduped if e["person_name"] != "NOT_FOUND"]
+    cleaned = []
+    for event in deduped:
+        name = event["person_name"]
+        is_partial = name != "NOT_FOUND" and any(
+            other != name and other.endswith(" " + name) for other in names
+        )
+        if not is_partial:
+            cleaned.append(event)
+
+    return cleaned
 
 
 # --- 4. Save all rows to CSV ---
-def save_csv_rows(rows, path: str = "hw03/executive_events.csv"):
+OUTPUT_PATH = Path(__file__).resolve().parent / "executive_events.csv"
+
+
+def save_csv_rows(rows, path=OUTPUT_PATH):
     directory = os.path.dirname(path)
     if directory:
         os.makedirs(directory, exist_ok=True)

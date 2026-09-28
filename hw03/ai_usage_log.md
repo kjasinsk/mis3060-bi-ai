@@ -44,12 +44,15 @@
 
 ## Which companies' extractions required iteration
 
-While building `hw03_earnings.py` and `hw03_executives.py`, I could not test against live SEC EDGAR data directly. When I tried ot go onto `data.sec.gov` and `www.sec.gov`, they were blocked by network policy in the environment I was working in. So I validated the extraction logic against realistic synthetic press-release and 8-K text instead, and that testing surfaced (and fixed) two real bugs before the scripts ever touched real data:
+Before any live data: testing on sample press-release text caught two bugs. Apple says "net quarterly income" instead of "net income", and the 8-K section heading "Departure of Directors or Certain Officers" was being read as an event.
 
-- **Earnings extraction:** the first version only looked for the phrase "net income" near a dollar figure, but Apple's actual press-release wording is "net quarterly income" — a real filing would have silently returned `NOT_FOUND` for net income. It is important to notice the differences of company language in the ways that they disclose their statistics. 
-- **Executive events extraction:** the first version mis-tagged the Item 5.02 section heading itself ("Departure of Directors or Certain Officers.") as a real event, matched stray words like "On" + a month name as a false "person name," and missed past-tense phrasing like "stepped down" because the keyword list only had "step down"/"stepping down". Fixed by filtering out heading text, adding month names and connector words to the name-matching stopword list, and switching the departure/appointment keyword matching to tense-flexible regex patterns.
-
-**Once you actually run these scripts with live internet access, update this section** with which of the five real companies (AAPL, MSFT, NVDA, JPM, WMT) needed a follow-up regex fix, per the assignment's Part 2/3 instructions (paste the 3,000-character raw text into a new session and ask for a better pattern).
+After running against live EDGAR data:
+- **NVDA and WMT (earnings):** returned 0 rows on the first run. The script looked for "ex99" in file names, but NVIDIA names its press release like `q1fy27pr.htm`. Fixed by reading the EX-99.1 "Type" column on the filing index page. After a second fix, the February (Q4) filings were mislabeled as the next fiscal year's Q1 because of outlook language. Fixed by reading the headline first.
+- **WMT (earnings):** net income came out 1,000× too big because the wrong unit ("billions" from the text) was applied to table numbers. Fixed by reading the "(Amounts in millions…)" table header and adding a "net income can't exceed revenue" check.
+- **JPM (earnings):** EPS came back as $1.50 for several quarters, which is JPM's dividend per share, not EPS. Fixed by skipping numbers near "dividend" or "book value". EPS now reads $5–6.
+- **MSFT (earnings):** net income showed as "$38.5 million" instead of $38.5 billion. Fixed by treating small decimal numbers as billions and storing all values as plain numbers in millions.
+- **AAPL and MSFT (period):** some filings were labeled with the prior fiscal year, e.g. "fourth quarter fiscal 2024" for an October 2025 filing, because the year-ago comparison was picked. Fixed by preferring the newest year mentioned.
+- **MSFT, NVDA, WMT (executives):** fake "names" like "Advisory Vote", "Fiscal Year", "Covenant Not", "Against Abstain Broker" and "Shareholder Proposal", plus partial duplicates like "Di Sibio" next to "Carmine Di Sibio". Fixed with a larger stopword list and partial-name removal.
 
 ## One thing the script did that I wouldn't have thought to specify
 

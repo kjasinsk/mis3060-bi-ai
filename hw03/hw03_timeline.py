@@ -13,11 +13,14 @@ hw03/corporate_events_timeline.csv and prints a per-company summary.
 import csv
 import os
 from datetime import datetime
+from pathlib import Path
 
 
-EARNINGS_PATH = "hw03/earnings_history.csv"
-EVENTS_PATH = "hw03/executive_events.csv"
-OUTPUT_PATH = "hw03/corporate_events_timeline.csv"
+# Read/write next to this script, no matter which folder you run it from.
+BASE_DIR = Path(__file__).resolve().parent
+EARNINGS_PATH = BASE_DIR / "earnings_history.csv"
+EVENTS_PATH = BASE_DIR / "executive_events.csv"
+OUTPUT_PATH = BASE_DIR / "corporate_events_timeline.csv"
 
 SAME_WEEK_THRESHOLD_DAYS = 7
 
