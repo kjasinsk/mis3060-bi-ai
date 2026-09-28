@@ -1,0 +1,22 @@
+company,ticker,cik,event_filing_date,event_type,person_name,title,effective_date,earnings_filing_date,period,revenue_reported,eps_diluted,net_income,days_to_nearest_earnings,event_timing
+Apple Inc.,AAPL,0000320193,2026-04-20,appointment,John Ternus,Senior Vice President of Hardware Engineering,NOT_FOUND,2026-04-30,second quarter fiscal 2026,111200.0,2.01,29578.0,10,before earnings
+Apple Inc.,AAPL,0000320193,2026-01-02,appointment,Ben Borders,NOT_FOUND,"January 1, 2026",2026-01-29,first quarter fiscal 2026,143800.0,2.84,42097.0,27,before earnings
+Microsoft Corporation,MSFT,0000789019,2026-06-05,appointment,Reid Hoffman,NOT_FOUND,NOT_FOUND,2026-04-29,third quarter fiscal 2026,82900.0,4.27,31800.0,37,after earnings
+Microsoft Corporation,MSFT,0000789019,2026-05-14,appointment,Carmine Di Sibio,NOT_FOUND,"May 13, 2026",2026-04-29,third quarter fiscal 2026,82900.0,4.27,31800.0,15,after earnings
+Microsoft Corporation,MSFT,0000789019,2025-12-08,appointment,John David Rainey,NOT_FOUND,NOT_FOUND,2025-10-29,first quarter fiscal 2026,77700.0,3.72,27747.0,40,after earnings
+NVIDIA Corporation,NVDA,0001045810,2026-07-02,departure,NOT_FOUND,Executive Vice President,NOT_FOUND,2026-05-20,first quarter fiscal 2027,81600.0,2.39,58321.0,43,after earnings
+NVIDIA Corporation,NVDA,0001045810,2026-07-02,appointment,Nicholas Parker,Executive Vice President,NOT_FOUND,2026-05-20,first quarter fiscal 2027,81600.0,2.39,58321.0,43,after earnings
+NVIDIA Corporation,NVDA,0001045810,2026-05-08,appointment,Suzanne Nora Johnson,NOT_FOUND,"July 13, 2026",2026-05-20,first quarter fiscal 2027,81600.0,2.39,58321.0,12,before earnings
+NVIDIA Corporation,NVDA,0001045810,2026-04-27,departure,Donald Robertson,Vice President,"May 4, 2026",2026-05-20,first quarter fiscal 2027,81600.0,2.39,58321.0,23,before earnings
+NVIDIA Corporation,NVDA,0001045810,2026-04-27,appointment,Scott Gawel,NOT_FOUND,NOT_FOUND,2026-05-20,first quarter fiscal 2027,81600.0,2.39,58321.0,23,before earnings
+NVIDIA Corporation,NVDA,0001045810,2026-03-06,appointment,NOT_FOUND,President and Chief Executive Officer,NOT_FOUND,2026-02-25,fourth quarter fiscal 2026,68100.0,1.76,42960.0,9,after earnings
+NVIDIA Corporation,NVDA,0001045810,2026-01-23,departure,Persis Drell,NOT_FOUND,NOT_FOUND,2026-02-25,fourth quarter fiscal 2026,68100.0,1.76,42960.0,33,before earnings
+JPMorgan Chase & Co.,JPM,0000019617,2026-06-25,departure,Marianne Lake,NOT_FOUND,NOT_FOUND,2026-07-14,second quarter 2026,57300.0,6.14,21200.0,19,before earnings
+JPMorgan Chase & Co.,JPM,0000019617,2026-06-25,appointment,Doug Petno,NOT_FOUND,NOT_FOUND,2026-07-14,second quarter 2026,57300.0,6.14,21200.0,19,before earnings
+Walmart Inc.,WMT,0000104169,2026-01-16,departure,Kathryn McLay,Executive Vice President,NOT_FOUND,2026-02-19,fourth quarter fiscal 2026,190700.0,0.53,4237.0,34,before earnings
+Walmart Inc.,WMT,0000104169,2026-01-16,appointment,David Guggina,Executive Vice President,NOT_FOUND,2026-02-19,fourth quarter fiscal 2026,190700.0,0.53,4237.0,34,before earnings
+Walmart Inc.,WMT,0000104169,2026-01-16,appointment,John Furner,President and Chief Executive Officer,NOT_FOUND,2026-02-19,fourth quarter fiscal 2026,190700.0,0.53,4237.0,34,before earnings
+Walmart Inc.,WMT,0000104169,2026-01-16,appointment,Christopher Nicholas,Executive Vice President,NOT_FOUND,2026-02-19,fourth quarter fiscal 2026,190700.0,0.53,4237.0,34,before earnings
+Walmart Inc.,WMT,0000104169,2026-01-16,appointment,Latriece Watkins,Executive Vice President,NOT_FOUND,2026-02-19,fourth quarter fiscal 2026,190700.0,0.53,4237.0,34,before earnings
+Walmart Inc.,WMT,0000104169,2026-01-08,appointment,Shishir Mehrotra,NOT_FOUND,NOT_FOUND,2026-02-19,fourth quarter fiscal 2026,190700.0,0.53,4237.0,42,before earnings
+Walmart Inc.,WMT,0000104169,2025-10-22,appointment,Dwayne Milum,Senior Vice President,NOT_FOUND,2025-11-20,third quarter fiscal 2026,179500.0,0.77,6143.0,29,before earnings

@@ -44,16 +44,22 @@
 
 ## Which companies' extractions required iteration
 
-Before any live data: testing on sample press-release text caught two bugs. Apple says "net quarterly income" instead of "net income", and the 8-K section heading "Departure of Directors or Certain Officers" was being read as an event.
+Before I ran anything on real data, testing on sample text caught two bugs. Apple says "net quarterly income" instead of "net income", and the script was counting the 8-K heading "Departure of Directors or Certain Officers" as an actual event.
 
-After running against live EDGAR data:
-- **NVDA and WMT (earnings):** returned 0 rows on the first run. The script looked for "ex99" in file names, but NVIDIA names its press release like `q1fy27pr.htm`. Fixed by reading the EX-99.1 "Type" column on the filing index page. After a second fix, the February (Q4) filings were mislabeled as the next fiscal year's Q1 because of outlook language. Fixed by reading the headline first.
-- **WMT (earnings):** net income came out 1,000× too big because the wrong unit ("billions" from the text) was applied to table numbers. Fixed by reading the "(Amounts in millions…)" table header and adding a "net income can't exceed revenue" check.
-- **JPM (earnings):** EPS came back as $1.50 for several quarters, which is JPM's dividend per share, not EPS. Fixed by skipping numbers near "dividend" or "book value". EPS now reads $5–6.
-- **MSFT (earnings):** net income showed as "$38.5 million" instead of $38.5 billion. Fixed by treating small decimal numbers as billions and storing all values as plain numbers in millions.
-- **AAPL and MSFT (period):** some filings were labeled with the prior fiscal year, e.g. "fourth quarter fiscal 2024" for an October 2025 filing, because the year-ago comparison was picked. Fixed by preferring the newest year mentioned.
-- **MSFT, NVDA, WMT (executives):** fake "names" like "Advisory Vote", "Fiscal Year", "Covenant Not", "Against Abstain Broker" and "Shareholder Proposal", plus partial duplicates like "Di Sibio" next to "Carmine Di Sibio". Fixed with a larger stopword list and partial-name removal.
+Once I ran it on the real EDGAR data, almost every company needed at least one fix:
+- **NVDA and WMT (earnings):** I got 0 rows for both on the first run. The script was looking for "ex99" in the file name, and NVIDIA's press release is named like `q1fy27pr.htm`. It now reads the EX-99.1 "Type" column on the filing index page instead. After that, the February (Q4) filings were labeled as the next year's Q1 because of the outlook section, so I had it read the headline first.
+- **WMT (earnings):** net income was 1,000 times too big because it used the wrong unit. I fixed it by using the "(Amounts in millions)" table header, and added a check that net income can't be bigger than revenue.
+- **JPM (earnings):** EPS showed $1.50, which was actually the dividend. It now skips numbers near "dividend" or "book value".
+- **MSFT (earnings):** net income showed as "$38.5 million" instead of billion. All values are now stored as plain numbers in millions.
+- **AAPL and MSFT (period):** some filings had last year's fiscal year because the script grabbed the year-ago comparison.
+- **MSFT, NVDA, WMT (executives):** a lot of fake names like "Advisory Vote", "Fiscal Year", "Covenant Not", and "Censorship Risk Audit", plus duplicates like "Di Sibio" and "Carmine Di Sibio". I fixed these with a bigger stopword list, removing partial names, and skipping shareholder vote sentences.
+
+It is important to notice how differently each company words their press releases and filings. One pattern almost never works for all five.
 
 ## One thing the script did that I wouldn't have thought to specify
 
-The executive events script automatically merges a departure and an appointment into a single `event_type="both"` row when they name the *same person* in the same filing — for example, someone stepping down as CEO but staying on as Chairman gets one combined row instead of two separate ones. I hadn't explicitly asked for that merge logic in the specification (it only said "if a filing reports multiple events... creates a separate row for each event"), but it followed naturally from the `"both"` value the spec listed as a possible `event_type`. It's correct for the common "same person, changing roles" case, but it's worth double-checking against your real data: if the extraction ever produced two different-but-similar name strings for what's actually the same person (e.g. "Robert Chen" vs. "Mr. Chen"), the merge would fail to catch it and you'd end up with two separate rows instead of one — worth a manual glance at any row where a `departure` and an `appointment` for what looks like the same person didn't get merged.
+The original earnings script added the unit from the table header to numbers that didn't have one, and it wrote "(unit inferred from filing header)" next to them in the CSV. I never asked for that, but it was actually a smart idea, because press release tables only say "(In millions)" once at the top. It still needed adjusting, though. It put text in the number columns, so you couldn't do math with them, and it sometimes used the wrong unit (Microsoft's "$38.5 million" should have been billions). I changed it so every value is saved as a plain number in millions.
+
+## How I used AI on this assignment
+
+I used Claude (in Cowork) for more than just generating the three scripts. It also helped me debug them when the output was wrong (the NVDA/WMT, JPM, and unit problems above), look up the official Apple and Walmart sources for validation, and write the yfinance check script. Claude also drafted the write-ups in `analysis.md` and `validation.md` and parts of this log. I reviewed them and checked them against my actual output.

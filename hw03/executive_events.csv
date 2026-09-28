@@ -1,0 +1,22 @@
+company,ticker,cik,filing_date,event_type,person_name,title,effective_date
+Apple Inc.,AAPL,0000320193,2026-04-20,appointment,John Ternus,Senior Vice President of Hardware Engineering,NOT_FOUND
+Apple Inc.,AAPL,0000320193,2026-01-02,appointment,Ben Borders,NOT_FOUND,"January 1, 2026"
+Microsoft Corporation,MSFT,0000789019,2026-06-05,appointment,Reid Hoffman,NOT_FOUND,NOT_FOUND
+Microsoft Corporation,MSFT,0000789019,2026-05-14,appointment,Carmine Di Sibio,NOT_FOUND,"May 13, 2026"
+Microsoft Corporation,MSFT,0000789019,2025-12-08,appointment,John David Rainey,NOT_FOUND,NOT_FOUND
+NVIDIA Corporation,NVDA,0001045810,2026-07-02,departure,NOT_FOUND,Executive Vice President,NOT_FOUND
+NVIDIA Corporation,NVDA,0001045810,2026-07-02,appointment,Nicholas Parker,Executive Vice President,NOT_FOUND
+NVIDIA Corporation,NVDA,0001045810,2026-05-08,appointment,Suzanne Nora Johnson,NOT_FOUND,"July 13, 2026"
+NVIDIA Corporation,NVDA,0001045810,2026-04-27,departure,Donald Robertson,Vice President,"May 4, 2026"
+NVIDIA Corporation,NVDA,0001045810,2026-04-27,appointment,Scott Gawel,NOT_FOUND,NOT_FOUND
+NVIDIA Corporation,NVDA,0001045810,2026-03-06,appointment,NOT_FOUND,President and Chief Executive Officer,NOT_FOUND
+NVIDIA Corporation,NVDA,0001045810,2026-01-23,departure,Persis Drell,NOT_FOUND,NOT_FOUND
+JPMorgan Chase & Co.,JPM,0000019617,2026-06-25,departure,Marianne Lake,NOT_FOUND,NOT_FOUND
+JPMorgan Chase & Co.,JPM,0000019617,2026-06-25,appointment,Doug Petno,NOT_FOUND,NOT_FOUND
+Walmart Inc.,WMT,0000104169,2026-01-16,departure,Kathryn McLay,Executive Vice President,NOT_FOUND
+Walmart Inc.,WMT,0000104169,2026-01-16,appointment,David Guggina,Executive Vice President,NOT_FOUND
+Walmart Inc.,WMT,0000104169,2026-01-16,appointment,John Furner,President and Chief Executive Officer,NOT_FOUND
+Walmart Inc.,WMT,0000104169,2026-01-16,appointment,Christopher Nicholas,Executive Vice President,NOT_FOUND
+Walmart Inc.,WMT,0000104169,2026-01-16,appointment,Latriece Watkins,Executive Vice President,NOT_FOUND
+Walmart Inc.,WMT,0000104169,2026-01-08,appointment,Shishir Mehrotra,NOT_FOUND,NOT_FOUND
+Walmart Inc.,WMT,0000104169,2025-10-22,appointment,Dwayne Milum,Senior Vice President,NOT_FOUND

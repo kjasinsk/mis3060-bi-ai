@@ -10,9 +10,9 @@ Official source: [Apple Newsroom, "Apple reports third quarter results" (July 30
 | Apple Q3 FY2026 Revenue | $109.4 billion ($109,417 million in the release's table) | $109,400 million | Yes (CSV took the rounded "$109.4 billion" from the release text) |
 | Apple Q3 FY2026 EPS Diluted | $2.02 | $2.02 | Yes |
 
-No regex fix was needed for Apple. Two other problems showed up while reviewing the full CSV, and I fixed them in the updated `hw03_earnings.py`:
-- **JPMorgan EPS:** the CSV showed $1.50 for two quarters. That is JPM's quarterly **dividend** per share, not EPS. Before: the pattern `\$\s?\d+\.\d{2}\s*per\s+share` took the first "$X.XX per share" it saw. After: matches with "dividend" or "book value" nearby are skipped, and the headline format "($X.XX per share)" is checked first.
-- **Units:** Microsoft's net income showed as "$38.5 million" when it was really $38.5 billion. Before: the table's "(In millions)" header got attached to every number. After: a small decimal number like 38.5 is treated as billions, and every value is stored as a plain number in millions.
+Apple matched so I didn't need a regex fix for it. But when I looked through the rest of the CSV I found two other problems that I had to fix:
+- **JPMorgan EPS:** my CSV said $1.50 for two quarters, which seemed way too low. It turned out that was JPM's dividend per share, not their EPS. Before, the pattern `\$\s?\d+\.\d{2}\s*per\s+share` just grabbed the first "$X.XX per share" it found. After the fix it skips numbers near the words "dividend" or "book value", and it checks the headline "($X.XX per share)" first. JPM's EPS now shows around $5-6, which makes more sense.
+- **Units:** Microsoft's net income showed as "$38.5 million" when it was actually $38.5 billion. The script was adding the "(In millions)" from the table header to every number, even ones already written in billions. Now small decimal numbers like 38.5 get treated as billions, and everything is stored as a plain number in millions.
 
 ## 5B — Known-Answer Check: Executive Events
 
@@ -21,9 +21,9 @@ Source: [Walmart corporate news, "Walmart Announces Leadership Changes" (Jan 16,
 
 | Check | News Source Confirms? | Notes |
 |---|---|---|
-| Person name and title | Partly | Name is correct. Her full title was Executive Vice President and President & CEO, Walmart International. The script only captured "Executive Vice President". |
-| Event type (departure/appointment) | Yes | Walmart said Chris Nicholas "will succeed Kath McLay as President and CEO of Walmart International", so she is leaving that role. |
-| Effective date | No (script missed it) | CSV says NOT_FOUND. The press release says the changes are "effective February 1, 2026". The date is in a separate sentence from her name, and the script only looks for a date in the same sentence. |
+| Person name and title | Partly | The name is right. Her full title was EVP and President & CEO of Walmart International, but my script only picked up "Executive Vice President". |
+| Event type (departure/appointment) | Yes | Walmart said Chris Nicholas "will succeed Kath McLay as President and CEO of Walmart International", so she is leaving. |
+| Effective date | No (script missed it) | My CSV says NOT_FOUND, but the press release says the changes are "effective February 1, 2026". The script only looks for a date in the same sentence as the name, and here the date was in a different sentence. |
 
 ## 5C — Cross-Validation: Earnings via Yahoo Finance
 
@@ -35,7 +35,7 @@ Prompt used: *"Write Python using yfinance to get the most recent quarterly reve
 | Net Income | $29,789 million | $29,789 million | Yes (exact) |
 | Diluted EPS (extra check) | $2.02 | $2.02 | Yes (exact) |
 
-yfinance labels this quarter **2026-06-30**, but Apple's quarter actually ended **June 27, 2026**. It is the same quarter: yfinance rounds each fiscal quarter to the nearest calendar month-end, while Apple's fiscal quarters end on the last Saturday of the month. This is a labeling difference, not a period mismatch. Net income and EPS match exactly, and revenue matches after rounding, so the text extraction for Apple is confirmed by two independent sources (Apple's newsroom and Yahoo Finance).
+At first I thought the dates didn't match because yfinance says the quarter ended **2026-06-30** and Apple says **June 27, 2026**. But it's the same quarter: Apple's quarters end on the last Saturday of the month, and yfinance just rounds it to the end of the month. Net income and EPS match exactly, and revenue is only off because of rounding, so I'm confident the Apple numbers my script pulled are correct.
 
 ## 5D — Pipeline Integrity Checks
 
@@ -46,15 +46,15 @@ yfinance labels this quarter **2026-06-30**, but Apple's quarter actually ended 
 | `corporate_events_timeline.csv` created | Yes | Yes (21 rows, every event matched to an earnings date) | Pass |
 | Rows with all three fields `"NOT_FOUND"` | 0 (investigate if > 0) | 0 | Pass |
 
-**How the row count got to 20:** the first run produced only 12 rows because every NVIDIA and Walmart filing was skipped. The first version of the script found the press release by looking for "ex99" in the file name, and NVIDIA names its release like `q1fy27pr.htm`. The fixed script reads the "Type" column (EX-99.1) on each filing's index page, which brought in NVDA and WMT.
+**How I got to 20 rows:** my first run only gave me 12 rows because every NVIDIA and Walmart filing got skipped. The script was looking for "ex99" in the file name to find the press release, but NVIDIA names theirs like `q1fy27pr.htm`, so it never found them. The fixed version reads the "Type" column (EX-99.1) on each filing's index page instead, and that brought in NVDA and WMT.
 
-**Fixes made after reviewing the 20-row output:**
-- Walmart's net income came out 1,000× too big, because the unit was read from an "in billions" phrase in the text instead of the table header "(Amounts in millions…)". I fixed the header detection and added a sanity check that net income can't be bigger than revenue.
-- The February NVDA and WMT filings were labeled "first quarter fiscal 2027", because those releases also discuss next year's outlook. The script now reads the headline first ("Fourth Quarter and Fiscal 2026", "Q4 FY26").
+**Other fixes after I looked at the 20 rows:**
+- Walmart's net income came out 1,000 times too big (like $6,366,000M). The script picked up "in billions" from the text instead of the "(Amounts in millions)" table header. I fixed that and added a check so net income can never be bigger than revenue.
+- The February NVDA and WMT filings were labeled "first quarter fiscal 2027" when they should be the fourth quarter of fiscal 2026. Those releases also talk about next year's outlook, which confused it. Now it reads the headline first.
 
-**Known data-quality issues in `executive_events.csv`:**
-- Fake names from shareholder-vote filings ("Against Abstain Broker", "Shareholder Proposal", "Censorship Risk Audit") came from annual-meeting vote results. They were removed by skipping any sentence about shareholder proposals or vote counts.
+**Problems I still see in `executive_events.csv`:**
+- Some "names" weren't people at all ("Against Abstain Broker", "Shareholder Proposal", "Censorship Risk Audit"). These came from Microsoft's annual meeting vote results. I removed them by having the script skip sentences about shareholder proposals and vote counts.
 - One NVDA row (2026-03-06) has a title but no name.
-- Most effective dates show NOT_FOUND, because the date usually sits in a different sentence from the name.
+- Most effective dates are NOT_FOUND because the date is usually in a different sentence than the name.
 
-These are logged as NOT_FOUND instead of crashing, as the assignment asks.
+These show up as NOT_FOUND instead of crashing the script, which is what the assignment asks for.

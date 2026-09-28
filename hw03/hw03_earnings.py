@@ -33,7 +33,7 @@ from bs4 import BeautifulSoup
 
 # --- 1. Settings -----------------------------------------------------------
 # SEC requires a real contact in the User-Agent. Put your Villanova email here.
-USER_AGENT = "MIS3060 Villanova youremail@villanova.edu"
+USER_AGENT = "MIS3060 Villanova abc123@villanova.edu"
 HEADERS = {"User-Agent": USER_AGENT}
 
 FILINGS_PER_COMPANY = 4      # rows we want per company

@@ -97,3 +97,4 @@ Thumbs.db
 .mypy_cache/
 .ipynb_checkpoints
 >>>>>>> ffc5ab56632722c9a20776dc335bc12df85d538c
+!hw*/*.csv
