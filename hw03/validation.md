@@ -17,7 +17,7 @@ Apple matched so I didn't need a regex fix for it. But when I looked through the
 
 ## 5B — Known-Answer Check: Executive Events
 
-Event checked: **Walmart, filed 2026-01-16, departure, Kathryn McLay, "Executive Vice President"**.
+Event checked: **Walmart, filed 2026-01-16, departure, Kathryn McLay, "Executive Vice President, President and Chief Executive Officer, Walmart International", effective January 31, 2026**.
 Source: [Walmart corporate news, "Walmart Announces Leadership Changes" (Jan 16, 2026)](https://corporate.walmart.com/news/2026/01/16/walmart-announces-leadership-changes)
 
 | Check | News Source Confirms? | Notes |
