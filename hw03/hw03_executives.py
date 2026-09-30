@@ -70,7 +70,7 @@ def get_recent_8ks_with_item(cik: str, item_code: str, lookback_days: int):
     filingDate falls within the past `lookback_days` days.
     """
     url = f"https://data.sec.gov/submissions/CIK{cik}.json"
-    response = requests.get(url, headers=HEADERS)
+    response = requests.get(url, headers=HEADERS, timeout=30)
     response.raise_for_status()
     data = response.json()
 
@@ -106,7 +106,7 @@ def get_recent_8ks_with_item(cik: str, item_code: str, lookback_days: int):
 def download_plain_text(cik: str, accession_nodash: str, primary_document: str) -> str:
     cik_no_leading_zeros = str(int(cik))
     url = f"https://www.sec.gov/Archives/edgar/data/{cik_no_leading_zeros}/{accession_nodash}/{primary_document}"
-    response = requests.get(url, headers=HEADERS)
+    response = requests.get(url, headers=HEADERS, timeout=30)
     response.raise_for_status()
     soup = BeautifulSoup(response.text, "html.parser")
     text = soup.get_text(separator=" ")
@@ -123,21 +123,50 @@ DEPARTURE_PATTERNS = [
     re.compile(r"retir(?:e|es|ed|ing|ement)", re.IGNORECASE),
     re.compile(r"step(?:s|ped|ping)?\s+down", re.IGNORECASE),
     re.compile(r"ceased to serve", re.IGNORECASE),
+    # FIX: a director who decides "not to stand for re-election" is leaving
+    # the board. The old version only saw the word "election" and called
+    # Reid Hoffman's June 2026 Microsoft filing an "appointment".
+    re.compile(r"not\s+(?:to\s+)?(?:stand|seek|run)\s+for\s+re-?election", re.IGNORECASE),
+    # FIX: "Tim Cook will transition from his role as CEO to Executive Chair"
+    # is a departure from one role AND an appointment to another ("both").
+    re.compile(r"transition(?:s|ed|ing)?\s+from\s+(?:his|her|their)\s+(?:role|position)", re.IGNORECASE),
 ]
 APPOINTMENT_PATTERNS = [
     re.compile(r"appoint(?:s|ed|ing|ment)?", re.IGNORECASE),
-    re.compile(r"elect(?:s|ed|ing|ion)", re.IGNORECASE),
-    re.compile(r"\bnamed\b", re.IGNORECASE),
+    # "elected"/"election", but NOT "re-elected"/"re-election" or "selected".
+    re.compile(r"(?<![A-Za-z-])elect(?:s|ed|ing|ion)\b", re.IGNORECASE),
+    # "named CEO", but not the SEC phrase "named executive officers".
+    re.compile(r"\bnamed\b(?!\s+executive\s+officer)", re.IGNORECASE),
     re.compile(r"promot(?:e|es|ed|ing|ion)", re.IGNORECASE),
     re.compile(r"will serve as", re.IGNORECASE),
+    # FIX: "Art Levinson ... will become Lead Independent Director" and
+    # "Mr. Petno will become sole CEO" were missed.
+    re.compile(r"will become\s+(?:the\s+|sole\s+|its\s+|[A-Z][A-Za-z]+['’]s\s+)?"
+               r"(?:[A-Z]|CEO|Co-|general counsel|chief|president|senior|executive|vice)"),
+    # "Ms. Newstead will join Apple as senior vice president"
+    re.compile(r"will join\s+(?:[A-Z][A-Za-z]+\s+)?as\b"),
+    re.compile(r"transition(?:s|ed|ing)?\s+from\s+(?:his|her|their)\s+(?:role|position)", re.IGNORECASE),
 ]
+# Sentences where "re-election" means leaving, never an appointment.
+NOT_STANDING_PATTERN = DEPARTURE_PATTERNS[5]
 
 # A section heading like "Item 5.02. Departure of Directors ..." mentions
 # both "departure" and "appointment" language without describing an actual
-# event — skip any sentence that's just referencing the item number.
+# event. FIX: we now cut the heading out of the text instead of throwing
+# away the whole sentence it is glued to (the heading often has no period,
+# so the first real sentence of the item was being thrown away with it).
+ITEM_HEADING_TEXT = re.compile(
+    r"Item\s+5\.02\.?\s*Departure of Directors or (?:Certain|Principal) Officers;?\s*"
+    r"Election of Directors;?\s*Appointment of (?:Certain|Principal) Officers;?\s*"
+    r"(?:Compensatory Arrangements of Certain Officers\.?)?",
+    re.IGNORECASE,
+)
 ITEM_HEADING_PATTERN = re.compile(r"item\s+5\.02", re.IGNORECASE)
 
 NAME_PATTERN = re.compile(r"\b([A-Z][a-z]+(?:\s+[A-Z]\.)?(?:\s+[A-Z][a-zA-Z'-]+){1,2})\b")
+
+# "Mr. Hoffman", "Ms. McLay", "Dr. Drell", "Mr. Di Sibio"
+HONORIFIC_PATTERN = re.compile(r"\b(?:Mr|Ms|Mrs|Dr)\.\s+([A-Z][a-zA-Z'-]+(?:\s+[A-Z][a-zA-Z'-]+)?)")
 
 MONTH_NAMES = {
     "January", "February", "March", "April", "May", "June", "July",
@@ -173,6 +202,20 @@ NAME_STOPWORDS = {
     "Holders", "Class", "Common", "Letter", "Offer", "Retention", "Transition", "Services",
     "Against", "Abstain", "Abstentions", "Broker", "Withheld", "For",
     "Shareholder", "Stockholder", "Proposal", "Proposals", "Report", "Policy",
+    # Added now that we look for EVERY name in a sentence (not just the first):
+    # company, division and job-area words that come in capitalized pairs
+    # ("Walmart International", "Investment Bank", "Worldwide Field").
+    "Walmart", "International", "Club", "Apple", "Microsoft", "Nvidia", "NVIDIA",
+    "JPMorgan", "Chase", "Bank", "Banking", "Investment", "Commercial", "Consumer",
+    "Community", "Wealth", "Asset", "Management", "Worldwide", "Field", "Hardware",
+    "Engineering", "Supply", "Chain", "Innovation", "Automation", "Product", "Global",
+    "Partner", "Solutions", "Sales", "Industry", "Standard", "Index", "Composite",
+    "Group", "Regulation", "Audit", "Merchandising", "Consumables", "Lead", "Chair",
+    "Co", "Operating", "Business", "Legal", "Technology", "Marketing", "Retail",
+    "Stores", "Division", "Segment", "Center", "Data", "Principal", "Controller",
+    # Exhibit list boilerplate: "104 Cover Page Interactive Data File (embedded
+    # within the Inline XBRL document)" was coming out as two fake "names".
+    "Cover", "Page", "Interactive", "Inline", "XBRL", "File", "Document", "Schema",
 } | MONTH_NAMES
 
 # A second word that looks like a past-tense/participle verb ("Re-elected",
@@ -183,78 +226,274 @@ NAME_STOPWORDS = {
 # known, documented trade-off in exchange for cutting out far more noise.
 TRAILING_VERB_PATTERN = re.compile(r"^[A-Za-z]{3,}ed$")
 
-TITLE_PATTERN = re.compile(
-    r"\b((?:Executive |Senior |Interim |Acting )?(?:Chief [A-Z][a-zA-Z]+ Officer"
+# FIX: added CEO/CFO/COO shorthand, Co-President, Executive Chair, Lead
+# Independent Director and Principal Accounting Officer. JPM ("Co-Presidents",
+# "CEO of CCB") and Apple ("Executive Chair") titles were all NOT_FOUND.
+TITLE_CORE = (
+    r"(?:Executive |Senior |Interim |Acting )?(?:Chief [A-Z][a-zA-Z]+ Officer"
     r"|President(?: and Chief Executive Officer)?"
-    r"|Chief Executive Officer|Chief Financial Officer|Chief Operating Officer"
-    r"|Chairman(?: of the Board)?|Chairwoman|General Counsel|Secretary|Treasurer"
-    r"|Vice President(?: of [A-Za-z ]+)?))\b"
+    r"|Co-Presidents?|Co-CEOs?|(?:sole )?CEO|CFO|COO"
+    r"|Executive Chair(?:man|woman)?|Chair(?:man|woman)?(?: of the Board)?"
+    r"|Lead Independent Director"
+    r"|Principal (?:Accounting|Financial|Executive) Officer|Controller"
+    r"|General Counsel|Secretary|Treasurer"
+    r"|Vice President(?: of [A-Za-z ]+)?"
+    # Some filings write titles in lowercase ("president and chief executive
+    # officer", "general counsel") — FIX: those were missed (Walmart/McMillon,
+    # Apple/Newstead).
+    r"|(?:executive |senior )?vice president|president and chief executive officer"
+    r"|chief [a-z]+ officer|general counsel)"
+)
+TITLE_PATTERN = re.compile(r"\b(" + TITLE_CORE + r")(?![A-Za-z])")
+
+# After a title, keep going through ", President and Chief Executive Officer,
+# Walmart International" so the whole title is captured, not just
+# "Executive Vice President" (validation 5B, Kathryn McLay).
+TITLE_WORD = r"(?:[A-Z][A-Za-z.&'’-]*|&)"
+TITLE_TAIL = re.compile(
+    r"^(?:(?:,\s*|\s+and\s+)(?:" + TITLE_CORE + r"|" + TITLE_WORD + r"(?:\s+" + TITLE_WORD + r")*)"
+    r"|\s+of\s+(?:the\s+)?" + TITLE_WORD + r"(?:\s+" + TITLE_WORD + r")*)"
+)
+TITLE_STOP_WORDS = {"Mr.", "Ms.", "Mrs.", "Dr.", "On", "The", "Since", "In", "Effective", "Also"}
+
+# Titles that come right after the words that introduce a NEW role.
+NEW_ROLE_LEAD = re.compile(
+    r"\b(?:as|become|to|elected|appointed|named|promoted to)\s+(?:the\s+|its\s+|our\s+|a\s+|[A-Z][A-Za-z]+['’]s\s+)?"
 )
 
+DATE_TEXT = r"[A-Z][a-z]+\s+\d{1,2},?\s+\d{4}|\d{1,2}/\d{1,2}/\d{2,4}"
 DATE_PATTERN = re.compile(
-    r"effective\s+(?:as of\s+|on\s+)?([A-Z][a-z]+\s+\d{1,2},?\s+\d{4}|\d{1,2}/\d{1,2}/\d{2,4})",
+    r"effective\s+(?:as of\s+|on\s+)?(?:the close of business(?: on)?\s+)?(" + DATE_TEXT + r")",
     re.IGNORECASE,
 )
+# "effective as of the Effective Date", "on the Transition Date"
+DEFINED_DATE_USE = re.compile(r"(?:effective\s+)?(?:as of|on)\s+the\s+([A-Z][a-z]+ Date)\b")
+# 'February 1, 2026 (the "Effective Date")'
+DEFINED_DATE_DEF = re.compile(
+    r"(" + DATE_TEXT + r")\s*\(the\s+[\"“”]?([A-Z][a-z]+ Date)[\"“”]?\)"
+)
+ROLE_START_DATE = re.compile(r"\b(?:become|join|joins|begin|begins)\b[^.]{0,80}?\bon\s+(" + DATE_TEXT + r")")
+EFFECTIVE_IMMEDIATELY = re.compile(r"effective\s+immediately", re.IGNORECASE)
+LEADING_ON_DATE = re.compile(r"\bOn\s+(" + DATE_TEXT + r")")
 
 
-def find_name_in_sentence(sentence: str):
-    for match in NAME_PATTERN.finditer(sentence):
-        candidate = match.group(1)
-        words = candidate.replace(".", "").split()
-        if any(word in NAME_STOPWORDS for word in words):
-            continue
-        # Skip a trailing word that looks like a past-tense verb rather
-        # than a surname (e.g. "Hoffman Re-elected") — see comment above
-        # TRAILING_VERB_PATTERN.
-        if any(TRAILING_VERB_PATTERN.match(word.replace("-", "")) for word in words[1:]):
-            continue
-        return candidate
+def clean_title(title: str) -> str:
+    words = title.split()
+    for i, word in enumerate(words):
+        if word in TITLE_STOP_WORDS:
+            words = words[:i]
+            break
+    title = " ".join(words).rstrip(" ,;")
+    title = re.sub(r"\bCo-(President|CEO)s\b", r"Co-\1", title)
+    # "... of the Company" / "of NVIDIA Corporation" adds nothing to a title.
+    title = re.sub(r"\s+of\s+(?:the\s+)?(?:Company|Firm|Registrant|[A-Z][A-Za-z]* (?:Corporation|Inc\.?))$", "", title)
+    if title and title == title.lower():
+        title = " ".join(w if w in ("and", "of", "the") else w.capitalize() for w in title.split())
+    return title[0].upper() + title[1:] if title else title
+
+
+def title_at(sentence: str, start: int):
+    """Match a title starting exactly at `start`, including its tail."""
+    m = TITLE_PATTERN.match(sentence, start)
+    if not m:
+        return None
+    end = m.end()
+    while True:
+        tail = TITLE_TAIL.match(sentence[end:])
+        if not tail or not tail.group(0).strip(" ,"):
+            break
+        end += tail.end()
+    return clean_title(sentence[start:end])
+
+
+def find_title_in_sentence(sentence: str, prefer_new_role: bool = False):
+    if prefer_new_role:
+        # "will transition from his role as CEO to Executive Chair": the new
+        # role is the one after "to".
+        moving = re.search(r"transition\w*\s+from\s+.*?\bto\s+(?:the\s+)?", sentence)
+        if moving:
+            title = title_at(sentence, moving.end())
+            if title:
+                return title
+        # For appointments, use the title that follows "as"/"become"/"to"/
+        # "appointed" — i.e. the NEW job. FIX: John Ternus came out as
+        # "Senior Vice President of Hardware Engineering" (his old job)
+        # instead of "Chief Executive Officer".
+        for lead in NEW_ROLE_LEAD.finditer(sentence):
+            title = title_at(sentence, lead.end())
+            if title:
+                return title
+    m = TITLE_PATTERN.search(sentence)
+    if m:
+        return title_at(sentence, m.start())
+    # Board seats: "appointed ... to its Board of Directors", "resigned from the Board".
+    if re.search(r"\bBoard of Directors\b|\bthe Board\b|\bas a director\b", sentence):
+        return "Director"
     return None
 
 
-def find_title_in_sentence(sentence: str):
-    match = TITLE_PATTERN.search(sentence)
-    return match.group(1) if match else None
+def is_real_name(candidate: str) -> bool:
+    words = candidate.replace(".", "").split()
+    if any(word in NAME_STOPWORDS for word in words):
+        return False
+    # Skip a trailing word that looks like a past-tense verb rather
+    # than a surname (e.g. "Hoffman Re-elected").
+    if any(TRAILING_VERB_PATTERN.match(word.replace("-", "")) for word in words[1:]):
+        return False
+    return True
 
 
-def find_effective_date_in_sentence(sentence: str):
-    match = DATE_PATTERN.search(sentence)
-    return match.group(1) if match else None
+def find_names_in_sentence(sentence: str, known_names: list) -> list:
+    """
+    FIX: returns EVERY person in the sentence, not just the first one.
+    "Doug Petno, 61, and Troy Rohrbaugh, 56, ... have been elected
+    Co-Presidents" is two appointments; the old version only kept Petno.
+    "Mr. Petno"/"Dr. Drell" are matched back to the full name used
+    elsewhere in the filing.
+    """
+    found = []  # (position, name)
+    for match in NAME_PATTERN.finditer(sentence):
+        candidate = match.group(1)
+        if is_real_name(candidate):
+            found.append((match.start(), candidate))
+    for match in HONORIFIC_PATTERN.finditer(sentence):
+        surname = match.group(1)
+        full = next((n for n in known_names if n == surname or n.endswith(" " + surname)), None)
+        if full is None and " " in surname:
+            # "Mr. Parker will" -> try just the first word
+            first = surname.split()[0]
+            full = next((n for n in known_names if n.endswith(" " + first)), None)
+        if full:
+            found.append((match.start(), full))
+    # keep each person once, at their first position, in reading order
+    result, seen = [], set()
+    for pos, name in sorted(found):
+        if name not in seen:
+            seen.add(name)
+            result.append((pos, name))
+    return result
+
+
+def find_effective_date(sentences, index, defined_dates):
+    """
+    Look for the effective date in this sentence first, then (FIX) in the
+    next sentence, since filings often say who changed in one sentence and
+    when in the next (Walmart/McLay, validation 5B). Also understands
+    'effective as of the Effective Date' (a date defined earlier in the
+    filing) and 'On June 25, 2026, ... effective immediately'.
+    """
+    for offset in (0, 1):
+        if index + offset >= len(sentences):
+            break
+        sentence = sentences[index + offset]
+        m = DATE_PATTERN.search(sentence)
+        if m:
+            return m.group(1)
+        m = DEFINED_DATE_USE.search(sentence)
+        if m and m.group(1) in defined_dates:
+            return defined_dates[m.group(1)]
+        if offset == 0:
+            m = ROLE_START_DATE.search(sentence)
+            if m:
+                return m.group(1)
+        if offset == 0 and EFFECTIVE_IMMEDIATELY.search(sentence):
+            on = LEADING_ON_DATE.search(sentence)
+            if on:
+                return on.group(1)
+    return None
 
 
 # Sub-heading text (e.g. "Departure of Directors or Certain Officers.")
 # that echoes the departure/appointment keywords without describing an
 # actual event.
 HEADING_PHRASES = [
-    "departure of directors", "certain officers", "election of directors",
-    "appointment of certain officers", "compensatory arrangements",
+    "departure of directors", "election of directors",
+    "appointment of certain officers", "compensatory arrangements of certain officers",
 ]
 
-# Avoid splitting sentences right after "Mr."/"Mrs."/"Ms."/"Dr." — otherwise
-# "Ms. Marshall" gets cut into two separate "sentences".
-SENTENCE_SPLIT_PATTERN = re.compile(r"(?<!Mr\.)(?<!Mrs\.)(?<!Ms\.)(?<!Dr\.)(?<=[.!?])\s+")
+# Avoid splitting sentences right after "Mr."/"Ms."/"Dr.", a middle initial
+# ("Ajay K. Puri" — FIX: this split made NVIDIA's July 2026 departure come
+# out with no name), or abbreviations like "U.S." and "Inc.".
+SENTENCE_SPLIT_PATTERN = re.compile(
+    r"(?<!Mr\.)(?<!Mrs\.)(?<!Ms\.)(?<!Dr\.)(?<!\s[A-Z]\.)(?<!U\.S\.)(?<!Inc\.)(?<!Corp\.)"
+    r"(?<!Co\.)(?<!No\.)(?<=[.!?])\s+"
+)
+
+
+def keyword_flags(text: str):
+    dep = any(p.search(text) for p in DEPARTURE_PATTERNS)
+    app = any(p.search(text) for p in APPOINTMENT_PATTERNS)
+    if NOT_STANDING_PATTERN.search(text):
+        app = False
+    return dep, app
+
+
+def assign_roles(sentence, names, is_departure, is_appointment):
+    """
+    FIX: when one sentence names several people, decide who is leaving and
+    who is arriving from the words next to EACH name, not from the whole
+    sentence. Before, "Ms. Adams will remain ... until her retirement ...,
+    after which it will be led by Ms. Newstead" tagged BOTH women as "both".
+
+    Each name gets the text from its position up to the next name. If that
+    piece has no keyword ("Doug Petno, 61, and ..."), the name borrows the
+    role of the next name that has one ("... Troy Rohrbaugh ... have been
+    elected"), or else the keyword before the first name ("the Board
+    appointed X and Y"). A name with no role at all is skipped.
+    Returns (name, is_departure, is_appointment, text_piece) tuples.
+    """
+    if not names:
+        return [("NOT_FOUND", is_departure, is_appointment, sentence)]
+    if len(names) == 1:
+        return [(names[0][1], is_departure, is_appointment, sentence)]
+
+    pieces = []
+    for i, (pos, name) in enumerate(names):
+        end = names[i + 1][0] if i + 1 < len(names) else len(sentence)
+        piece = sentence[pos:end]
+        pieces.append((name, *keyword_flags(piece), piece))
+
+    lead_flags = keyword_flags(sentence[:names[0][0]])
+    result = []
+    for i, (name, dep, app, piece) in enumerate(pieces):
+        if not dep and not app:
+            later = next(((d, a) for _, d, a, _ in pieces[i + 1:] if d or a), None)
+            dep, app = later if later else lead_flags
+        if dep or app:
+            result.append((name, dep, app, piece))
+    return result
 
 
 def extract_events(text: str) -> list:
     """
     Splits the filing text into sentences, tags each one as
     departure-related and/or appointment-related based on keyword
-    matches, and pulls a name/title/effective-date out of each tagged
-    sentence. A departure and an appointment that name the same person
-    are merged into a single event_type="both" row (e.g. someone
-    stepping down as CEO but staying on as Chairman). Fields that
-    can't be found are stored as "NOT_FOUND" rather than guessed.
+    matches, and pulls every name plus a title/effective date out of each
+    tagged sentence. A departure and an appointment for the same person
+    are merged into a single event_type="both" row (e.g. someone stepping
+    down as CEO but staying on as Executive Chair). Fields that can't be
+    found are stored as "NOT_FOUND" rather than guessed.
     """
+    text = ITEM_HEADING_TEXT.sub(" ", text)
     sentences = SENTENCE_SPLIT_PATTERN.split(text)
+
+    # Dates the filing defines once and then refers to by name.
+    defined_dates = {label: date for date, label in DEFINED_DATE_DEF.findall(text)}
+
+    # Every full name in the filing, so "Mr. Hoffman" can be matched to "Reid Hoffman".
+    known_names = []
+    for match in NAME_PATTERN.finditer(text):
+        if is_real_name(match.group(1)) and match.group(1) not in known_names:
+            known_names.append(match.group(1))
 
     departure_candidates = []
     appointment_candidates = []
 
-    for sentence in sentences:
+    for index, sentence in enumerate(sentences):
         lower = sentence.lower()
         if ITEM_HEADING_PATTERN.search(sentence) or any(phrase in lower for phrase in HEADING_PHRASES):
-            # Just a section heading ("Item 5.02. Departure of Directors
-            # or Certain Officers.") — not a description of an actual event.
+            # Just a section heading or a cross-reference to Item 5.02 —
+            # not a description of an actual event.
             continue
 
         # Skip shareholder-vote sentences (annual meeting results). Their
@@ -265,28 +504,35 @@ def extract_events(text: str) -> list:
 
         is_departure = any(p.search(sentence) for p in DEPARTURE_PATTERNS)
         is_appointment = any(p.search(sentence) for p in APPOINTMENT_PATTERNS)
+        if NOT_STANDING_PATTERN.search(sentence):
+            is_appointment = False
         if not is_departure and not is_appointment:
             continue
 
-        candidate = {
-            "person_name": find_name_in_sentence(sentence) or "NOT_FOUND",
-            "title": find_title_in_sentence(sentence) or "NOT_FOUND",
-            "effective_date": find_effective_date_in_sentence(sentence) or "NOT_FOUND",
-        }
-        if candidate["person_name"] == "NOT_FOUND" and candidate["title"] == "NOT_FOUND":
-            # Neither a name nor a title could be pulled out of this
-            # sentence — it just happened to contain a departure/appointment
-            # keyword (e.g. a generic disclosure sentence), so it wouldn't
-            # add any real information as a row. Real filings produced a lot
-            # of these NOT_FOUND/NOT_FOUND rows sitting right alongside a
-            # second, more complete row for what was clearly the same
-            # underlying event — dropping the empty one keeps the real row
-            # without losing anything.
-            continue
-        if is_departure:
-            departure_candidates.append(candidate)
-        if is_appointment:
-            appointment_candidates.append(candidate)
+        if "xbrl" in lower or "cover page" in lower:
+            continue  # exhibit list, not an event
+
+        effective_date = find_effective_date(sentences, index, defined_dates) or "NOT_FOUND"
+        old_title = find_title_in_sentence(sentence) or "NOT_FOUND"
+        new_title = find_title_in_sentence(sentence, prefer_new_role=True) or "NOT_FOUND"
+
+        for name, is_departure, is_appointment, part in assign_roles(
+                sentence, find_names_in_sentence(sentence, known_names), is_departure, is_appointment):
+            if name == "NOT_FOUND" and old_title == "NOT_FOUND":
+                # Neither a name nor a title — just a sentence that happens to
+                # contain a keyword. It adds nothing as a row.
+                continue
+            if is_departure:
+                departure_candidates.append({
+                    "person_name": name, "title": find_title_in_sentence(part) or old_title,
+                    "effective_date": effective_date,
+                })
+            if is_appointment:
+                appointment_candidates.append({
+                    "person_name": name,
+                    "title": find_title_in_sentence(part, prefer_new_role=True) or new_title,
+                    "effective_date": effective_date,
+                })
 
     events = []
     used_appointment_idxs = set()
@@ -328,16 +574,26 @@ def extract_events(text: str) -> list:
             "effective_date": app["effective_date"],
         })
 
-    # De-duplicate identical events that might arise from the same fact
-    # being restated in more than one sentence.
-    seen = set()
-    deduped = []
+    # One row per person per event type. When the same fact is restated in
+    # several sentences, keep the first row but fill in any NOT_FOUND
+    # fields from the later mentions.
+    merged = {}
+    order = []
     for event in events:
-        key = (event["event_type"], event["person_name"], event["title"])
-        if key in seen:
+        key = (event["event_type"], event["person_name"])
+        if key not in merged:
+            merged[key] = dict(event)
+            order.append(key)
             continue
-        seen.add(key)
-        deduped.append(event)
+        for field in ("title", "effective_date"):
+            if merged[key][field] == "NOT_FOUND" and event[field] != "NOT_FOUND":
+                merged[key][field] = event[field]
+    deduped = [merged[key] for key in order]
+
+    # A person tagged "both" should not ALSO get a separate departure or
+    # appointment row from another sentence.
+    both_names = {e["person_name"] for e in deduped if e["event_type"] == "both"}
+    deduped = [e for e in deduped if e["event_type"] == "both" or e["person_name"] not in both_names]
 
     # Drop partial-name duplicates from the same filing, e.g. "Di Sibio" when
     # "Carmine Di Sibio" was also found, or "Nora Johnson" vs "Suzanne Nora Johnson".
@@ -351,8 +607,12 @@ def extract_events(text: str) -> list:
         if not is_partial:
             cleaned.append(event)
 
-    return cleaned
+    # A row with no name is only kept if the filing produced no named rows
+    # at all (then it is the only record that something happened).
+    if any(e["person_name"] != "NOT_FOUND" for e in cleaned):
+        cleaned = [e for e in cleaned if e["person_name"] != "NOT_FOUND"]
 
+    return cleaned
 
 # --- 4. Save all rows to CSV ---
 OUTPUT_PATH = Path(__file__).resolve().parent / "executive_events.csv"

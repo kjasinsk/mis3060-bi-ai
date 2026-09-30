@@ -54,6 +54,11 @@ Once I ran it on the real EDGAR data, almost every company needed at least one f
 - **AAPL and MSFT (period):** some filings had last year's fiscal year because the script grabbed the year-ago comparison.
 - **MSFT, NVDA, WMT (executives):** a lot of fake names like "Advisory Vote", "Fiscal Year", "Covenant Not", and "Censorship Risk Audit", plus duplicates like "Di Sibio" and "Carmine Di Sibio". I fixed these with a bigger stopword list, removing partial names, and skipping shareholder vote sentences.
 
+**Second round (after checking against the real 8-K filings):**
+- **JPM (earnings):** EPS for Q4 2025 and Q2 2026 was the "excluding a significant item" number ($5.23 and $6.14) instead of the reported EPS ($4.63 and $7.70). Fixed by checking the reported "net income of $X billion, or $Y per share" first.
+- **All five companies (executives):** Hoffman was called an appointment when he was leaving the board, and several people were missing (Cook, Levinson, Rohrbaugh, Puri). Titles were cut short or were the person's old job, and most effective dates were NOT_FOUND. I fixed how the script splits sentences, finds every name in a sentence, decides who is leaving vs. arriving, reads titles, and finds dates in the next sentence. The events went from 21 to 27.
+- I also found that my local copy of `hw03_earnings.py` was older than the one on GitHub (it was missing the Walmart and period fixes), so I made sure the newest version is the one committed.
+
 It is important to notice how differently each company words their press releases and filings. One pattern almost never works for all five.
 
 ## One thing the script did that I wouldn't have thought to specify
@@ -62,4 +67,4 @@ The original earnings script added the unit from the table header to numbers tha
 
 ## How I used AI on this assignment
 
-I used Claude (in Cowork) for more than just generating the three scripts. It also helped me debug them when the output was wrong (the NVDA/WMT, JPM, and unit problems above), look up the official Apple and Walmart sources for validation, and write the yfinance check script. Claude also drafted the write-ups in `analysis.md` and `validation.md` and parts of this log. I reviewed them and checked them against my actual output.
+I used Claude (in Cowork) for more than just generating the three scripts. It also helped me debug them when the output was wrong (the NVDA/WMT, JPM, and unit problems above, and the second round of fixes after checking the real filings), look up the official Apple and Walmart sources for validation, and write the yfinance check script. Claude also drafted the write-ups in `analysis.md` and `validation.md` and parts of this log. I reviewed them and checked them against my actual output.

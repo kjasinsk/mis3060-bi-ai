@@ -228,9 +228,14 @@ def extract_eps(text):
     """
     WHY THIS CHANGED: JPMorgan's release mentions its $1.50 dividend per share,
     which the old version grabbed as EPS. Now we skip anything near the words
-    dividend / book value / adjusted / non-GAAP.
+    dividend / book value / adjusted / non-GAAP / "significant item", and we
+    look for the reported "net income of $X billion, or $Y per share" first.
     """
     patterns = [
+        # Reported (GAAP) headline: "net income of $13.0 billion, or $4.63 per share"
+        # or "NET INCOME OF $13.0 BILLION ($4.63 PER SHARE)". Checked first because
+        # JPMorgan also reports a second, "excluding a significant item" EPS.
+        r"net income (?:of|was)\s+\$\s?[\d.,]+\s*(?:billion|million)\s*(?:,\s*or\s+|\(\s*)\$\s?(\d+\.\d{2})\s+per\s+(?:diluted\s+)?share",
         r"diluted (?:net )?(?:earnings|income) per (?:common )?share[^$]{0,60}?\$\s?(\d+\.\d{2})",
         r"earnings per diluted share[^$]{0,60}?\$\s?(\d+\.\d{2})",
         r"diluted eps[^$]{0,40}?\$\s?(\d+\.\d{2})",
@@ -246,6 +251,12 @@ def extract_eps(text):
             if any(w in near for w in ("non-gaap", "adjusted", "excluding")):
                 continue
             if any(w in far for w in ("dividend", "book value")):
+                continue
+            # WHY: JPM's headline gives reported EPS ($4.63) AND EPS "excluding a
+            # significant item" ($5.23). The old version returned the adjusted one
+            # for Q4 2025 and Q2 2026. Skip any figure tied to "significant item(s)".
+            wide = text[max(0, m.start() - 80):m.end()].lower()
+            if "significant item" in wide or "excluding" in near:
                 continue
             return float(m.group(1))
     return None
