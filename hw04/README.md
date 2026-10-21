@@ -103,3 +103,7 @@ I asked Claude Code to review all four scripts for bugs or anything that could p
 ## Note on Git and CSV files
 
 The repo-level `.gitignore` ignores `*.csv` (except files directly inside `hw*/`), which would leave out the clean data and the reports. `hw04/.gitignore` re-includes CSVs in this folder so the submission is complete.
+
+## Note on commit history
+
+The decision log (Part B) was committed in `0c6824a`, before any cleaning code, but the commit message was mislabeled "Part C" by mistake. The actual Part C commit is `e7b42d8`.
