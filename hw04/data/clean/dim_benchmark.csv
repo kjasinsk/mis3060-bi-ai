@@ -1,0 +1,9 @@
+benchmark_id,name,asset_class,ticker_proxy
+1,S&P 500,Equity,SPY
+2,Bloomberg US Agg Bond,Fixed Income,AGG
+3,60/40 Blend,Multi-Asset,BLEND_6040
+4,MSCI EAFE,International,EFA
+5,Russell 2000,Small Cap,IWM
+6,MSCI Emerging Markets,Emerging,EEM
+7,Bloomberg T-Bill 3M,Cash,TBIL
+8,Conservative Blend,Multi-Asset,BLEND_CONS

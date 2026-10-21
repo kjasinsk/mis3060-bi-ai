@@ -1,0 +1,5 @@
+# The repo-root .gitignore ignores *.csv. HW4 must submit its clean data,
+# audit trail and reports, so re-include CSV files inside hw04/.
+!*.csv
+!**/*.csv
+__pycache__/

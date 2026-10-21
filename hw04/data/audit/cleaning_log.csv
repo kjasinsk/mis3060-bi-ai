@@ -1,0 +1,14 @@
+step,table,issue,action,rows_affected,note
+1,dim_client,"25 clients duplicate an existing client (last name misspelled), unused by facts",quarantine,25,IDs 2501-2525
+2,fact_transactions,client_id not in dim_client (orphans),quarantine,200,client IDs 2702-3192
+3,dim_client,state written as full name,standardize,77,mapped with USPS table; one-to-one
+4,dim_client,risk_profile blank,fill + flag,75,filled {'Balanced': 75} via benchmark; flag_risk_profile_inferred = 1
+5,fact_transactions,security_id stored as float text,convert,197044,dropped '.0'; text join now matches 100%
+6,fact_transactions,negative shares on Buy rows,convert (sign),835,verified |shares| x price = amount for every row before and after
+7,fact_portfolio_snapshot,return_ytd stored as percent text,convert,300,divided by 100; all reconcile to benchmark+alpha within 5.01e-05
+8,fact_portfolio_snapshot,return_ytd written in scientific notation,standardize format,135,value unchanged (asserted equal)
+9,fact_portfolio_snapshot,active_alpha_ytd written in scientific notation,standardize format,756,value unchanged (asserted equal)
+10,fact_transactions,Buy/Sell dated on a non-trading day (markets closed),flag (flag_non_trading_day = 1),40630,value kept unchanged
+11,fact_transactions,activity after an inactive client's last month on the books,flag (flag_after_client_exit = 1),2410,value kept unchanged
+12,fact_portfolio_snapshot,|return_ytd| above 100% in one year,flag (flag_extreme_return = 1),977,value kept unchanged
+13,fact_portfolio_snapshot,"aum stuck at exactly $1,000.00 (system floor)",flag (flag_aum_floor = 1),420,value kept unchanged

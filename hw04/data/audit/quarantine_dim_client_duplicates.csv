@@ -1,0 +1,26 @@
+source_table,quarantine_reason,client_id,first_name,last_name,age,city,state,zip_code,risk_profile,client_tier,primary_account_type,initial_aum,client_since,advisor_id,is_active,original_client_id
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2501,Karina,Taylo,45,Port Patrick,VA,73097,Moderately Aggressive,Retail,Taxable,117194.33,2018-12-04,1,True,674
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2502,Darren,Marti,58,Lake Tiffany,NJ,79826,Conservative,Retail,Roth IRA,349792.17,2019-07-02,4,True,1795
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2503,Terri,Jacobso,28,East Jasonshire,NY,62825,Moderately Aggressive,Retail,Roth IRA,358583.01,2017-03-02,14,True,99
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2504,Andrea,Collin,60,Bradleyland,PA,43404,Moderately Conservative,Retail,529,368825.08,2017-09-20,9,True,2240
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2505,Jennifer,Taylo,74,New Jessicaville,NJ,68915,Balanced,HNW,529,860283.98,2020-04-24,25,True,737
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2506,Michele,Scot,56,North Melissa,CO,76946,Balanced,HNW,Roth IRA,1979786.13,2017-06-03,3,True,1495
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2507,Garrett,Bank,75,Josechester,CT,44740,Moderately Aggressive,Retail,IRA,148161.41,2015-04-29,24,True,1691
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2508,Todd,Coope,54,North Corymouth,NJ,02635,Conservative,Retail,Taxable,384129.9,2015-12-29,9,True,155
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2509,Julia,Clar,59,Lake Peter,TX,53314,Conservative,Retail,Roth IRA,215380.37,2015-04-05,9,True,1467
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2510,Pedro,Carpente,48,Lake Debramouth,PA,06088,,Retail,Roth IRA,374697.97,2022-04-06,1,True,1267
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2511,Catherine,Lope,33,Jessicashire,PA,08531,Moderately Conservative,UHNW,Taxable,10400017.35,2018-07-16,16,True,1703
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2512,Ricardo,Leen,54,East Gloria,NY,94531,Conservative,Retail,Taxable,279793.21,2017-04-01,15,True,1193
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2513,Laura,Frazie,36,Robbinsstad,MI,12204,Moderately Aggressive,UHNW,IRA,25212613.34,2019-08-30,21,True,566
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2514,Benjamin,Armstron,33,Jamesborough,FL,70775,Aggressive,Retail,IRA,142838.38,2015-02-09,13,True,2166
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2515,Matthew,Pacen,67,South Zacharyshire,PA,25729,Balanced,Retail,Taxable,214515.89,2015-11-12,12,False,889
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2516,Jeffrey,Heste,64,Wisemouth,GA,48974,Moderately Conservative,Retail,IRA,357072.62,2018-10-24,3,True,1378
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2517,Kerri,Edward,67,Shafferbury,Florida,55927,Moderately Aggressive,Retail,Taxable,285510.56,2016-09-28,8,True,739
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2518,Jill,Kell,36,South Jennifer,NY,48595,Conservative,Retail,Trust,114955.78,2021-03-28,23,True,1298
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2519,Matthew,Cervante,52,Muellerchester,FL,74846,Moderately Conservative,Retail,Taxable,331606.56,2021-04-18,18,True,560
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2520,Olivia,Lewi,42,South Ashleybury,FL,86718,Moderately Aggressive,HNW,IRA,2192940.76,2021-02-28,9,True,2421
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2521,Laura,Gutierre,49,Chungland,NJ,28064,Moderately Aggressive,Retail,Trust,68197.14,2020-06-30,22,True,1186
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2522,Stephanie,Randolp,41,Micheleside,MD,61253,Balanced,Retail,IRA,450075.74,2018-05-23,24,True,1308
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2523,Emma,Marti,42,North Gregory,NC,39050,Moderately Aggressive,HNW,IRA,3554820.6,2016-06-12,24,True,2254
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2524,Nancy,Thompso,65,West David,PA,08996,Moderately Aggressive,Retail,529,155175.44,2022-02-25,25,True,1481
+dim_client,"near-duplicate of original_client_id (same person, last name misspelled)",2525,Robert,Hernande,72,North Larryborough,IL,26619,Balanced,Retail,Trust,151532.6,2020-07-20,3,True,1391

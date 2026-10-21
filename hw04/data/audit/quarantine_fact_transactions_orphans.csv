@@ -1,0 +1,201 @@
+source_table,quarantine_reason,txn_id,client_id,advisor_id,security_id,txn_date,txn_type,shares,price,amount
+fact_transactions,client_id not found in dim_client,298573,3191,4,237.0,2022-10-27,Buy,170.9973,268.73,45952.1
+fact_transactions,client_id not found in dim_client,298574,3017,23,,2024-10-01,Deposit,,,15207.36
+fact_transactions,client_id not found in dim_client,298575,3058,10,395.0,2021-10-31,Buy,231.8277,486.81,112856.04
+fact_transactions,client_id not found in dim_client,298576,2974,23,54.0,2021-03-11,Buy,298.4946,395.31,117997.9
+fact_transactions,client_id not found in dim_client,298577,3131,2,,2021-12-17,Advisory Fee,,,7881.07
+fact_transactions,client_id not found in dim_client,298578,2797,10,58.0,2020-05-03,Dividend,293.6641,224.99,66071.49
+fact_transactions,client_id not found in dim_client,298579,2725,8,,2024-07-31,Withdrawal,,,95086.35
+fact_transactions,client_id not found in dim_client,298580,2951,5,,2022-07-24,Advisory Fee,,,121.61
+fact_transactions,client_id not found in dim_client,298581,3071,1,,2023-02-14,Withdrawal,,,91140.3
+fact_transactions,client_id not found in dim_client,298582,3106,9,123.0,2022-11-07,Sell,460.8491,56.51,26042.58
+fact_transactions,client_id not found in dim_client,298583,3124,10,18.0,2023-01-19,Sell,451.6493,140.07,63262.52
+fact_transactions,client_id not found in dim_client,298584,2837,5,47.0,2024-08-16,Buy,350.5401,189.06,66273.11
+fact_transactions,client_id not found in dim_client,298585,2987,24,,2022-02-26,Deposit,,,28384.8
+fact_transactions,client_id not found in dim_client,298586,2935,13,136.0,2023-12-15,Sell,32.1606,314.05,10100.04
+fact_transactions,client_id not found in dim_client,298587,2702,12,,2021-07-05,Withdrawal,,,93569.37
+fact_transactions,client_id not found in dim_client,298588,2884,10,,2022-06-14,Deposit,,,87753.98
+fact_transactions,client_id not found in dim_client,298589,2831,10,254.0,2023-08-18,Sell,303.2949,31.93,9684.21
+fact_transactions,client_id not found in dim_client,298590,2946,3,,2022-03-23,Deposit,,,3368.6
+fact_transactions,client_id not found in dim_client,298591,3052,24,,2022-12-20,Advisory Fee,,,685.01
+fact_transactions,client_id not found in dim_client,298592,2911,1,372.0,2021-02-21,Buy,385.7296,308.97,119178.87
+fact_transactions,client_id not found in dim_client,298593,2734,6,152.0,2024-09-28,Buy,355.5798,215.37,76581.22
+fact_transactions,client_id not found in dim_client,298594,2950,11,251.0,2022-12-04,Buy,233.7162,264.42,61799.24
+fact_transactions,client_id not found in dim_client,298595,2759,2,,2020-09-03,Advisory Fee,,,179.82
+fact_transactions,client_id not found in dim_client,298596,2749,10,,2021-04-03,Deposit,,,79964.31
+fact_transactions,client_id not found in dim_client,298597,3148,16,47.0,2023-12-18,Sell,67.7272,494.62,33499.23
+fact_transactions,client_id not found in dim_client,298598,3023,11,387.0,2024-08-17,Buy,470.0558,435.9,204897.32
+fact_transactions,client_id not found in dim_client,298599,3072,6,,2024-05-18,Deposit,,,41986.74
+fact_transactions,client_id not found in dim_client,298600,2883,20,468.0,2021-07-09,Sell,5.4396,382.54,2080.86
+fact_transactions,client_id not found in dim_client,298601,2788,6,430.0,2023-02-07,Buy,194.9697,347.54,67759.77
+fact_transactions,client_id not found in dim_client,298602,2940,7,212.0,2022-09-08,Sell,32.1411,58.27,1872.86
+fact_transactions,client_id not found in dim_client,298603,3164,13,77.0,2024-02-16,Buy,-411.3807,50.8,20898.14
+fact_transactions,client_id not found in dim_client,298604,2844,16,,2023-04-24,Withdrawal,,,50286.72
+fact_transactions,client_id not found in dim_client,298605,3079,12,366.0,2022-12-02,Buy,189.1002,287.26,54320.92
+fact_transactions,client_id not found in dim_client,298606,2806,2,456.0,2023-06-16,Sell,120.6689,354.5,42777.13
+fact_transactions,client_id not found in dim_client,298607,3007,14,370.0,2022-03-09,Buy,61.557,205.85,12671.51
+fact_transactions,client_id not found in dim_client,298608,2778,19,179.0,2021-04-12,Sell,400.1855,448.1,179323.12
+fact_transactions,client_id not found in dim_client,298609,2882,14,,2023-07-21,Advisory Fee,,,4643.66
+fact_transactions,client_id not found in dim_client,298610,2924,3,,2023-08-12,Advisory Fee,,,85.73
+fact_transactions,client_id not found in dim_client,298611,2907,23,153.0,2022-11-18,Dividend,223.7714,169.37,37900.16
+fact_transactions,client_id not found in dim_client,298612,2714,24,469.0,2023-02-03,Dividend,309.8868,213.61,66194.92
+fact_transactions,client_id not found in dim_client,298613,2999,11,375.0,2022-09-18,Dividend,412.031,214.02,88182.87
+fact_transactions,client_id not found in dim_client,298614,2976,7,106.0,2020-12-04,Sell,147.781,263.65,38962.46
+fact_transactions,client_id not found in dim_client,298615,3178,3,431.0,2022-05-17,Sell,83.5628,134.4,11230.84
+fact_transactions,client_id not found in dim_client,298616,2855,23,81.0,2020-06-29,Buy,3.2112,338.79,1087.92
+fact_transactions,client_id not found in dim_client,298617,3135,10,296.0,2023-12-28,Buy,394.5449,19.24,7591.04
+fact_transactions,client_id not found in dim_client,298618,2795,20,248.0,2020-09-08,Dividend,164.4254,41.55,6831.88
+fact_transactions,client_id not found in dim_client,298619,3172,9,276.0,2023-03-13,Dividend,291.804,318.03,92802.43
+fact_transactions,client_id not found in dim_client,298620,3021,19,306.0,2023-06-05,Buy,479.959,446.16,214138.51
+fact_transactions,client_id not found in dim_client,298621,2994,18,312.0,2021-07-05,Dividend,445.1834,245.72,109390.47
+fact_transactions,client_id not found in dim_client,298622,2904,5,483.0,2022-07-24,Sell,193.3099,376.69,72817.91
+fact_transactions,client_id not found in dim_client,298623,2786,22,376.0,2021-08-30,Sell,262.236,390.4,102376.93
+fact_transactions,client_id not found in dim_client,298624,2967,15,,2021-11-24,Deposit,,,51729.41
+fact_transactions,client_id not found in dim_client,298625,3109,4,104.0,2024-04-26,Buy,268.616,337.59,90682.08
+fact_transactions,client_id not found in dim_client,298626,3014,14,,2024-11-15,Withdrawal,,,50419.91
+fact_transactions,client_id not found in dim_client,298627,2915,4,460.0,2023-12-21,Dividend,330.5996,244.98,80990.29
+fact_transactions,client_id not found in dim_client,298628,2939,9,,2020-10-22,Deposit,,,51861.25
+fact_transactions,client_id not found in dim_client,298629,3175,7,,2021-05-22,Withdrawal,,,28158.16
+fact_transactions,client_id not found in dim_client,298630,3159,14,355.0,2024-01-27,Buy,228.9372,435.95,99805.17
+fact_transactions,client_id not found in dim_client,298631,2730,6,264.0,2023-08-25,Buy,494.3462,331.16,163707.69
+fact_transactions,client_id not found in dim_client,298632,2860,17,118.0,2023-10-28,Buy,420.4292,272.24,114457.65
+fact_transactions,client_id not found in dim_client,298633,3149,18,,2023-08-05,Withdrawal,,,90909.37
+fact_transactions,client_id not found in dim_client,298634,3047,21,218.0,2022-08-27,Buy,402.6808,357.53,143970.47
+fact_transactions,client_id not found in dim_client,298635,3137,4,,2023-02-03,Withdrawal,,,26408.7
+fact_transactions,client_id not found in dim_client,298636,2923,16,,2023-05-22,Deposit,,,67410.68
+fact_transactions,client_id not found in dim_client,298637,2998,8,,2020-11-07,Deposit,,,79054.13
+fact_transactions,client_id not found in dim_client,298638,2762,3,374.0,2022-03-12,Dividend,423.0927,453.37,191817.54
+fact_transactions,client_id not found in dim_client,298639,3029,20,127.0,2021-06-21,Dividend,233.3573,122.77,28649.28
+fact_transactions,client_id not found in dim_client,298640,2912,21,306.0,2024-05-15,Buy,368.9915,330.29,121874.2
+fact_transactions,client_id not found in dim_client,298641,2958,1,226.0,2023-11-24,Dividend,169.9339,77.88,13234.45
+fact_transactions,client_id not found in dim_client,298642,2841,16,478.0,2024-06-24,Dividend,228.3654,39.94,9120.91
+fact_transactions,client_id not found in dim_client,298643,2822,18,,2020-08-22,Advisory Fee,,,461.82
+fact_transactions,client_id not found in dim_client,298644,2798,22,386.0,2021-01-13,Dividend,254.0272,250.56,63649.06
+fact_transactions,client_id not found in dim_client,298645,2931,7,143.0,2020-10-08,Buy,194.0072,365.41,70892.17
+fact_transactions,client_id not found in dim_client,298646,3044,2,,2024-03-31,Withdrawal,,,34562.31
+fact_transactions,client_id not found in dim_client,298647,2865,13,414.0,2024-06-17,Dividend,111.3258,279.57,31123.35
+fact_transactions,client_id not found in dim_client,298648,2772,8,96.0,2021-01-28,Sell,218.25,465.83,101667.4
+fact_transactions,client_id not found in dim_client,298649,3104,8,,2021-09-15,Deposit,,,58904.59
+fact_transactions,client_id not found in dim_client,298650,3040,3,17.0,2021-12-13,Dividend,177.5802,68.55,12173.12
+fact_transactions,client_id not found in dim_client,298651,2808,19,131.0,2021-07-02,Buy,228.2378,46.91,10706.64
+fact_transactions,client_id not found in dim_client,298652,3049,10,251.0,2021-11-08,Buy,74.9578,297.24,22280.46
+fact_transactions,client_id not found in dim_client,298653,2708,12,202.0,2024-09-20,Buy,406.9603,314.9,128151.8
+fact_transactions,client_id not found in dim_client,298654,2850,1,140.0,2023-03-07,Sell,258.7552,244.41,63242.36
+fact_transactions,client_id not found in dim_client,298655,2957,7,94.0,2023-12-06,Dividend,75.6586,405.43,30674.27
+fact_transactions,client_id not found in dim_client,298656,3130,24,72.0,2022-09-11,Buy,34.1624,320.49,10948.71
+fact_transactions,client_id not found in dim_client,298657,2945,23,,2020-03-22,Withdrawal,,,62847.96
+fact_transactions,client_id not found in dim_client,298658,2874,9,425.0,2023-11-03,Dividend,7.5195,195.87,1472.84
+fact_transactions,client_id not found in dim_client,298659,2970,20,110.0,2021-05-25,Buy,90.0743,367.57,33108.61
+fact_transactions,client_id not found in dim_client,298660,2751,11,442.0,2021-07-25,Sell,120.4582,413.8,49845.6
+fact_transactions,client_id not found in dim_client,298661,3092,24,288.0,2021-05-28,Buy,63.9109,452.32,28908.18
+fact_transactions,client_id not found in dim_client,298662,2926,6,415.0,2022-06-02,Sell,308.9305,394.7,121934.87
+fact_transactions,client_id not found in dim_client,298663,2819,20,199.0,2024-01-24,Sell,186.9033,248.17,46383.79
+fact_transactions,client_id not found in dim_client,298664,2774,16,190.0,2021-08-23,Dividend,122.2103,425.4,51988.26
+fact_transactions,client_id not found in dim_client,298665,2966,10,451.0,2022-09-09,Sell,299.4732,337.04,100934.45
+fact_transactions,client_id not found in dim_client,298666,3188,6,,2022-11-11,Deposit,,,75761.03
+fact_transactions,client_id not found in dim_client,298667,3030,4,,2022-10-07,Deposit,,,93703.79
+fact_transactions,client_id not found in dim_client,298668,3160,25,159.0,2024-04-10,Buy,299.9767,359.54,107853.62
+fact_transactions,client_id not found in dim_client,298669,3121,13,,2021-04-07,Advisory Fee,,,7593.02
+fact_transactions,client_id not found in dim_client,298670,2996,17,336.0,2022-10-12,Sell,378.229,138.36,52331.76
+fact_transactions,client_id not found in dim_client,298671,3146,20,,2023-03-07,Withdrawal,,,32243.2
+fact_transactions,client_id not found in dim_client,298672,2727,10,285.0,2022-08-03,Sell,36.925,389.46,14380.81
+fact_transactions,client_id not found in dim_client,298673,2872,23,,2024-08-10,Advisory Fee,,,622.69
+fact_transactions,client_id not found in dim_client,298674,3061,13,,2022-11-23,Advisory Fee,,,151.27
+fact_transactions,client_id not found in dim_client,298675,3043,8,,2020-08-11,Withdrawal,,,55284.02
+fact_transactions,client_id not found in dim_client,298676,2815,8,413.0,2022-11-23,Sell,448.7256,213.84,95955.48
+fact_transactions,client_id not found in dim_client,298677,2934,7,,2021-06-05,Withdrawal,,,50413.51
+fact_transactions,client_id not found in dim_client,298678,2992,9,28.0,2020-02-18,Dividend,241.3271,159.56,38506.15
+fact_transactions,client_id not found in dim_client,298679,3117,23,,2021-06-26,Advisory Fee,,,1074.64
+fact_transactions,client_id not found in dim_client,298680,2863,23,,2023-01-23,Deposit,,,84865.21
+fact_transactions,client_id not found in dim_client,298681,3032,11,,2024-10-11,Advisory Fee,,,899.02
+fact_transactions,client_id not found in dim_client,298682,3080,11,50.0,2020-10-11,Buy,99.8246,64.37,6425.71
+fact_transactions,client_id not found in dim_client,298683,2965,3,438.0,2023-05-08,Dividend,9.6347,201.73,1943.61
+fact_transactions,client_id not found in dim_client,298684,2918,14,,2020-07-18,Advisory Fee,,,263.66
+fact_transactions,client_id not found in dim_client,298685,3026,13,48.0,2024-05-21,Dividend,40.7211,494.08,20119.48
+fact_transactions,client_id not found in dim_client,298686,2843,23,157.0,2021-09-18,Dividend,226.6632,261.83,59347.23
+fact_transactions,client_id not found in dim_client,298687,2856,23,,2023-04-23,Advisory Fee,,,1739.64
+fact_transactions,client_id not found in dim_client,298688,2794,17,,2022-01-31,Deposit,,,10510.76
+fact_transactions,client_id not found in dim_client,298689,2849,4,245.0,2022-04-16,Dividend,81.5634,135.4,11043.68
+fact_transactions,client_id not found in dim_client,298690,2834,14,169.0,2022-08-31,Buy,376.3436,105.87,39843.5
+fact_transactions,client_id not found in dim_client,298691,2938,14,62.0,2024-07-24,Dividend,367.5675,330.11,121337.71
+fact_transactions,client_id not found in dim_client,298692,2704,5,154.0,2023-08-07,Sell,302.3587,79.74,24110.08
+fact_transactions,client_id not found in dim_client,298693,3082,16,265.0,2020-11-30,Sell,55.8682,86.78,4848.24
+fact_transactions,client_id not found in dim_client,298694,2988,18,,2022-09-18,Advisory Fee,,,6744.92
+fact_transactions,client_id not found in dim_client,298695,2826,11,256.0,2020-07-24,Buy,287.0139,368.6,105793.32
+fact_transactions,client_id not found in dim_client,298696,2943,19,,2024-06-14,Deposit,,,58832.82
+fact_transactions,client_id not found in dim_client,298697,2973,25,289.0,2022-06-25,Sell,280.1555,128.51,36002.78
+fact_transactions,client_id not found in dim_client,298698,3113,5,189.0,2023-05-12,Sell,38.7813,35.98,1395.35
+fact_transactions,client_id not found in dim_client,298699,2979,7,,2021-06-26,Advisory Fee,,,2142.18
+fact_transactions,client_id not found in dim_client,298700,3185,11,494.0,2022-10-04,Buy,392.5612,314.42,123429.09
+fact_transactions,client_id not found in dim_client,298701,3094,10,,2021-07-15,Withdrawal,,,86692.94
+fact_transactions,client_id not found in dim_client,298702,2743,3,,2021-06-30,Advisory Fee,,,263.34
+fact_transactions,client_id not found in dim_client,298703,2963,23,,2022-01-22,Advisory Fee,,,988.7
+fact_transactions,client_id not found in dim_client,298704,2769,6,416.0,2020-12-08,Buy,390.4754,95.17,37161.54
+fact_transactions,client_id not found in dim_client,298705,3105,21,,2023-06-22,Advisory Fee,,,7408.47
+fact_transactions,client_id not found in dim_client,298706,3004,10,,2020-03-16,Withdrawal,,,20074.71
+fact_transactions,client_id not found in dim_client,298707,3181,6,,2021-01-20,Deposit,,,86711.3
+fact_transactions,client_id not found in dim_client,298708,2990,1,122.0,2024-04-08,Sell,113.0105,237.12,26797.05
+fact_transactions,client_id not found in dim_client,298709,2964,16,287.0,2023-04-27,Dividend,223.3207,408.24,91168.44
+fact_transactions,client_id not found in dim_client,298710,3155,14,343.0,2022-02-17,Buy,197.8214,105.32,20834.55
+fact_transactions,client_id not found in dim_client,298711,3165,14,416.0,2023-09-21,Dividend,149.1995,209.63,31276.69
+fact_transactions,client_id not found in dim_client,298712,2758,7,380.0,2023-11-09,Dividend,69.7836,423.49,29552.66
+fact_transactions,client_id not found in dim_client,298713,2737,9,,2021-05-24,Advisory Fee,,,11015.03
+fact_transactions,client_id not found in dim_client,298714,3067,11,354.0,2023-07-15,Dividend,451.4856,107.54,48552.76
+fact_transactions,client_id not found in dim_client,298715,3171,25,355.0,2021-12-07,Dividend,186.6102,135.01,25194.24
+fact_transactions,client_id not found in dim_client,298716,3081,6,,2024-11-14,Advisory Fee,,,2399.76
+fact_transactions,client_id not found in dim_client,298717,3042,21,269.0,2024-07-05,Buy,351.2009,267.31,93879.51
+fact_transactions,client_id not found in dim_client,298718,2810,9,,2021-10-10,Advisory Fee,,,9675.44
+fact_transactions,client_id not found in dim_client,298719,3173,15,364.0,2023-02-20,Sell,58.4824,272.91,15960.43
+fact_transactions,client_id not found in dim_client,298720,2959,9,,2022-07-11,Withdrawal,,,29823.42
+fact_transactions,client_id not found in dim_client,298721,2741,18,,2021-08-10,Advisory Fee,,,1994.41
+fact_transactions,client_id not found in dim_client,298722,2952,19,,2023-07-28,Withdrawal,,,53930.36
+fact_transactions,client_id not found in dim_client,298723,2715,22,26.0,2024-11-12,Buy,236.0985,446.52,105422.7
+fact_transactions,client_id not found in dim_client,298724,2767,25,254.0,2024-05-03,Buy,458.8134,462.19,212058.97
+fact_transactions,client_id not found in dim_client,298725,2728,24,135.0,2022-01-25,Buy,275.7204,463.5,127796.41
+fact_transactions,client_id not found in dim_client,298726,2721,20,256.0,2022-01-30,Buy,327.0685,492.61,161117.21
+fact_transactions,client_id not found in dim_client,298727,3141,24,48.0,2024-04-02,Buy,158.7097,274.89,43627.71
+fact_transactions,client_id not found in dim_client,298728,2720,4,39.0,2022-08-24,Buy,245.0686,263.55,64587.83
+fact_transactions,client_id not found in dim_client,298729,2986,24,,2022-07-13,Deposit,,,73312.72
+fact_transactions,client_id not found in dim_client,298730,3192,12,217.0,2023-04-16,Buy,277.004,478.39,132515.94
+fact_transactions,client_id not found in dim_client,298731,2941,24,,2021-02-13,Advisory Fee,,,1464.05
+fact_transactions,client_id not found in dim_client,298732,3054,10,460.0,2021-11-14,Dividend,435.0384,46.49,20224.94
+fact_transactions,client_id not found in dim_client,298733,3001,3,292.0,2024-05-19,Dividend,262.9001,183.79,48318.41
+fact_transactions,client_id not found in dim_client,298734,3167,1,87.0,2020-11-03,Dividend,138.5522,11.82,1637.69
+fact_transactions,client_id not found in dim_client,298735,2717,15,303.0,2022-03-10,Buy,368.3014,241.87,89081.06
+fact_transactions,client_id not found in dim_client,298736,2811,11,,2023-06-12,Deposit,,,50903.51
+fact_transactions,client_id not found in dim_client,298737,2818,24,361.0,2021-01-08,Buy,351.6102,393.55,138376.19
+fact_transactions,client_id not found in dim_client,298738,2823,18,471.0,2020-04-11,Buy,91.8934,480.57,44161.21
+fact_transactions,client_id not found in dim_client,298739,2731,16,8.0,2024-02-06,Buy,80.1842,334.54,26824.82
+fact_transactions,client_id not found in dim_client,298740,3063,18,145.0,2021-01-04,Sell,165.9019,50.01,8296.75
+fact_transactions,client_id not found in dim_client,298741,3138,5,3.0,2022-02-18,Sell,41.7741,87.64,3661.08
+fact_transactions,client_id not found in dim_client,298742,2746,12,178.0,2024-11-24,Buy,95.1289,67.58,6428.81
+fact_transactions,client_id not found in dim_client,298743,3093,16,115.0,2024-04-27,Dividend,448.1266,362.75,162557.92
+fact_transactions,client_id not found in dim_client,298744,2910,11,325.0,2022-10-13,Dividend,174.7834,223.71,39100.79
+fact_transactions,client_id not found in dim_client,298745,2748,12,421.0,2020-10-27,Buy,470.1416,137.69,64733.8
+fact_transactions,client_id not found in dim_client,298746,2995,20,203.0,2022-09-09,Dividend,498.0067,298.5,148655.0
+fact_transactions,client_id not found in dim_client,298747,3140,11,114.0,2023-10-28,Buy,347.5839,18.99,6600.62
+fact_transactions,client_id not found in dim_client,298748,2813,6,,2021-01-17,Withdrawal,,,4460.81
+fact_transactions,client_id not found in dim_client,298749,3180,11,254.0,2022-07-19,Sell,380.2391,412.0,156658.51
+fact_transactions,client_id not found in dim_client,298750,3177,7,150.0,2023-03-20,Sell,164.8908,403.87,66594.45
+fact_transactions,client_id not found in dim_client,298751,3073,6,,2024-12-19,Withdrawal,,,40910.97
+fact_transactions,client_id not found in dim_client,298752,2776,23,,2022-10-19,Deposit,,,59742.3
+fact_transactions,client_id not found in dim_client,298753,2833,18,189.0,2022-09-16,Buy,395.3412,74.69,29528.03
+fact_transactions,client_id not found in dim_client,298754,2763,3,326.0,2023-08-17,Buy,75.8326,469.24,35583.69
+fact_transactions,client_id not found in dim_client,298755,2925,25,,2020-10-16,Deposit,,,36753.96
+fact_transactions,client_id not found in dim_client,298756,3142,3,,2021-06-21,Deposit,,,43806.69
+fact_transactions,client_id not found in dim_client,298757,2765,6,362.0,2022-08-16,Sell,102.3592,340.71,34874.8
+fact_transactions,client_id not found in dim_client,298758,3125,19,74.0,2022-03-22,Buy,392.8275,234.31,92043.41
+fact_transactions,client_id not found in dim_client,298759,3147,4,435.0,2024-07-14,Dividend,422.5655,19.81,8371.02
+fact_transactions,client_id not found in dim_client,298760,2922,8,314.0,2021-05-31,Buy,384.2673,398.51,153134.36
+fact_transactions,client_id not found in dim_client,298761,2861,1,326.0,2022-08-12,Dividend,408.0195,380.75,155353.42
+fact_transactions,client_id not found in dim_client,298762,3091,23,470.0,2023-08-11,Sell,143.5615,306.2,43958.53
+fact_transactions,client_id not found in dim_client,298763,3012,10,,2022-06-15,Deposit,,,31879.06
+fact_transactions,client_id not found in dim_client,298764,2971,15,353.0,2023-09-14,Sell,27.8532,83.47,2324.91
+fact_transactions,client_id not found in dim_client,298765,3064,25,90.0,2023-03-16,Dividend,422.6877,333.46,140949.44
+fact_transactions,client_id not found in dim_client,298766,2716,4,,2023-02-26,Deposit,,,75760.07
+fact_transactions,client_id not found in dim_client,298767,2898,1,,2020-12-13,Withdrawal,,,54191.87
+fact_transactions,client_id not found in dim_client,298768,3024,25,50.0,2024-08-10,Buy,120.0566,431.34,51785.21
+fact_transactions,client_id not found in dim_client,298769,3070,7,447.0,2023-10-11,Buy,227.8534,158.09,36021.34
+fact_transactions,client_id not found in dim_client,298770,2853,3,,2023-04-19,Deposit,,,52940.73
+fact_transactions,client_id not found in dim_client,298771,2729,22,342.0,2021-04-27,Buy,182.0085,490.68,89307.93
+fact_transactions,client_id not found in dim_client,298772,2916,1,486.0,2024-10-24,Buy,268.4448,165.2,44347.08

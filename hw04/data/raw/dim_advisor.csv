@@ -1,0 +1,26 @@
+advisor_id,first_name,last_name,region,years_experience,aum_target_mm,certifications
+1,Danielle,Johnson,Northeast,4,100,CFA
+2,Joshua,Walker,Mid-Atlantic,8,50,None
+3,Jill,Rhodes,Northeast,22,150,CFP
+4,Patricia,Miller,Northeast,6,75,CFA
+5,Robert,Johnson,West,23,50,None
+6,Jeffery,Wagner,Mid-Atlantic,26,200,"CFP, CIMA"
+7,Anthony,Gonzalez,Mid-Atlantic,18,200,"CFP, CFA"
+8,Debra,Gardner,Northeast,28,75,"CFP, CIMA"
+9,Jeffrey,Lawrence,Southeast,12,75,CFA
+10,Lisa,Smith,Southeast,7,50,"CFP, CIMA"
+11,Linda,Wolfe,Northeast,15,100,None
+12,Matthew,Moore,Southeast,5,150,None
+13,Susan,Rogers,Northeast,16,50,None
+14,Christopher,Davis,Southeast,24,200,"CFP, CFA"
+15,Melanie,Munoz,West,10,50,CFP
+16,Lindsay,Blair,Mid-Atlantic,28,100,CFP
+17,Amanda,Dudley,Mid-Atlantic,7,150,"CFP, CFA"
+18,Nicholas,Arnold,Midwest,24,100,CFA
+19,Maria,Montgomery,Southeast,15,75,"CFP, CFA"
+20,Michelle,Ray,Northeast,23,75,None
+21,Janet,Williams,Mid-Atlantic,9,150,"CFP, CIMA"
+22,Jeremy,Roberts,Southeast,24,200,CFA
+23,Christopher,Hall,Southeast,28,50,CFA
+24,Craig,Ramirez,Northeast,14,150,"CFP, CFA"
+25,Cynthia,Diaz,Northeast,10,200,"CFP, CFA"

@@ -1,0 +1,501 @@
+security_id,ticker,name,asset_class,sector,benchmark_id,is_etf,expense_ratio_bps
+1,RKX,Kelly-Santiago Inc.,Equity,Materials,1,False,
+2,DTOT,"Zuniga, Wong and Lynch Inc.",Equity,Utilities,5,False,
+3,JZDM,Ferguson and Sons Inc.,Equity,Technology,1,False,
+4,QUK,Ford LLC Inc.,Equity,Healthcare,4,False,
+5,PMGO,"Watts, Robinson and Nguyen Inc.",Equity,Technology,5,False,
+6,RNG,Perez Inc Inc.,Equity,Communication Services,4,False,
+7,HEA,Morales-Jones Inc.,Equity,Industrials,5,False,
+8,NCQ,"Walter, Edwards and Rios Inc.",Equity,Communication Services,5,False,
+9,DTO,Wilkerson-Day Inc.,Equity,Real Estate,1,False,
+10,MCJZ,Baker and Sons Inc.,Equity,Industrials,1,False,
+11,GOC,"Hoffman, Baker and Richards Inc.",Equity,Materials,1,False,
+12,DMO,"Ross, Robinson and Bright Fund",Alternative,,3,True,70.0
+13,ZYTR,"Snyder, Campos and Callahan Fund",Fixed Income,,2,True,54.0
+14,LNDF,Burton Ltd Fund,Fixed Income,,2,True,5.0
+15,PAS,Carlson-Cruz Fund,Fixed Income,,2,True,32.0
+16,XWB,"Ferrell, Rice and Maddox Inc.",Equity,Consumer Discretionary,4,False,
+17,FDYO,Frazier Inc Inc.,Equity,Materials,1,False,
+18,UECL,"Dyer, Potter and Mack Inc.",Equity,Utilities,4,False,
+19,WBQQ,Rodriguez-Graham Fund,Fixed Income,,2,True,54.0
+20,UCEN,Smith-Bowen Fund,Fixed Income,,2,True,57.0
+21,HGY,"Baker, Mason and White Inc.",Equity,Materials,5,False,
+22,BZV,Harrell LLC Inc.,Equity,Healthcare,1,False,
+23,KMW,"Romero, Gonzalez and Brooks Inc.",Equity,Technology,1,False,
+24,AKYU,Ryan PLC Inc.,Equity,Industrials,4,False,
+25,EHZP,George Group Fund,Fixed Income,,2,True,43.0
+26,BMX,Rodriguez LLC Fund,Fixed Income,,2,True,10.0
+27,WBB,Allen-Allen Inc.,Equity,Consumer Discretionary,4,False,
+28,YOP,"Arroyo, Miller and Tucker Fund",Cash Equivalent,,7,True,82.0
+29,KPN,Spence PLC Fund,Fixed Income,,2,True,29.0
+30,GKRH,Anderson Group Inc.,Equity,Energy,1,False,
+31,LZZ,"Martin, Rose and Obrien Inc.",Equity,Healthcare,5,False,
+32,NDJ,Hickman Ltd Inc.,Equity,Healthcare,1,False,
+33,HLOH,"Harris, Collins and Carney Inc.",Equity,Communication Services,5,False,
+34,ROY,"Brooks, Lam and Hayes Inc.",Equity,Healthcare,1,False,
+35,DCOH,Walker LLC Inc.,Equity,Consumer Staples,1,False,
+36,FQGM,Chapman and Sons Inc.,Equity,Technology,1,False,
+37,VBID,"Robinson, Jones and Welch Inc.",Equity,Industrials,1,False,
+38,OLAB,Jones Inc Fund,Alternative,,3,True,72.0
+39,VPD,Jones-Young Inc.,Equity,Financials,1,False,
+40,JYZB,"Washington, Ryan and Cummings Inc.",Equity,Energy,1,False,
+41,RJO,"Johnston, Sanchez and Kennedy Inc.",Equity,Utilities,5,False,
+42,YGE,Lee-Davis Fund,Cash Equivalent,,7,True,55.0
+43,EYU,Gomez-Jenkins Inc.,Equity,Utilities,5,False,
+44,GUC,"Brown, Valdez and Lucas Inc.",Equity,Technology,4,False,
+45,FXJ,Powell LLC Fund,Cash Equivalent,,7,True,31.0
+46,RKH,Wright and Sons Fund,Alternative,,3,True,38.0
+47,QKZN,"West, Henderson and Ramirez Fund",Alternative,,3,True,17.0
+48,EZGC,Baxter Inc Inc.,Equity,Utilities,4,False,
+49,LZDX,Morton-Chase Inc.,Equity,Consumer Discretionary,4,False,
+50,SAY,Williams PLC Fund,Fixed Income,,2,True,49.0
+51,BRII,Novak and Sons Fund,Cash Equivalent,,7,True,95.0
+52,NRIS,Russell Group Fund,Fixed Income,,2,True,27.0
+53,RJTE,Hancock Inc Fund,Fixed Income,,2,True,54.0
+54,HFU,Gray Group Inc.,Equity,Consumer Staples,5,False,
+55,MLFM,House-Glover Fund,Fixed Income,,2,True,87.0
+56,HRQ,Henderson-Bernard Inc.,Equity,Healthcare,1,False,
+57,FFAG,"Stanley, Tucker and Lee Inc.",Equity,Materials,5,False,
+58,LXO,Novak PLC Inc.,Equity,Utilities,4,False,
+59,GRAT,"Daniels, Adkins and Brown Inc.",Equity,Healthcare,4,False,
+60,EYN,"Woods, Calhoun and Schmidt Inc.",Equity,Technology,5,False,
+61,XDD,Yu Inc Inc.,Equity,Materials,5,False,
+62,YXPS,Jones Inc Fund,Fixed Income,,2,True,73.0
+63,XTMG,"Hensley, Powell and David Inc.",Equity,Consumer Discretionary,5,False,
+64,TNQH,"Sanchez, Wheeler and Harvey Fund",Fixed Income,,2,True,94.0
+65,GIXC,Sandoval-Cunningham Inc.,Equity,Financials,1,False,
+66,SSBK,Donovan-Harris Inc.,Equity,Real Estate,4,False,
+67,BVKU,"Edwards, Baker and Anderson Inc.",Equity,Technology,5,False,
+68,MYHK,"Evans, Stewart and Walton Inc.",Equity,Utilities,5,False,
+69,MHM,Smith PLC Inc.,Equity,Utilities,4,False,
+70,SVXZ,"Ferrell, Jones and Lewis Inc.",Equity,Real Estate,1,False,
+71,PRCL,Anderson-Bailey Inc.,Equity,Materials,1,False,
+72,GIL,Suarez LLC Fund,Cash Equivalent,,7,True,51.0
+73,TVGC,Moore-Bass Inc.,Equity,Technology,5,False,
+74,ZJQ,"Turner, Riggs and Roman Fund",Alternative,,3,True,6.0
+75,FAD,"Smith, Montoya and Evans Inc.",Equity,Financials,4,False,
+76,OFS,"Garcia, Humphrey and Baker Fund",Fixed Income,,2,True,24.0
+77,UEI,Newton and Sons Fund,Fixed Income,,2,True,42.0
+78,KSBR,Campbell-Clark Fund,Fixed Income,,2,True,16.0
+79,WPDZ,Harris-Walters Inc.,Equity,Technology,4,False,
+80,RBQA,Wagner-King Inc.,Equity,Utilities,4,False,
+81,LJX,Davis Group Inc.,Equity,Materials,5,False,
+82,LTZ,Williams-Cook Fund,Cash Equivalent,,7,True,81.0
+83,MVPI,Walsh LLC Fund,Alternative,,3,True,14.0
+84,WGMP,Figueroa PLC Fund,Cash Equivalent,,7,True,46.0
+85,MIM,"Patterson, Smith and Jones Inc.",Equity,Energy,4,False,
+86,HPWO,"Mckee, Gardner and Davenport Fund",Fixed Income,,2,True,13.0
+87,SMT,"Tran, Jordan and Williams Fund",Cash Equivalent,,7,True,85.0
+88,LAHK,Nolan-Flynn Inc.,Equity,Consumer Discretionary,4,False,
+89,MNLT,Nolan and Sons Inc.,Equity,Energy,4,False,
+90,HGDF,"Wright, Garcia and Deleon Fund",Fixed Income,,2,True,71.0
+91,ETH,Dickson-Brady Fund,Fixed Income,,2,True,15.0
+92,HJH,Hancock and Sons Fund,Alternative,,3,True,38.0
+93,ZOS,Johnson-Doyle Inc.,Equity,Financials,5,False,
+94,CAHM,Patton-Jenkins Fund,Fixed Income,,2,True,26.0
+95,GWC,"Shields, Cochran and Adams Inc.",Equity,Healthcare,4,False,
+96,BQBD,"Rodriguez, Brennan and Garrison Inc.",Equity,Consumer Staples,4,False,
+97,ZDT,Gonzalez Group Inc.,Equity,Consumer Staples,5,False,
+98,UJX,Torres-Pope Fund,Alternative,,3,True,78.0
+99,HQPT,Walker Ltd Fund,Fixed Income,,2,True,83.0
+100,GCG,Ross LLC Inc.,Equity,Real Estate,1,False,
+101,ALP,Rasmussen LLC Inc.,Equity,Industrials,1,False,
+102,HHW,May-Ross Fund,Alternative,,3,True,90.0
+103,YUQ,"Rivera, Johnson and Wiley Inc.",Equity,Communication Services,1,False,
+104,CFDG,White-Estes Fund,Alternative,,3,True,12.0
+105,EHT,Johnson-Carlson Inc.,Equity,Consumer Staples,4,False,
+106,DRSY,Chandler-Edwards Inc.,Equity,Real Estate,5,False,
+107,LPXT,"Joyce, Wilson and Lam Inc.",Equity,Consumer Staples,4,False,
+108,CZV,Scott Ltd Inc.,Equity,Consumer Staples,5,False,
+109,ZRH,Smith-Frost Fund,Fixed Income,,2,True,25.0
+110,NLHZ,"Mcdaniel, Bentley and Mclaughlin Inc.",Equity,Utilities,5,False,
+111,ZMKI,Diaz Inc Inc.,Equity,Healthcare,1,False,
+112,KMRK,"Mccall, Hanson and Alvarado Fund",Alternative,,3,True,61.0
+113,IIZ,Cortez LLC Inc.,Equity,Utilities,5,False,
+114,ROK,"Parker, Ortiz and Powell Inc.",Equity,Consumer Discretionary,5,False,
+115,QMLB,Spencer-Lee Fund,Alternative,,3,True,73.0
+116,YLS,"Bentley, Byrd and Orr Fund",Fixed Income,,2,True,6.0
+117,SIA,"Carroll, Sullivan and Bass Inc.",Equity,Utilities,1,False,
+118,ZXL,Mitchell-Jordan Fund,Cash Equivalent,,7,True,85.0
+119,MSN,"Lawson, Morris and Ramos Fund",Fixed Income,,2,True,56.0
+120,ZGOJ,"Lewis, Kennedy and Santana Inc.",Equity,Consumer Staples,5,False,
+121,WHU,"Jackson, Miller and Robertson Inc.",Equity,Utilities,4,False,
+122,VHHP,"Harvey, Davis and Crane Fund",Fixed Income,,2,True,22.0
+123,OIOO,Chambers and Sons Fund,Fixed Income,,2,True,44.0
+124,ZGJ,Hernandez Inc Inc.,Equity,Utilities,1,False,
+125,TSVK,Riggs PLC Fund,Alternative,,3,True,66.0
+126,DZI,Gibson Ltd Fund,Fixed Income,,2,True,59.0
+127,NLS,"Lee, Horton and Snyder Inc.",Equity,Utilities,5,False,
+128,BUG,Hernandez Ltd Inc.,Equity,Consumer Staples,5,False,
+129,QWWW,Stafford Inc Inc.,Equity,Utilities,4,False,
+130,WABQ,Robinson-Brock Fund,Fixed Income,,2,True,32.0
+131,LCQ,"Holmes, Williams and Wright Inc.",Equity,Healthcare,4,False,
+132,SXB,Bryant Group Fund,Fixed Income,,2,True,40.0
+133,JDNO,"Schmidt, Hansen and Stewart Fund",Fixed Income,,2,True,24.0
+134,CWQ,Salazar-Ball Fund,Alternative,,3,True,66.0
+135,GQL,"Simmons, Meadows and Griffin Inc.",Equity,Communication Services,1,False,
+136,XREL,Manning Group Fund,Alternative,,3,True,78.0
+137,QLGV,Green-Wright Inc.,Equity,Consumer Discretionary,4,False,
+138,CJJH,"Ramirez, Strickland and Washington Fund",Alternative,,3,True,5.0
+139,HORT,Hill Inc Inc.,Equity,Technology,5,False,
+140,VXUF,"Mitchell, Nelson and Flores Inc.",Equity,Energy,1,False,
+141,QRS,"Miller, Hernandez and Reyes Fund",Fixed Income,,2,True,83.0
+142,XQI,Mccarthy Inc Inc.,Equity,Materials,1,False,
+143,TCHT,Russell-Daniels Inc.,Equity,Financials,1,False,
+144,UWJ,Brown-Wall Fund,Fixed Income,,2,True,24.0
+145,XYZH,Stein-Silva Fund,Fixed Income,,2,True,17.0
+146,ZDZW,"Smith, Gilmore and Johnston Fund",Fixed Income,,2,True,74.0
+147,CKGD,Smith-Bell Fund,Fixed Income,,2,True,89.0
+148,PVYC,Castaneda-Ashley Inc.,Equity,Consumer Discretionary,4,False,
+149,QYI,Medina-Navarro Inc.,Equity,Consumer Staples,1,False,
+150,QMS,"Hurst, Freeman and Nelson Inc.",Equity,Communication Services,4,False,
+151,DYH,Johnson-Rogers Inc.,Equity,Materials,1,False,
+152,GNK,"Yates, Ramsey and Pittman Fund",Alternative,,3,True,88.0
+153,PSXR,Hooper PLC Fund,Fixed Income,,2,True,81.0
+154,YHRF,Meadows PLC Inc.,Equity,Materials,1,False,
+155,CROZ,"Alvarado, Miller and Patterson Inc.",Equity,Energy,1,False,
+156,HZYV,White-Green Fund,Cash Equivalent,,7,True,87.0
+157,QPA,Lewis-Murphy Inc.,Equity,Energy,1,False,
+158,UFV,Ramirez-Bean Fund,Fixed Income,,2,True,78.0
+159,VGU,King-Miller Inc.,Equity,Consumer Staples,1,False,
+160,WDDG,Curry Inc Fund,Fixed Income,,2,True,17.0
+161,DJU,Walker-Jones Inc.,Equity,Consumer Staples,4,False,
+162,EBT,"Williams, Johnson and Wright Fund",Alternative,,3,True,11.0
+163,LJPL,Howell and Sons Fund,Cash Equivalent,,7,True,81.0
+164,SXR,Wells Inc Fund,Fixed Income,,2,True,61.0
+165,BMK,"Gould, Marshall and Scott Fund",Fixed Income,,2,True,65.0
+166,BCPB,Jackson-Lawson Fund,Cash Equivalent,,7,True,82.0
+167,JPHN,"Higgins, Strickland and Martin Fund",Fixed Income,,2,True,15.0
+168,WQT,Rodriguez-Johnson Inc.,Equity,Consumer Discretionary,4,False,
+169,XKVK,Johnston-Odonnell Fund,Fixed Income,,2,True,43.0
+170,IGYR,Sanders-Espinoza Fund,Fixed Income,,2,True,11.0
+171,VCC,Vargas Ltd Inc.,Equity,Energy,1,False,
+172,POI,Garcia LLC Fund,Fixed Income,,2,True,55.0
+173,WYKX,"Burke, Martinez and Riggs Fund",Cash Equivalent,,7,True,39.0
+174,JPFR,Reed Group Fund,Cash Equivalent,,7,True,16.0
+175,VJTO,"Wood, Hunter and Peterson Inc.",Equity,Utilities,5,False,
+176,PRS,Short-Garcia Inc.,Equity,Technology,1,False,
+177,SIIA,Reid-Poole Fund,Cash Equivalent,,7,True,75.0
+178,BTZC,"Hernandez, Thompson and Boyd Fund",Alternative,,3,True,51.0
+179,LEII,"Nelson, Morton and Medina Inc.",Equity,Consumer Staples,5,False,
+180,WET,Marshall-Petersen Fund,Cash Equivalent,,7,True,89.0
+181,HRM,"Adams, Christian and Rivas Fund",Alternative,,3,True,56.0
+182,FNIC,Ramirez Group Inc.,Equity,Communication Services,5,False,
+183,NIFZ,Christensen PLC Fund,Fixed Income,,2,True,3.0
+184,HFD,"Barnett, Rogers and Snyder Inc.",Equity,Industrials,4,False,
+185,DMLD,White-Lewis Inc.,Equity,Real Estate,5,False,
+186,NVU,Peterson-Beard Inc.,Equity,Healthcare,4,False,
+187,LLC,"Beard, Peters and Black Fund",Alternative,,3,True,76.0
+188,OSKC,Miller Ltd Inc.,Equity,Technology,4,False,
+189,UQV,Freeman-Chang Inc.,Equity,Energy,1,False,
+190,VGPN,"Alvarez, Joseph and West Inc.",Equity,Utilities,4,False,
+191,FUBQ,Davis and Sons Inc.,Equity,Real Estate,5,False,
+192,XJS,Holt-Torres Fund,Alternative,,3,True,33.0
+193,DFP,"Wood, Tran and Cooper Inc.",Equity,Communication Services,1,False,
+194,YQM,"Pierce, Bell and Chavez Inc.",Equity,Consumer Staples,5,False,
+195,RWQZ,King-Martinez Fund,Fixed Income,,2,True,83.0
+196,DBLH,Stewart Ltd Inc.,Equity,Industrials,5,False,
+197,JBM,"Tapia, Vaughn and Lee Inc.",Equity,Technology,1,False,
+198,VBWW,"Washington, Hardy and Bray Inc.",Equity,Consumer Staples,5,False,
+199,MOUX,"Carlson, Hooper and Wall Inc.",Equity,Materials,5,False,
+200,IMD,Perez-White Inc.,Equity,Technology,4,False,
+201,VVZ,Erickson and Sons Inc.,Equity,Healthcare,5,False,
+202,BSZ,Williams-Brown Inc.,Equity,Real Estate,5,False,
+203,JXK,Terry-Martinez Fund,Alternative,,3,True,89.0
+204,UQB,Garcia-Smith Inc.,Equity,Healthcare,5,False,
+205,HSRX,Harrison-Alexander Fund,Fixed Income,,2,True,45.0
+206,PDJ,Sheppard LLC Fund,Fixed Income,,2,True,19.0
+207,IJU,Wilson-Jones Inc.,Equity,Financials,5,False,
+208,QLJ,Jones-Soto Fund,Fixed Income,,2,True,42.0
+209,YIT,Hernandez PLC Inc.,Equity,Consumer Discretionary,1,False,
+210,EHU,Miller-Wright Fund,Cash Equivalent,,7,True,87.0
+211,WQPE,"Duran, Obrien and Gibbs Inc.",Equity,Financials,5,False,
+212,SBJ,Rowe Group Inc.,Equity,Consumer Discretionary,4,False,
+213,TUGG,Kerr-Evans Inc.,Equity,Materials,1,False,
+214,ROLU,"Branch, Torres and Oliver Fund",Cash Equivalent,,7,True,67.0
+215,ZVUD,"Choi, Garcia and Farmer Inc.",Equity,Industrials,1,False,
+216,WOCV,"Clark, Guerrero and Moore Fund",Fixed Income,,2,True,39.0
+217,THX,Arnold and Sons Inc.,Equity,Financials,4,False,
+218,YFL,Ortiz Ltd Fund,Fixed Income,,2,True,6.0
+219,BNGZ,"Harrison, Johnson and Roberts Inc.",Equity,Energy,1,False,
+220,ICS,Warner-Gibson Fund,Alternative,,3,True,21.0
+221,AXM,"Hall, Baker and Moody Inc.",Equity,Financials,5,False,
+222,LACG,"Guerrero, Peck and Coleman Inc.",Equity,Financials,5,False,
+223,CHHB,"Walker, Hernandez and Baker Inc.",Equity,Utilities,5,False,
+224,BVMN,Jones and Sons Inc.,Equity,Communication Services,5,False,
+225,SHA,Larson-Holloway Fund,Fixed Income,,2,True,33.0
+226,ERNJ,Gonzales-Harrison Inc.,Equity,Real Estate,5,False,
+227,KMQ,Lyons-Bender Fund,Fixed Income,,2,True,35.0
+228,JBG,"Fernandez, Kim and George Inc.",Equity,Communication Services,5,False,
+229,UTI,Navarro-Munoz Inc.,Equity,Technology,4,False,
+230,VEUM,Davis Ltd Inc.,Equity,Materials,5,False,
+231,VBU,"Matthews, Smith and Hubbard Inc.",Equity,Materials,1,False,
+232,FUXI,Johnston-Hines Fund,Fixed Income,,2,True,68.0
+233,ZOGT,Ruiz Ltd Inc.,Equity,Consumer Discretionary,4,False,
+234,WBRH,Moon-White Inc.,Equity,Energy,4,False,
+235,TXKZ,"Graham, Olsen and Costa Fund",Alternative,,3,True,91.0
+236,JUGC,Bailey-Cook Fund,Cash Equivalent,,7,True,13.0
+237,PVOI,"Garcia, Martin and Jenkins Inc.",Equity,Healthcare,4,False,
+238,HPLR,Roberts-Landry Inc.,Equity,Energy,4,False,
+239,SXP,"Johnson, Miller and King Fund",Fixed Income,,2,True,38.0
+240,BQJ,Cordova Group Inc.,Equity,Communication Services,1,False,
+241,DPU,"Bryan, Smith and Booth Inc.",Equity,Technology,1,False,
+242,GQJ,Gutierrez-Lopez Inc.,Equity,Consumer Staples,1,False,
+243,RYJ,Dean-Jimenez Fund,Fixed Income,,2,True,76.0
+244,NKQ,Wolf-Harris Fund,Fixed Income,,2,True,17.0
+245,TMK,"Anderson, Roberts and Gilmore Inc.",Equity,Real Estate,1,False,
+246,USFP,Martinez-Dudley Inc.,Equity,Materials,1,False,
+247,DBE,"Lloyd, Mckinney and Collins Inc.",Equity,Materials,1,False,
+248,RSOH,Tran Inc Fund,Fixed Income,,2,True,23.0
+249,UND,Gay Inc Inc.,Equity,Consumer Discretionary,1,False,
+250,UAO,Valentine-Holland Inc.,Equity,Energy,4,False,
+251,PCI,Jimenez Ltd Fund,Fixed Income,,2,True,70.0
+252,TVBZ,Hicks-Hill Inc.,Equity,Communication Services,1,False,
+253,MNDV,Baird-Sanchez Fund,Fixed Income,,2,True,19.0
+254,NWVN,"Thomas, Lee and Greene Inc.",Equity,Industrials,1,False,
+255,ISI,"Suarez, Shields and Hill Inc.",Equity,Real Estate,4,False,
+256,GQO,Morgan-French Inc.,Equity,Financials,5,False,
+257,PCQP,Hoover-Campbell Fund,Fixed Income,,2,True,24.0
+258,VOVA,Monroe-Carpenter Fund,Alternative,,3,True,85.0
+259,QTKQ,"Burns, Hernandez and Ryan Fund",Alternative,,3,True,83.0
+260,QHGU,Cook-Hines Inc.,Equity,Utilities,4,False,
+261,BBLM,Gibson-Morris Fund,Fixed Income,,2,True,46.0
+262,IST,Pollard and Sons Inc.,Equity,Energy,4,False,
+263,TNC,"Reyes, Chase and Jenkins Inc.",Equity,Consumer Discretionary,4,False,
+264,GGC,Garner-Thornton Fund,Alternative,,3,True,52.0
+265,GWEI,Hughes-Alvarado Inc.,Equity,Consumer Staples,5,False,
+266,EEZM,"Pollard, Simpson and Johnson Inc.",Equity,Industrials,4,False,
+267,CKL,"Sanford, Rivera and Garcia Inc.",Equity,Consumer Discretionary,1,False,
+268,BHPV,Garcia-Lozano Inc.,Equity,Communication Services,4,False,
+269,NWLW,Bowen Group Inc.,Equity,Energy,4,False,
+270,BBOJ,"Booker, Jones and Harrington Fund",Fixed Income,,2,True,12.0
+271,NTHZ,Morgan-Schwartz Inc.,Equity,Communication Services,5,False,
+272,DCJ,"Miller, Murphy and Craig Fund",Alternative,,3,True,74.0
+273,TFNN,"James, Stewart and Higgins Fund",Alternative,,3,True,7.0
+274,SUN,Brennan-Johnson Inc.,Equity,Financials,5,False,
+275,IPE,Young Ltd Inc.,Equity,Consumer Staples,5,False,
+276,PNNM,Bright-Francis Inc.,Equity,Consumer Staples,4,False,
+277,VJRZ,Good-Hodges Fund,Fixed Income,,2,True,95.0
+278,PGR,"Brennan, Wallace and Benson Inc.",Equity,Consumer Staples,5,False,
+279,SPE,Williams Inc Fund,Fixed Income,,2,True,21.0
+280,AYC,Howard-Jordan Inc.,Equity,Technology,4,False,
+281,KKFN,Schmidt PLC Fund,Fixed Income,,2,True,10.0
+282,NOZ,"Sparks, Jackson and Miller Inc.",Equity,Materials,5,False,
+283,IEXI,Harvey-Allen Inc.,Equity,Energy,5,False,
+284,PEGO,"Thomas, Murray and King Fund",Cash Equivalent,,7,True,41.0
+285,SRMM,Estrada-Nolan Fund,Fixed Income,,2,True,39.0
+286,OOX,Santana-Byrd Inc.,Equity,Utilities,4,False,
+287,HHS,Jones LLC Fund,Alternative,,3,True,59.0
+288,TFVH,"Evans, Hayden and Vaughn Inc.",Equity,Real Estate,5,False,
+289,DQPG,Bruce-Gonzalez Fund,Alternative,,3,True,84.0
+290,BKS,Castaneda-Rodriguez Fund,Fixed Income,,2,True,90.0
+291,AOY,Armstrong-Andrews Inc.,Equity,Utilities,5,False,
+292,MFZI,"Phillips, Spence and Barrett Inc.",Equity,Communication Services,1,False,
+293,QGT,Smith-Grimes Inc.,Equity,Technology,1,False,
+294,WEXZ,"Beltran, Lozano and Mcgee Inc.",Equity,Utilities,4,False,
+295,YZY,Parsons-Hall Fund,Fixed Income,,2,True,4.0
+296,OCZH,Robinson-Lee Inc.,Equity,Communication Services,5,False,
+297,XDNH,Byrd-Le Inc.,Equity,Healthcare,4,False,
+298,TQS,"Becker, Taylor and Davis Fund",Alternative,,3,True,46.0
+299,OTEW,"Lucas, Parker and Alexander Fund",Cash Equivalent,,7,True,57.0
+300,CRED,"Diaz, Anderson and Browning Inc.",Equity,Energy,1,False,
+301,GGT,Burgess-Thompson Inc.,Equity,Energy,4,False,
+302,GJG,Buchanan LLC Inc.,Equity,Communication Services,1,False,
+303,HKNX,"Shaw, Nelson and Martin Inc.",Equity,Industrials,5,False,
+304,QYJ,Coffey-Phillips Fund,Alternative,,3,True,31.0
+305,MLZ,Brock-Mcdonald Inc.,Equity,Energy,4,False,
+306,TUVT,Taylor and Sons Fund,Fixed Income,,2,True,70.0
+307,NJXC,"Ramsey, Whitney and Coffey Inc.",Equity,Real Estate,5,False,
+308,ODI,"Diaz, Gibbs and Smith Fund",Fixed Income,,2,True,17.0
+309,SMX,"Martinez, Richardson and Curry Fund",Fixed Income,,2,True,10.0
+310,DKOO,Richards-Carson Fund,Alternative,,3,True,95.0
+311,KVT,Rodriguez-Hall Inc.,Equity,Consumer Staples,1,False,
+312,LSO,Harvey PLC Inc.,Equity,Technology,1,False,
+313,AKTT,Herman-Walker Inc.,Equity,Communication Services,4,False,
+314,ZJWX,Reid Group Fund,Alternative,,3,True,13.0
+315,QJE,"Turner, Ortiz and Taylor Fund",Alternative,,3,True,70.0
+316,SFA,Torres Group Fund,Fixed Income,,2,True,41.0
+317,RONV,Davis PLC Fund,Fixed Income,,2,True,61.0
+318,EEWT,Price LLC Fund,Fixed Income,,2,True,87.0
+319,PYXG,"Avery, Horton and Fernandez Inc.",Equity,Healthcare,1,False,
+320,LRW,"Newton, Moore and Perry Fund",Alternative,,3,True,8.0
+321,LOTU,Bass PLC Inc.,Equity,Financials,5,False,
+322,GXOP,Crosby-Ramirez Inc.,Equity,Communication Services,4,False,
+323,HDR,"Wood, Ramos and Sampson Inc.",Equity,Consumer Discretionary,4,False,
+324,HOPT,Garcia-Jennings Inc.,Equity,Financials,5,False,
+325,OBIQ,"Winters, Newman and Brown Inc.",Equity,Utilities,5,False,
+326,SKHE,Lopez-Martinez Fund,Fixed Income,,2,True,33.0
+327,HSU,Davis-Lewis Inc.,Equity,Technology,5,False,
+328,ZODG,"Harper, Smith and Buchanan Fund",Fixed Income,,2,True,45.0
+329,XWC,Zhang PLC Inc.,Equity,Consumer Discretionary,1,False,
+330,JPBB,Jones PLC Inc.,Equity,Consumer Staples,5,False,
+331,MWI,Willis and Sons Inc.,Equity,Technology,1,False,
+332,ZDZ,Schroeder-Kramer Inc.,Equity,Materials,1,False,
+333,KGI,"Smith, Garrison and Thomas Fund",Fixed Income,,2,True,51.0
+334,NJGN,Fernandez and Sons Inc.,Equity,Materials,4,False,
+335,UST,Guerrero Inc Fund,Fixed Income,,2,True,29.0
+336,IBWT,Smith and Sons Inc.,Equity,Technology,4,False,
+337,HFFO,"Morris, Thompson and Williams Fund",Fixed Income,,2,True,66.0
+338,GVZQ,"Fisher, Wilson and Brown Fund",Cash Equivalent,,7,True,61.0
+339,TJD,Strickland-Palmer Fund,Fixed Income,,2,True,26.0
+340,NVB,Hayes and Sons Inc.,Equity,Communication Services,1,False,
+341,KVG,"Williams, Logan and Camacho Inc.",Equity,Financials,1,False,
+342,NJQ,"Turner, Schneider and Johnson Inc.",Equity,Communication Services,5,False,
+343,RANK,Boone-Simmons Fund,Fixed Income,,2,True,70.0
+344,NHNS,Henry Group Inc.,Equity,Utilities,1,False,
+345,XNG,Lam LLC Inc.,Equity,Consumer Staples,5,False,
+346,VGKJ,"Hernandez, Martinez and Weber Fund",Fixed Income,,2,True,61.0
+347,ZFR,"Kelley, Nguyen and Vang Inc.",Equity,Healthcare,5,False,
+348,CJO,"Phillips, Wagner and Jordan Fund",Fixed Income,,2,True,84.0
+349,SCV,"Wilson, Pena and Rich Inc.",Equity,Communication Services,4,False,
+350,XXF,"Le, Lewis and Hayes Inc.",Equity,Consumer Staples,4,False,
+351,BBYX,Gutierrez Group Fund,Fixed Income,,2,True,25.0
+352,AFDV,Perry-Davis Inc.,Equity,Utilities,1,False,
+353,EGVK,Edwards-Scott Fund,Fixed Income,,2,True,52.0
+354,URC,Mcdaniel Group Inc.,Equity,Energy,1,False,
+355,LVI,Davis Inc Inc.,Equity,Consumer Staples,5,False,
+356,ZIQU,Reynolds Ltd Fund,Alternative,,3,True,65.0
+357,JYL,"Watson, Anderson and Brown Fund",Fixed Income,,2,True,13.0
+358,USCE,"Hoffman, Santiago and Jenkins Fund",Fixed Income,,2,True,52.0
+359,JCYL,"Pugh, Henderson and Moon Inc.",Equity,Industrials,1,False,
+360,CLO,Schmitt PLC Fund,Fixed Income,,2,True,16.0
+361,COP,Bell-Lane Inc.,Equity,Energy,4,False,
+362,HKC,Moore Group Inc.,Equity,Real Estate,1,False,
+363,REG,Boone LLC Fund,Alternative,,3,True,66.0
+364,BLK,"Richardson, Farmer and Andrews Inc.",Equity,Materials,1,False,
+365,GGQP,Bruce-Villegas Fund,Cash Equivalent,,7,True,61.0
+366,DAK,"Austin, Day and Johnson Inc.",Equity,Consumer Staples,4,False,
+367,LLVQ,"Gallegos, Adams and White Inc.",Equity,Consumer Staples,1,False,
+368,IYFI,"Farmer, Dorsey and Bell Inc.",Equity,Utilities,4,False,
+369,TQZU,Kane PLC Fund,Alternative,,3,True,51.0
+370,VKCO,"Morales, Thomas and Schultz Fund",Fixed Income,,2,True,90.0
+371,YMS,Davis PLC Fund,Alternative,,3,True,40.0
+372,VUK,Bennett Group Fund,Fixed Income,,2,True,20.0
+373,GRSU,Moore-Collins Fund,Fixed Income,,2,True,60.0
+374,PNYW,Frank-Bradley Fund,Alternative,,3,True,72.0
+375,CGR,Ware and Sons Inc.,Equity,Financials,5,False,
+376,OQQ,Webster Inc Inc.,Equity,Energy,4,False,
+377,AGN,"Miller, Ramos and Coleman Inc.",Equity,Real Estate,5,False,
+378,LKU,"Ramos, Nelson and Fischer Fund",Cash Equivalent,,7,True,47.0
+379,MHX,Reed Inc Fund,Cash Equivalent,,7,True,17.0
+380,JIU,Gregory-Watkins Inc.,Equity,Real Estate,4,False,
+381,MLSI,"Estrada, Williams and Foster Fund",Fixed Income,,2,True,8.0
+382,AIC,"Brown, Harris and Dougherty Fund",Cash Equivalent,,7,True,34.0
+383,OIL,Duran LLC Inc.,Equity,Materials,1,False,
+384,QERK,Wilson-Jimenez Fund,Fixed Income,,2,True,60.0
+385,KSFT,Thompson-James Fund,Alternative,,3,True,76.0
+386,UNJ,"Hall, Hansen and Barnett Inc.",Equity,Consumer Discretionary,4,False,
+387,GWN,Jones-Hensley Fund,Fixed Income,,2,True,79.0
+388,PPJV,Graham Group Inc.,Equity,Consumer Staples,1,False,
+389,XPRI,Atkins PLC Fund,Cash Equivalent,,7,True,42.0
+390,ESN,Berry-Mckinney Fund,Cash Equivalent,,7,True,79.0
+391,OKM,Roberts-Sullivan Fund,Cash Equivalent,,7,True,74.0
+392,MDI,Jackson-Meza Inc.,Equity,Materials,5,False,
+393,WYM,Collier-Gillespie Fund,Alternative,,3,True,52.0
+394,KMSL,Kim Inc Fund,Alternative,,3,True,13.0
+395,UFA,Graham Group Inc.,Equity,Consumer Discretionary,5,False,
+396,ELTT,"Miller, Harrell and Reese Fund",Alternative,,3,True,76.0
+397,GOZ,Cook and Sons Inc.,Equity,Real Estate,1,False,
+398,OZCV,Dixon Inc Fund,Fixed Income,,2,True,41.0
+399,LJV,"Hicks, Bullock and Bailey Inc.",Equity,Materials,1,False,
+400,FTR,"Mullen, Brewer and Hernandez Inc.",Equity,Consumer Staples,5,False,
+401,EDFF,Thomas and Sons Inc.,Equity,Technology,5,False,
+402,NPEZ,Morrison Ltd Fund,Fixed Income,,2,True,40.0
+403,YNXV,Thompson Ltd Inc.,Equity,Financials,4,False,
+404,ZWD,Marshall-Elliott Fund,Fixed Income,,2,True,34.0
+405,SVT,"Cole, Glass and Cunningham Inc.",Equity,Communication Services,4,False,
+406,DQQJ,"Downs, Morris and Maddox Inc.",Equity,Healthcare,5,False,
+407,KTS,Hernandez-Jones Inc.,Equity,Energy,4,False,
+408,IAUT,Welch-Hogan Fund,Fixed Income,,2,True,84.0
+409,WUKZ,"Brown, Romero and Collins Inc.",Equity,Consumer Discretionary,4,False,
+410,IHOD,Johnson-Wood Fund,Fixed Income,,2,True,46.0
+411,BQV,Jones-Lin Fund,Alternative,,3,True,18.0
+412,LAY,Gilbert PLC Fund,Fixed Income,,2,True,91.0
+413,WHW,Ford-Spencer Inc.,Equity,Industrials,1,False,
+414,GJXE,"Huang, Cole and Pacheco Inc.",Equity,Utilities,5,False,
+415,STLC,"Lopez, Jacobs and Mason Fund",Alternative,,3,True,3.0
+416,MDF,Hayes LLC Inc.,Equity,Communication Services,4,False,
+417,AID,"Miller, Lucas and Williams Fund",Alternative,,3,True,91.0
+418,MFC,"Kim, Gonzales and Mills Inc.",Equity,Healthcare,1,False,
+419,JHJV,Cox LLC Fund,Cash Equivalent,,7,True,85.0
+420,BOP,Ortiz-Morgan Fund,Fixed Income,,2,True,59.0
+421,SQDK,"Williams, Mccoy and Cook Fund",Cash Equivalent,,7,True,30.0
+422,JLUG,Davis-Gregory Inc.,Equity,Communication Services,1,False,
+423,OPP,King-York Fund,Fixed Income,,2,True,87.0
+424,FPEK,"Marks, Cook and Aguilar Inc.",Equity,Communication Services,1,False,
+425,MCM,Rangel LLC Inc.,Equity,Consumer Staples,1,False,
+426,ZYD,"Hale, Myers and Larson Fund",Fixed Income,,2,True,49.0
+427,TYU,Collins Group Fund,Alternative,,3,True,78.0
+428,AFX,"Conner, Li and Santiago Fund",Cash Equivalent,,7,True,67.0
+429,QNKS,"Osborn, Gaines and Davis Fund",Fixed Income,,2,True,84.0
+430,HIN,"Henderson, Cox and Cox Inc.",Equity,Consumer Discretionary,1,False,
+431,KQVR,Bean LLC Inc.,Equity,Healthcare,4,False,
+432,SWBC,Lee-Cooke Fund,Fixed Income,,2,True,17.0
+433,PBRR,Jones Inc Inc.,Equity,Financials,1,False,
+434,SSE,"Wise, Conley and Stephenson Inc.",Equity,Energy,5,False,
+435,EDUG,Stanley PLC Inc.,Equity,Healthcare,1,False,
+436,UHBS,Harper and Sons Inc.,Equity,Consumer Staples,5,False,
+437,MNB,White Ltd Inc.,Equity,Consumer Staples,1,False,
+438,EUXR,"Lamb, Martin and Kim Inc.",Equity,Healthcare,1,False,
+439,BWG,Diaz-Ball Inc.,Equity,Materials,4,False,
+440,XEYA,Bishop-Goodwin Inc.,Equity,Communication Services,4,False,
+441,IKS,Young-Allen Fund,Cash Equivalent,,7,True,12.0
+442,DRBF,Mckee-Lee Inc.,Equity,Real Estate,1,False,
+443,BMHV,"Valentine, Joyce and Murray Inc.",Equity,Energy,1,False,
+444,AFOH,Strickland-Shaw Fund,Fixed Income,,2,True,62.0
+445,PMUF,Burch-Montoya Inc.,Equity,Real Estate,1,False,
+446,AKG,"Taylor, Wright and Davidson Fund",Cash Equivalent,,7,True,84.0
+447,YAR,Spencer-Garcia Fund,Fixed Income,,2,True,16.0
+448,NGM,"Rosales, Mitchell and Hines Inc.",Equity,Technology,1,False,
+449,CXXN,Cole-Palmer Inc.,Equity,Energy,4,False,
+450,PNQ,Davis-Lozano Fund,Alternative,,3,True,12.0
+451,LZG,Wilkerson-Arias Fund,Cash Equivalent,,7,True,43.0
+452,STIH,Brown-Shaw Inc.,Equity,Healthcare,1,False,
+453,UPE,Hughes Inc Fund,Fixed Income,,2,True,60.0
+454,IDJU,Walker-Flores Inc.,Equity,Materials,4,False,
+455,GDER,Combs Ltd Fund,Cash Equivalent,,7,True,30.0
+456,DSZK,Moody-Taylor Inc.,Equity,Technology,5,False,
+457,GZAK,Lowery-Kennedy Fund,Cash Equivalent,,7,True,74.0
+458,CCU,Blake Group Fund,Fixed Income,,2,True,4.0
+459,VZD,Gilbert-Bullock Fund,Fixed Income,,2,True,50.0
+460,PGV,Scott and Sons Inc.,Equity,Technology,1,False,
+461,XLD,"Bentley, Lynch and Henderson Inc.",Equity,Energy,1,False,
+462,YBY,Young-Martinez Inc.,Equity,Utilities,5,False,
+463,MJLJ,Barnes PLC Inc.,Equity,Financials,4,False,
+464,LDPQ,Brown-Copeland Inc.,Equity,Communication Services,4,False,
+465,KOBH,Carlson-Smith Fund,Fixed Income,,2,True,56.0
+466,QUG,"Andrews, Higgins and Carter Inc.",Equity,Real Estate,1,False,
+467,UJOM,Mendez and Sons Inc.,Equity,Consumer Staples,5,False,
+468,KEIF,"Butler, Beck and Miller Fund",Cash Equivalent,,7,True,10.0
+469,NTZZ,Jones-Fox Fund,Alternative,,3,True,34.0
+470,GVX,"Hartman, Romero and Smith Fund",Cash Equivalent,,7,True,31.0
+471,JVVE,Williams-Hughes Fund,Cash Equivalent,,7,True,92.0
+472,XASY,King-Smith Inc.,Equity,Consumer Staples,1,False,
+473,EABP,Cooper Ltd Inc.,Equity,Technology,5,False,
+474,AXFD,"Fuller, Ingram and Moss Fund",Fixed Income,,2,True,44.0
+475,APX,Anderson-Bell Fund,Fixed Income,,2,True,70.0
+476,YJYK,Li-Thompson Inc.,Equity,Healthcare,4,False,
+477,IZTL,"Marshall, Dominguez and Welch Fund",Alternative,,3,True,86.0
+478,EZSY,Brown Group Inc.,Equity,Energy,1,False,
+479,JTH,Carter Inc Inc.,Equity,Financials,5,False,
+480,YYK,Blackwell LLC Inc.,Equity,Consumer Staples,1,False,
+481,PXZ,Robertson-Hays Fund,Fixed Income,,2,True,84.0
+482,YDT,"Kennedy, Johnson and Lucas Fund",Fixed Income,,2,True,47.0
+483,EXCS,Kelly-Norman Inc.,Equity,Communication Services,5,False,
+484,LGGB,"Rivera, Martinez and Richardson Fund",Alternative,,3,True,16.0
+485,WMJ,Paul-Kline Inc.,Equity,Real Estate,4,False,
+486,VUP,Morgan-Lopez Inc.,Equity,Communication Services,1,False,
+487,LUA,"Jimenez, Glass and Stone Fund",Alternative,,3,True,43.0
+488,YBEJ,Acosta Inc Fund,Cash Equivalent,,7,True,73.0
+489,IZX,Morrison-Short Fund,Alternative,,3,True,58.0
+490,PLB,"Carter, Garcia and Murphy Fund",Alternative,,3,True,29.0
+491,KOY,Parker-Morrison Fund,Fixed Income,,2,True,87.0
+492,HCKO,Jackson-Wallace Fund,Fixed Income,,2,True,22.0
+493,JLH,Williams-Berg Inc.,Equity,Communication Services,5,False,
+494,FAEH,Mendez-Graham Inc.,Equity,Healthcare,4,False,
+495,IKM,"Whitney, Gould and Jones Inc.",Equity,Communication Services,4,False,
+496,QKJ,"Sullivan, Palmer and Brady Inc.",Equity,Utilities,4,False,
+497,LGM,Cisneros and Sons Fund,Fixed Income,,2,True,37.0
+498,DSC,"Gregory, Kim and Martinez Inc.",Equity,Communication Services,4,False,
+499,ZPOV,Osborne LLC Inc.,Equity,Real Estate,4,False,
+500,OGHK,Reyes-Bradley Inc.,Equity,Technology,5,False,
