@@ -1,0 +1,76 @@
+table,column,expected_type,rows,null_blank_count,null_blank_pct,literal_null_strings,distinct_count,top_shapes,dominant_shape,distinct_shapes,distinct_shapes_ignoring_sign,rows_not_dominant_shape,fail_parse_count,fail_parse_pct,whitespace_issues,mixed_formats,numeric_min,numeric_max,example_values
+dim_advisor,advisor_id,int,25,0,0.0,0,25,9 (25),9,1,1,0,0,0.0,0,no,1,25,1 | 2 | 3
+dim_advisor,first_name,text,25,0,0.0,0,24,A (25),A,1,1,0,0,0.0,0,no,,,Danielle | Joshua | Jill
+dim_advisor,last_name,text,25,0,0.0,0,24,A (25),A,1,1,0,0,0.0,0,no,,,Johnson | Walker | Rhodes
+dim_advisor,region,text,25,0,0.0,0,5,A (19); A-A (6),A,2,2,6,0,0.0,0,no,,,Northeast | Mid-Atlantic | West
+dim_advisor,years_experience,int,25,0,0.0,0,17,9 (25),9,1,1,0,0,0.0,0,no,4,28,4 | 8 | 22
+dim_advisor,aum_target_mm,int,25,0,0.0,0,5,9 (25),9,1,1,0,0,0.0,0,no,50,200,100 | 50 | 150
+dim_advisor,certifications,text,25,0,0.0,6,5,"A (15); A, A (10)",A,2,2,10,0,0.0,0,no,,,CFA | None | CFP
+dim_benchmark,benchmark_id,int,8,0,0.0,0,8,9 (8),9,1,1,0,0,0.0,0,no,1,8,1 | 2 | 3
+dim_benchmark,name,text,8,0,0.0,0,8,A A (2); A&A 9 (1); A A A A (1); 9/9 A (1),A A,7,7,6,0,0.0,0,no,,,S&P 500 | Bloomberg US Agg Bond | 60/40 Blend
+dim_benchmark,asset_class,text,8,0,0.0,0,7,A (4); A A (2); A-A (2),A,3,3,4,0,0.0,0,no,,,Equity | Fixed Income | Multi-Asset
+dim_benchmark,ticker_proxy,text,8,0,0.0,0,8,A (6); A_9 (1); A_A (1),A,3,3,2,0,0.0,0,no,,,SPY | AGG | BLEND_6040
+dim_client,client_id,int,2525,0,0.0,0,2525,9 (2525),9,1,1,0,0,0.0,0,no,1,2525,1 | 2 | 3
+dim_client,first_name,text,2525,0,0.0,0,505,A (2525),A,1,1,0,0,0.0,0,no,,,Cassie | Michael | Victor
+dim_client,last_name,text,2525,0,0.0,0,778,A (2525),A,1,1,0,0,0.0,0,no,,,Shelton | Edwards | Hughes
+dim_client,age,int,2525,0,0.0,0,53,9 (2525),9,1,1,0,0,0.0,0,no,28,80,61 | 37 | 38
+dim_client,city,text,2525,0,0.0,0,2291,A (1290); A A (1235),A,2,2,1235,0,0.0,0,no,,,Nathanland | Johnville | West Kimberlymouth
+dim_client,state,text,2525,0,0.0,0,27,A (2498); A A (27),A,2,2,27,0,0.0,0,no,,,PA | FL | TX
+dim_client,zip_code,text,2525,0,0.0,0,2483,9 (2525),9,1,1,0,0,0.0,0,no,,,75726 | 03897 | 28625
+dim_client,risk_profile,text,2525,76,3.01,0,6,A (1476); A A (973); <blank> (76),A,2,2,973,0,0.0,0,no,,,Moderately Aggressive | Moderately Conservative | Balanced
+dim_client,client_tier,text,2525,0,0.0,0,3,A (2525),A,1,1,0,0,0.0,0,no,,,HNW | Retail | UHNW
+dim_client,primary_account_type,text,2525,0,0.0,0,5,A (1513); 9 (523); A A (489),A,3,3,1012,0,0.0,0,no,,,529 | Taxable | IRA
+dim_client,initial_aum,decimal,2525,0,0.0,0,2500,9.9 (2525),9.9,1,1,0,0,0.0,0,no,50016.07,49901583.57,3070489.71 | 492239.64 | 2520678.81
+dim_client,client_since,date,2525,0,0.0,0,1651,9-9-9 (2525),9-9-9,1,1,0,0,0.0,0,no,,,2016-02-07 | 2020-11-18 | 2022-12-20
+dim_client,advisor_id,int,2525,0,0.0,0,25,9 (2525),9,1,1,0,0,0.0,0,no,1,25,22 | 25 | 7
+dim_client,is_active,bool,2525,0,0.0,0,2,A (2525),A,1,1,0,0,0.0,0,no,,,True | False
+dim_date,date_id,int,1827,0,0.0,0,1827,9 (1827),9,1,1,0,0,0.0,0,no,1,1827,1 | 2 | 3
+dim_date,date,date,1827,0,0.0,0,1827,9-9-9 (1827),9-9-9,1,1,0,0,0.0,0,no,,,2020-01-01 | 2020-01-02 | 2020-01-03
+dim_date,year,int,1827,0,0.0,0,5,9 (1827),9,1,1,0,0,0.0,0,no,2020,2024,2020 | 2021 | 2022
+dim_date,quarter,int,1827,0,0.0,0,4,9 (1827),9,1,1,0,0,0.0,0,no,1,4,1 | 2 | 3
+dim_date,month,int,1827,0,0.0,0,12,9 (1827),9,1,1,0,0,0.0,0,no,1,12,1 | 2 | 3
+dim_date,month_name,text,1827,0,0.0,0,12,A (1827),A,1,1,0,0,0.0,0,no,,,January | February | March
+dim_date,week_of_year,int,1827,0,0.0,0,53,9 (1827),9,1,1,0,0,0.0,0,no,1,53,1 | 2 | 3
+dim_date,day_of_week,text,1827,0,0.0,0,7,A (1827),A,1,1,0,0,0.0,0,no,,,Wednesday | Thursday | Friday
+dim_date,is_month_end,flag01,1827,0,0.0,0,2,9 (1827),9,1,1,0,0,0.0,0,no,0,1,0 | 1
+dim_date,is_quarter_end,flag01,1827,0,0.0,0,2,9 (1827),9,1,1,0,0,0.0,0,no,0,1,0 | 1
+dim_date,is_year_end,flag01,1827,0,0.0,0,2,9 (1827),9,1,1,0,0,0.0,0,no,0,1,0 | 1
+dim_date,is_trading_day,flag01,1827,0,0.0,0,2,9 (1827),9,1,1,0,0,0.0,0,no,0,1,1 | 0
+dim_security,security_id,int,500,0,0.0,0,500,9 (500),9,1,1,0,0,0.0,0,no,1,500,1 | 2 | 3
+dim_security,ticker,text,500,0,0.0,0,500,A (500),A,1,1,0,0,0.0,0,no,,,RKX | DTOT | JZDM
+dim_security,name,text,500,0,0.0,0,497,"A, A A A A. (106); A-A A. (91); A-A A (87); A, A A A A (69)","A, A A A A.",8,8,394,0,0.0,0,no,,,"Kelly-Santiago Inc. | Zuniga, Wong and Lynch Inc. | Ferguson and Sons Inc."
+dim_security,asset_class,text,500,0,0.0,0,4,A (339); A A (161),A,2,2,161,0,0.0,0,no,,,Equity | Alternative | Fixed Income
+dim_security,sector,text,500,219,43.8,0,12,<blank> (219); A (170); A A (111),A,2,2,111,0,0.0,0,no,,,Materials | Utilities | Technology
+dim_security,benchmark_id,int,500,0,0.0,0,6,9 (500),9,1,1,0,0,0.0,0,no,1,7,1 | 5 | 4
+dim_security,is_etf,bool,500,0,0.0,0,2,A (500),A,1,1,0,0,0.0,0,no,,,False | True
+dim_security,expense_ratio_bps,decimal,500,281,56.2,0,83,<blank> (281); 9.9 (219),9.9,1,1,0,0,0.0,0,no,3.0,95.0,70.0 | 54.0 | 5.0
+fact_fees,fee_id,int,122197,0,0.0,0,122197,9 (122197),9,1,1,0,0,0.0,0,no,1,122197,1 | 2 | 3
+fact_fees,client_id,int,122197,0,0.0,0,2500,9 (122197),9,1,1,0,0,0.0,0,no,1,2500,1 | 2 | 3
+fact_fees,advisor_id,int,122197,0,0.0,0,25,9 (122197),9,1,1,0,0,0.0,0,no,1,25,22 | 25 | 7
+fact_fees,fee_date,date,122197,0,0.0,0,60,9-9-9 (122197),9-9-9,1,1,0,0,0.0,0,no,,,2020-01-01 | 2020-02-01 | 2020-03-01
+fact_fees,fee_type,text,122197,0,0.0,0,4,A (122197),A,1,1,0,0,0.0,0,no,,,Advisory | Management | Custodial
+fact_fees,aum_basis,decimal,122197,0,0.0,0,121755,9.9 (122197),9.9,1,1,0,0,0.0,0,no,1000.0,82386642.91,3130375.03 | 3152790.69 | 3240188.8
+fact_fees,bps_charged,decimal,122197,0,0.0,0,5217,9.9 (122197),9.9,1,1,0,0,0.0,0,no,25.56,100.38,65.54 | 64.68 | 67.79
+fact_fees,amount,decimal,122197,0,0.0,0,81649,9.9 (122197),9.9,1,1,0,0,0.0,0,no,0.65,29412.47,1709.71 | 1699.35 | 1830.44
+fact_portfolio_snapshot,snapshot_id,int,129547,0,0.0,0,129547,9 (129547),9,1,1,0,0,0.0,0,no,1,129547,1 | 2 | 3
+fact_portfolio_snapshot,client_id,int,129547,0,0.0,0,2500,9 (129547),9,1,1,0,0,0.0,0,no,1,2500,1 | 2 | 3
+fact_portfolio_snapshot,advisor_id,int,129547,0,0.0,0,25,9 (129547),9,1,1,0,0,0.0,0,no,1,25,22 | 25 | 7
+fact_portfolio_snapshot,benchmark_id,int,129547,0,0.0,0,3,9 (129547),9,1,1,0,0,0.0,0,no,1,8,1 | 8 | 3
+fact_portfolio_snapshot,snapshot_date,date,129547,0,0.0,0,60,9-9-9 (129547),9-9-9,1,1,0,0,0.0,0,no,,,2020-01-01 | 2020-02-01 | 2020-03-01
+fact_portfolio_snapshot,year,int,129547,0,0.0,0,5,9 (129547),9,1,1,0,0,0.0,0,no,2020,2024,2020 | 2021 | 2022
+fact_portfolio_snapshot,month,int,129547,0,0.0,0,12,9 (129547),9,1,1,0,0,0.0,0,no,1,12,1 | 2 | 3
+fact_portfolio_snapshot,aum,decimal,129547,0,0.0,0,129062,9.9 (129547),9.9,1,1,0,0,0.0,0,no,1000.0,82386642.91,3130375.03 | 3152790.69 | 3240188.8
+fact_portfolio_snapshot,return_ytd,decimal,129547,0,0.0,0,112233,9.9 (83117); -9.9 (45995); 9.9% (188); -9.9% (112),9.9,8,4,435,435,0.336,0,yes,-0.993708,94.668215,0.019504 | 0.026804 | 0.055268
+fact_portfolio_snapshot,benchmark_return_ytd,decimal,129547,0,0.0,0,180,9.9 (91814); -9.9 (37733),9.9,2,1,0,0,0.0,0,no,-0.23978,0.273845,0.023115 | 0.034801 | 0.060634
+fact_portfolio_snapshot,active_alpha_ytd,decimal,129547,0,0.0,0,85398,9.9 (70713); -9.9 (58078); -9.9A-9 (312); 9.9A-9 (298),9.9,6,3,756,756,0.584,0,yes,-1.22245,94.569541,-0.003612 | -0.007997 | -0.005366
+fact_portfolio_snapshot,cash_pct,decimal,129547,0,0.0,0,701,9.9 (129547),9.9,1,1,0,0,0.0,0,no,0.01,0.08,0.0205 | 0.0231 | 0.0476
+fact_portfolio_snapshot,account_type,text,129547,0,0.0,0,5,A (77660); 9 (26882); A A (25005),A,3,3,51887,0,0.0,0,no,,,529 | Taxable | IRA
+fact_transactions,txn_id,int,298772,0,0.0,0,298772,9 (298772),9,1,1,0,0,0.0,0,no,1,298772,1 | 2 | 3
+fact_transactions,client_id,int,298772,0,0.0,0,2700,9 (298772),9,1,1,0,0,0.0,0,no,1,3192,1 | 2 | 3
+fact_transactions,advisor_id,int,298772,0,0.0,0,25,9 (298772),9,1,1,0,0,0.0,0,no,1,25,22 | 25 | 7
+fact_transactions,security_id,int,298772,101597,34.005,0,501,9.9 (197175); <blank> (101597),9.9,1,1,0,197175,100.0,0,no,1.0,500.0,45.0 | 174.0 | 478.0
+fact_transactions,txn_date,date,298772,0,0.0,0,1826,9-9-9 (298772),9-9-9,1,1,0,0,0.0,0,no,,,2023-12-16 | 2024-12-10 | 2023-04-03
+fact_transactions,txn_type,text,298772,0,0.0,0,6,A (263006); A A (35766),A,2,2,35766,0,0.0,0,no,,,Dividend | Deposit | Withdrawal
+fact_transactions,shares,decimal,298772,101597,34.005,0,193254,9.9 (196339); <blank> (101597); -9.9 (836),9.9,2,1,0,0,0.0,0,no,-499.6323,499.9981,455.1138 | 37.0101 | 315.4236
+fact_transactions,price,decimal,298772,101597,34.005,0,48105,9.9 (197175); <blank> (101597),9.9,1,1,0,0,0.0,0,no,10.0,500.0,147.9 | 212.62 | 243.52
+fact_transactions,amount,decimal,298772,0,0.0,0,292741,9.9 (298772),9.9,1,1,0,0,0.0,0,no,13.33,249302.33,67311.33 | 81363.28 | 19881.98

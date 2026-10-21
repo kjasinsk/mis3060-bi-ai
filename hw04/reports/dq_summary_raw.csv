@@ -1,0 +1,98 @@
+table,column,check_group,check,severity,dimension,rows_affected,pct_rows,example,note
+dim_client,risk_profile,1 column,blank where a value is required,ERROR,Completeness,76,3.0099,,
+dim_client,state,1 column,state in allowed code list,ERROR,Validity / Consistency,78,3.0891,client_id=109 state='Pennsylvania'; client_id=153 state='Pennsylvania'; client_id=172 state='New York',
+fact_portfolio_snapshot,return_ytd,1 column,value not written as decimal,ERROR,Validity,300,0.2316,"9.28%, 19.52%, 13.35%, 4.04%",shapes seen: 9.9 (83117); -9.9 (45995); 9.9% (188); -9.9% (112)
+fact_transactions,shares,1 column,"shares sign rule [1e-07, None]",ERROR,Validity,836,0.2798,txn_id=272 shares='-261.9719'; txn_id=812 shares='-338.0946'; txn_id=815 shares='-360.8407',
+dim_client,client_id,2 single-table,"near-duplicate client (same person, second ID)",ERROR,Uniqueness,25,0.9901,client_id=2501 client_id='2501'; client_id=2502 client_id='2502'; client_id=2503 client_id='2503',
+fact_transactions,amount,2 single-table,amount != shares x price,ERROR,Accuracy,836,0.2798,txn_id=272 amount='115715.61'; txn_id=812 amount='134510.94'; txn_id=815 amount='87850.28',
+fact_transactions,client_id,3 referential,client_id -> dim_client.client_id,ERROR,Referential Integrity,200,0.0669,"2702, 2704, 2708, 2714, 2715",text match rate 99.9331% (by value 99.9331%); 200 distinct orphan keys; null-key rate 0.00%
+fact_transactions,security_id,3 referential,security_id -> dim_security.security_id,ERROR,Referential Integrity,197175,65.9951,"1.0, 2.0, 3.0, 4.0, 5.0",text match rate 0.0000% (by value 100.0000%); 500 distinct orphan keys; null-key rate 34.00%
+fact_portfolio_snapshot,active_alpha_ytd,1 column,number written in scientific notation (9.9e-05),WARN,Consistency,756,0.5836,"-1.9e-05, -2.2e-05, -6.9e-05",value is correct; format differs from the rest of the column
+fact_portfolio_snapshot,return_ytd,1 column,number written in scientific notation (9.9e-05),WARN,Consistency,135,0.1042,"9.9e-05, 4.8e-05, -7.6e-05",value is correct; format differs from the rest of the column
+fact_portfolio_snapshot,aum,2 single-table,"aum stuck at exactly $1,000.00 (system floor)",WARN,Accuracy/Plausibility,420,0.3242,snapshot_id=1463 aum='1000.0'; snapshot_id=1464 aum='1000.0'; snapshot_id=1727 aum='1000.0',
+fact_portfolio_snapshot,return_ytd,2 single-table,|return_ytd| above 100% in one year,WARN,Accuracy/Plausibility,976,0.7534,snapshot_id=1480 return_ytd='2.872312'; snapshot_id=1481 return_ytd='2.946391'; snapshot_id=1482 return_ytd='2.885055',
+fact_transactions,txn_date,4 cross-table,Buy/Sell dated on a non-trading day (markets closed),WARN,Accuracy/Plausibility,40649,13.6054,txn_id=26 txn_date='2020-10-25'; txn_id=43 txn_date='2022-01-02'; txn_id=51 txn_date='2020-05-03',
+fact_transactions,txn_date,4 cross-table,activity after an inactive client's last month on the books,WARN,Accuracy/Plausibility,2410,0.8066,txn_id=1278 txn_date='2023-09-08'; txn_id=1282 txn_date='2023-04-12'; txn_id=1285 txn_date='2023-11-16',
+dim_advisor,advisor_id,1 column,primary key unique,INFO,Uniqueness,0,0.0,,PASS: every key appears once
+dim_advisor,aum_target_mm,1 column,aum_target_mm in allowed code list,INFO,Validity / Consistency,0,0.0,,PASS
+dim_advisor,certifications,1 column,literal text 'None'/'null' stored as a value,INFO,Validity,6,24.0,None,"Default pd.read_csv would turn this into NaN; here it means 'no certification', so it is a real value"
+dim_advisor,region,1 column,region in allowed code list,INFO,Validity / Consistency,0,0.0,,PASS
+dim_advisor,years_experience,1 column,"years_experience range [0, 50]",INFO,Validity,0,0.0,,PASS
+dim_benchmark,benchmark_id,1 column,primary key unique,INFO,Uniqueness,0,0.0,,PASS: every key appears once
+dim_client,age,1 column,"age range [18, 110]",INFO,Validity,0,0.0,,PASS
+dim_client,client_id,1 column,primary key unique,INFO,Uniqueness,0,0.0,,PASS: every key appears once
+dim_client,client_tier,1 column,client_tier in allowed code list,INFO,Validity / Consistency,0,0.0,,PASS
+dim_client,initial_aum,1 column,"initial_aum sign rule [0.01, None]",INFO,Validity,0,0.0,,PASS
+dim_client,is_active,1 column,is_active in allowed code list,INFO,Validity / Consistency,0,0.0,,PASS
+dim_client,primary_account_type,1 column,primary_account_type in allowed code list,INFO,Validity / Consistency,0,0.0,,PASS
+dim_client,risk_profile,1 column,risk_profile in allowed code list,INFO,Validity / Consistency,0,0.0,,PASS
+dim_client,state,1 column,state written as full name instead of 2-letter code,INFO,Consistency,78,3.0891,"Pennsylvania, Florida, New York, New Jersey",same rows as: 'state in allowed code list' (counted once). every full name maps to exactly one USPS code
+dim_client,zip_code,1 column,ZIP codes with a leading zero (must stay text),INFO,Validity,232,9.1881,"03897, 03946, 09118",Numeric parsing would turn 02068 into 2068
+dim_date,date_id,1 column,primary key unique,INFO,Uniqueness,0,0.0,,PASS: every key appears once
+dim_date,month,1 column,"month range [1, 12]",INFO,Validity,0,0.0,,PASS
+dim_date,quarter,1 column,"quarter range [1, 4]",INFO,Validity,0,0.0,,PASS
+dim_date,week_of_year,1 column,"week_of_year range [1, 53]",INFO,Validity,0,0.0,,PASS
+dim_security,asset_class,1 column,asset_class in allowed code list,INFO,Validity / Consistency,0,0.0,,PASS
+dim_security,expense_ratio_bps,1 column,blank where blank is correct (legitimate structure),INFO,Completeness,281,56.2,,"only funds charge an expense ratio, so blank when is_etf = False"
+dim_security,expense_ratio_bps,1 column,"expense_ratio_bps range [0, 300]",INFO,Validity,0,0.0,,PASS
+dim_security,is_etf,1 column,is_etf in allowed code list,INFO,Validity / Consistency,0,0.0,,PASS
+dim_security,sector,1 column,blank where blank is correct (legitimate structure),INFO,Completeness,219,43.8,,"ETFs hold many sectors, so sector is blank when is_etf = True"
+dim_security,security_id,1 column,primary key unique,INFO,Uniqueness,0,0.0,,PASS: every key appears once
+fact_fees,amount,1 column,"amount sign rule [0.01, None]",INFO,Validity,0,0.0,,PASS
+fact_fees,aum_basis,1 column,"aum_basis sign rule [0.01, None]",INFO,Validity,0,0.0,,PASS
+fact_fees,bps_charged,1 column,"bps_charged range [0, 300]",INFO,Validity,0,0.0,,PASS
+fact_fees,fee_id,1 column,primary key unique,INFO,Uniqueness,0,0.0,,PASS: every key appears once
+fact_fees,fee_type,1 column,fee_type in allowed code list,INFO,Validity / Consistency,0,0.0,,PASS
+fact_portfolio_snapshot,account_type,1 column,account_type in allowed code list,INFO,Validity / Consistency,0,0.0,,PASS
+fact_portfolio_snapshot,aum,1 column,"aum sign rule [0.01, None]",INFO,Validity,0,0.0,,PASS
+fact_portfolio_snapshot,benchmark_return_ytd,1 column,"benchmark_return_ytd range [-1.0, None]",INFO,Validity,0,0.0,,PASS
+fact_portfolio_snapshot,cash_pct,1 column,"cash_pct range [0, 1]",INFO,Validity,0,0.0,,PASS
+fact_portfolio_snapshot,month,1 column,"month range [1, 12]",INFO,Validity,0,0.0,,PASS
+fact_portfolio_snapshot,return_ytd,1 column,"return_ytd range [-1.0, None]",INFO,Validity,0,0.0,,PASS
+fact_portfolio_snapshot,snapshot_id,1 column,primary key unique,INFO,Uniqueness,0,0.0,,PASS: every key appears once
+fact_transactions,amount,1 column,"amount sign rule [0.01, None]",INFO,Validity,0,0.0,,PASS
+fact_transactions,price,1 column,blank where blank is correct (legitimate structure),INFO,Completeness,101597,34.0049,,"cash flows (Deposit, Withdrawal, Advisory Fee) involve no price"
+fact_transactions,price,1 column,"price sign rule [0.01, None]",INFO,Validity,0,0.0,,PASS
+fact_transactions,security_id,1 column,value not written as int,INFO,Validity,197175,65.9951,"45.0, 174.0, 478.0, 406.0",same rows as: 'security_id -> dim_security.security_id' (counted once). shapes seen: 9.9 (197175); <blank> (101597)
+fact_transactions,security_id,1 column,blank where blank is correct (legitimate structure),INFO,Completeness,101597,34.0049,,"cash flows (Deposit, Withdrawal, Advisory Fee) involve no security"
+fact_transactions,security_id,1 column,integer ID stored as a float string ('45.0'),INFO,Validity / Consistency,197175,65.9951,"45.0, 174.0, 478.0",same rows as: 'security_id -> dim_security.security_id' (counted once). will not join to dim_security.security_id ('45') as text
+fact_transactions,shares,1 column,blank where blank is correct (legitimate structure),INFO,Completeness,101597,34.0049,,"cash flows (Deposit, Withdrawal, Advisory Fee) involve no shares"
+fact_transactions,txn_id,1 column,primary key unique,INFO,Uniqueness,0,0.0,,PASS: every key appears once
+fact_transactions,txn_type,1 column,txn_type in allowed code list,INFO,Validity / Consistency,0,0.0,,PASS
+dim_client,client_id,2 single-table,near-duplicate client: all fields equal except ID and a misspelled last name,INFO,Uniqueness,25,0.9901,2501 'Taylo' copies 674 'Taylor'; 2502 'Marti' copies 1795 'Martin'; 2503 'Jacobso' copies 99 'Jacobson',"same rows as: 'near-duplicate client (same person, second ID)' (counted once). IDs 2501-2525; 23 of 25 last names are the original with its ending cut off (the rest differ by one letter); fact rows that use these IDs: 0"
+dim_client,client_tier,2 single-table,client_tier disagrees with initial_aum band,INFO,Consistency,0,0.0,,PASS
+dim_client,risk_profile,2 single-table,risk_profile is blank,INFO,Completeness,76,3.0099,client_id=57 risk_profile=''; client_id=94 risk_profile=''; client_id=135 risk_profile='',same rows as: 'blank where a value is required' (counted once).
+dim_date,date,2 single-table,calendar attributes disagree with the date,INFO,Consistency,0,0.0,,PASS
+dim_security,is_etf,2 single-table,sector / expense_ratio blank pattern contradicts is_etf,INFO,Consistency,0,0.0,,PASS
+fact_fees,amount,2 single-table,"amount != aum_basis x bps / 10,000 / 12",INFO,Accuracy,0,0.0,,PASS
+fact_portfolio_snapshot,return_ytd,2 single-table,return_ytd != benchmark_return_ytd + active_alpha_ytd,INFO,Accuracy,300,0.2316,snapshot_id=42 return_ytd='9.28%'; snapshot_id=59 return_ytd='19.52%'; snapshot_id=879 return_ytd='13.35%',same rows as: 'value not written as decimal' (counted once).
+fact_portfolio_snapshot,return_ytd,2 single-table,'9.28%' strings: do they equal benchmark + alpha after /100?,INFO,Validity,300,0.2316,"9.28%, 19.52%, 13.35%",100.00% reconcile within half a basis point
+fact_portfolio_snapshot,snapshot_date,2 single-table,year/month columns disagree with snapshot_date,INFO,Consistency,0,0.0,,PASS
+fact_transactions,amount,2 single-table,Dividend amount equals the full position value (100% yield),INFO,Accuracy/Plausibility,53864,18.0285,txn_id=1 amount='67311.33'; txn_id=7 amount='76811.96'; txn_id=12 amount='23678.26',
+fact_transactions,shares,2 single-table,negative shares: does |shares| x price equal amount?,INFO,Validity,836,0.2798,types: {'Buy': 836},100.00% reconcile exactly once the minus sign is removed
+fact_transactions,txn_type,2 single-table,security/shares/price blank pattern contradicts txn_type,INFO,Consistency,0,0.0,,PASS
+dim_benchmark,benchmark_id,3 referential,dimension rows that no fact or dimension uses,INFO,Referential Integrity,1,12.5,6,allowed: a dimension may list members not used yet
+dim_client,advisor_id,3 referential,advisor_id -> dim_advisor.advisor_id,INFO,Referential Integrity,0,0.0,,text match rate 100.0000% (by value 100.0000%); 0 distinct orphan keys; null-key rate 0.00%
+dim_security,benchmark_id,3 referential,benchmark_id -> dim_benchmark.benchmark_id,INFO,Referential Integrity,0,0.0,,text match rate 100.0000% (by value 100.0000%); 0 distinct orphan keys; null-key rate 0.00%
+fact_fees,advisor_id,3 referential,advisor_id -> dim_advisor.advisor_id,INFO,Referential Integrity,0,0.0,,text match rate 100.0000% (by value 100.0000%); 0 distinct orphan keys; null-key rate 0.00%
+fact_fees,client_id,3 referential,client_id -> dim_client.client_id,INFO,Referential Integrity,0,0.0,,text match rate 100.0000% (by value 100.0000%); 0 distinct orphan keys; null-key rate 0.00%
+fact_fees,fee_date,3 referential,fee_date -> dim_date.date,INFO,Referential Integrity,0,0.0,,text match rate 100.0000% (by value 100.0000%); 0 distinct orphan keys; null-key rate 0.00%
+fact_portfolio_snapshot,advisor_id,3 referential,advisor_id -> dim_advisor.advisor_id,INFO,Referential Integrity,0,0.0,,text match rate 100.0000% (by value 100.0000%); 0 distinct orphan keys; null-key rate 0.00%
+fact_portfolio_snapshot,benchmark_id,3 referential,benchmark_id -> dim_benchmark.benchmark_id,INFO,Referential Integrity,0,0.0,,text match rate 100.0000% (by value 100.0000%); 0 distinct orphan keys; null-key rate 0.00%
+fact_portfolio_snapshot,client_id,3 referential,client_id -> dim_client.client_id,INFO,Referential Integrity,0,0.0,,text match rate 100.0000% (by value 100.0000%); 0 distinct orphan keys; null-key rate 0.00%
+fact_portfolio_snapshot,snapshot_date,3 referential,snapshot_date -> dim_date.date,INFO,Referential Integrity,0,0.0,,text match rate 100.0000% (by value 100.0000%); 0 distinct orphan keys; null-key rate 0.00%
+fact_transactions,advisor_id,3 referential,advisor_id -> dim_advisor.advisor_id,INFO,Referential Integrity,0,0.0,,text match rate 100.0000% (by value 100.0000%); 0 distinct orphan keys; null-key rate 0.00%
+fact_transactions,client_id,3 referential,orphan transactions profile,INFO,Referential Integrity,200,0.0669,txn_id 298573-298772,same rows as: 'client_id -> dim_client.client_id' (counted once). client_id range 2702-3192 vs dim_client max 2525; 200 distinct client IDs across 200 rows; found in fees/snapshots: 0
+fact_transactions,txn_date,3 referential,txn_date -> dim_date.date,INFO,Referential Integrity,0,0.0,,text match rate 100.0000% (by value 100.0000%); 0 distinct orphan keys; null-key rate 0.00%
+dim_client,is_active,4 cross-table,inactive clients' snapshots stop before Dec-2024 (expected),INFO,Consistency,175,6.9307,,last snapshot of inactive clients ranges 2022-12-01 to 2023-11-01; active clients' last snapshot: ['2024-12-01']
+dim_client,risk_profile,4 cross-table,blank risk_profile can be inferred from the client's benchmark,INFO,Completeness,76,3.0099,,"benchmark of blank-profile clients: {'3': 75, nan: 1}; risk->benchmark rule holds for 100.00% of known clients; profiles using each benchmark: {'1': ['Aggressive', 'Moderately Aggressive'], '3': ['Balanced'], '8': ['Conservative', 'Moderately Conservative']}"
+fact_fees,advisor_id,4 cross-table,advisor_id differs from the client's advisor in dim_client,INFO,Consistency,0,0.0,,PASS
+fact_fees,aum_basis,4 cross-table,aum_basis != snapshot aum for the same client and month,INFO,Accuracy,0,0.0,,PASS
+fact_fees,fee_date,4 cross-table,activity dated before the client relationship began,INFO,Consistency,0,0.0,,PASS
+fact_portfolio_snapshot,account_type,4 cross-table,account_type differs from client's primary_account_type,INFO,Consistency,0,0.0,,PASS
+fact_portfolio_snapshot,advisor_id,4 cross-table,advisor_id differs from the client's advisor in dim_client,INFO,Consistency,0,0.0,,PASS
+fact_portfolio_snapshot,benchmark_id,4 cross-table,benchmark_id does not match the client's risk profile,INFO,Consistency,0,0.0,,PASS
+fact_portfolio_snapshot,snapshot_date,4 cross-table,activity dated before the client relationship began,INFO,Consistency,0,0.0,,PASS
+fact_portfolio_snapshot,snapshot_date,4 cross-table,client-month with an account snapshot but no fee charged,INFO,Completeness,7350,5.6736,,"spread across all months and clients; fee waivers are normal, and nothing in the data says what the fee should have been"
+fact_transactions,advisor_id,4 cross-table,advisor_id differs from the client's advisor in dim_client,INFO,Consistency,0,0.0,,PASS
+fact_transactions,txn_date,4 cross-table,activity dated before the client relationship began,INFO,Consistency,0,0.0,,PASS
