@@ -1,0 +1,7 @@
+table,column,q1,q3,lower_fence,upper_fence,outliers,outlier_pct,stage
+fact_transactions,amount,12078.93,81827.01,-92543.19,186449.13,7224,2.42,raw
+fact_fees,amount,188.6,1597.44,-1924.66,3710.7,11341,9.28,raw
+fact_portfolio_snapshot,aum,255418.06,2923874.38,-3747266.43,6926558.87,13261,10.24,raw
+fact_transactions,amount,12079.1,81825.06,-92539.84,186444.0,7221,2.42,clean
+fact_fees,amount,188.6,1597.44,-1924.66,3710.7,11341,9.28,clean
+fact_portfolio_snapshot,aum,255418.06,2923874.38,-3747266.43,6926558.87,13261,10.24,clean

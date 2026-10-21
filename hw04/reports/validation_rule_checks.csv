@@ -1,0 +1,109 @@
+table,column,check_group,check,severity,dimension,rows_checked,rows_failed,pct_failed,example,stage
+dim_advisor,years_experience,column,"years_experience range [0, 50]",ERROR,Validity,25,0,0.0,,raw
+dim_client,age,column,"age range [18, 110]",ERROR,Validity,2525,0,0.0,,raw
+dim_client,initial_aum,column,"initial_aum sign rule [0.01, None]",ERROR,Validity,2525,0,0.0,,raw
+dim_date,quarter,column,"quarter range [1, 4]",ERROR,Validity,1827,0,0.0,,raw
+dim_date,month,column,"month range [1, 12]",ERROR,Validity,1827,0,0.0,,raw
+dim_date,week_of_year,column,"week_of_year range [1, 53]",ERROR,Validity,1827,0,0.0,,raw
+dim_security,expense_ratio_bps,column,"expense_ratio_bps range [0, 300]",ERROR,Validity,500,0,0.0,,raw
+fact_fees,aum_basis,column,"aum_basis sign rule [0.01, None]",ERROR,Validity,122197,0,0.0,,raw
+fact_fees,bps_charged,column,"bps_charged range [0, 300]",ERROR,Validity,122197,0,0.0,,raw
+fact_fees,amount,column,"amount sign rule [0.01, None]",ERROR,Validity,122197,0,0.0,,raw
+fact_portfolio_snapshot,month,column,"month range [1, 12]",ERROR,Validity,129547,0,0.0,,raw
+fact_portfolio_snapshot,aum,column,"aum sign rule [0.01, None]",ERROR,Validity,129547,0,0.0,,raw
+fact_portfolio_snapshot,return_ytd,column,"return_ytd range [-1.0, None]",ERROR,Validity,129547,0,0.0,,raw
+fact_portfolio_snapshot,benchmark_return_ytd,column,"benchmark_return_ytd range [-1.0, None]",ERROR,Validity,129547,0,0.0,,raw
+fact_portfolio_snapshot,cash_pct,column,"cash_pct range [0, 1]",ERROR,Validity,129547,0,0.0,,raw
+fact_transactions,shares,column,"shares sign rule [1e-07, None]",ERROR,Validity,298772,836,0.2798,txn_id=272 shares='-261.9719'; txn_id=812 shares='-338.0946'; txn_id=815 shares='-360.8407',raw
+fact_transactions,price,column,"price sign rule [0.01, None]",ERROR,Validity,298772,0,0.0,,raw
+fact_transactions,amount,column,"amount sign rule [0.01, None]",ERROR,Validity,298772,0,0.0,,raw
+dim_advisor,region,column,region in allowed code list,ERROR,Validity / Consistency,25,0,0.0,,raw
+dim_advisor,aum_target_mm,column,aum_target_mm in allowed code list,ERROR,Validity / Consistency,25,0,0.0,,raw
+dim_client,state,column,state in allowed code list,ERROR,Validity / Consistency,2525,78,3.0891,client_id=109 state='Pennsylvania'; client_id=153 state='Pennsylvania'; client_id=172 state='New York',raw
+dim_client,risk_profile,column,risk_profile in allowed code list,ERROR,Validity / Consistency,2525,0,0.0,,raw
+dim_client,client_tier,column,client_tier in allowed code list,ERROR,Validity / Consistency,2525,0,0.0,,raw
+dim_client,primary_account_type,column,primary_account_type in allowed code list,ERROR,Validity / Consistency,2525,0,0.0,,raw
+dim_client,is_active,column,is_active in allowed code list,ERROR,Validity / Consistency,2525,0,0.0,,raw
+dim_security,asset_class,column,asset_class in allowed code list,ERROR,Validity / Consistency,500,0,0.0,,raw
+dim_security,is_etf,column,is_etf in allowed code list,ERROR,Validity / Consistency,500,0,0.0,,raw
+fact_fees,fee_type,column,fee_type in allowed code list,ERROR,Validity / Consistency,122197,0,0.0,,raw
+fact_portfolio_snapshot,account_type,column,account_type in allowed code list,ERROR,Validity / Consistency,129547,0,0.0,,raw
+fact_transactions,txn_type,column,txn_type in allowed code list,ERROR,Validity / Consistency,298772,0,0.0,,raw
+dim_client,client_id,single_table,"near-duplicate client (same person, second ID)",ERROR,Uniqueness,2525,25,0.9901,client_id=2501 client_id='2501'; client_id=2502 client_id='2502'; client_id=2503 client_id='2503',raw
+dim_client,risk_profile,single_table,risk_profile is blank,ERROR,Completeness,2525,76,3.0099,client_id=57 risk_profile=''; client_id=94 risk_profile=''; client_id=135 risk_profile='',raw
+dim_client,client_tier,single_table,client_tier disagrees with initial_aum band,ERROR,Consistency,2525,0,0.0,,raw
+dim_date,date,single_table,calendar attributes disagree with the date,ERROR,Consistency,1827,0,0.0,,raw
+dim_security,is_etf,single_table,sector / expense_ratio blank pattern contradicts is_etf,ERROR,Consistency,500,0,0.0,,raw
+fact_fees,amount,single_table,"amount != aum_basis x bps / 10,000 / 12",ERROR,Accuracy,122197,0,0.0,,raw
+fact_portfolio_snapshot,return_ytd,single_table,return_ytd != benchmark_return_ytd + active_alpha_ytd,ERROR,Accuracy,129547,300,0.2316,snapshot_id=42 return_ytd='9.28%'; snapshot_id=59 return_ytd='19.52%'; snapshot_id=879 return_ytd='13.35%',raw
+fact_portfolio_snapshot,snapshot_date,single_table,year/month columns disagree with snapshot_date,ERROR,Consistency,129547,0,0.0,,raw
+fact_portfolio_snapshot,return_ytd,single_table,|return_ytd| above 100% in one year,WARN,Accuracy/Plausibility,129547,976,0.7534,snapshot_id=1480 return_ytd='2.872312'; snapshot_id=1481 return_ytd='2.946391'; snapshot_id=1482 return_ytd='2.885055',raw
+fact_portfolio_snapshot,aum,single_table,"aum stuck at exactly $1,000.00 (system floor)",WARN,Accuracy/Plausibility,129547,420,0.3242,snapshot_id=1463 aum='1000.0'; snapshot_id=1464 aum='1000.0'; snapshot_id=1727 aum='1000.0',raw
+fact_transactions,txn_type,single_table,security/shares/price blank pattern contradicts txn_type,ERROR,Consistency,298772,0,0.0,,raw
+fact_transactions,amount,single_table,amount != shares x price,ERROR,Accuracy,298772,836,0.2798,txn_id=272 amount='115715.61'; txn_id=812 amount='134510.94'; txn_id=815 amount='87850.28',raw
+fact_transactions,amount,single_table,Dividend amount equals the full position value (100% yield),INFO,Accuracy/Plausibility,298772,53864,18.0285,txn_id=1 amount='67311.33'; txn_id=7 amount='76811.96'; txn_id=12 amount='23678.26',raw
+fact_fees,advisor_id,cross_table,advisor_id differs from the client's advisor in dim_client,ERROR,Consistency,122197,0,0.0,,raw
+fact_fees,fee_date,cross_table,activity dated before the client relationship began,ERROR,Consistency,122197,0,0.0,,raw
+fact_portfolio_snapshot,advisor_id,cross_table,advisor_id differs from the client's advisor in dim_client,ERROR,Consistency,129547,0,0.0,,raw
+fact_portfolio_snapshot,snapshot_date,cross_table,activity dated before the client relationship began,ERROR,Consistency,129547,0,0.0,,raw
+fact_transactions,advisor_id,cross_table,advisor_id differs from the client's advisor in dim_client,ERROR,Consistency,298772,0,0.0,,raw
+fact_transactions,txn_date,cross_table,activity dated before the client relationship began,ERROR,Consistency,298772,0,0.0,,raw
+fact_portfolio_snapshot,account_type,cross_table,account_type differs from client's primary_account_type,ERROR,Consistency,129547,0,0.0,,raw
+fact_portfolio_snapshot,benchmark_id,cross_table,benchmark_id does not match the client's risk profile,ERROR,Consistency,129547,0,0.0,,raw
+fact_fees,aum_basis,cross_table,aum_basis != snapshot aum for the same client and month,ERROR,Accuracy,122197,0,0.0,,raw
+fact_transactions,txn_date,cross_table,Buy/Sell dated on a non-trading day (markets closed),WARN,Accuracy/Plausibility,298772,40649,13.6054,txn_id=26 txn_date='2020-10-25'; txn_id=43 txn_date='2022-01-02'; txn_id=51 txn_date='2020-05-03',raw
+fact_transactions,txn_date,cross_table,activity after an inactive client's last month on the books,WARN,Accuracy/Plausibility,298772,2410,0.8066,txn_id=1278 txn_date='2023-09-08'; txn_id=1282 txn_date='2023-04-12'; txn_id=1285 txn_date='2023-11-16',raw
+dim_advisor,years_experience,column,"years_experience range [0, 50]",ERROR,Validity,25,0,0.0,,clean
+dim_client,age,column,"age range [18, 110]",ERROR,Validity,2500,0,0.0,,clean
+dim_client,initial_aum,column,"initial_aum sign rule [0.01, None]",ERROR,Validity,2500,0,0.0,,clean
+dim_date,quarter,column,"quarter range [1, 4]",ERROR,Validity,1827,0,0.0,,clean
+dim_date,month,column,"month range [1, 12]",ERROR,Validity,1827,0,0.0,,clean
+dim_date,week_of_year,column,"week_of_year range [1, 53]",ERROR,Validity,1827,0,0.0,,clean
+dim_security,expense_ratio_bps,column,"expense_ratio_bps range [0, 300]",ERROR,Validity,500,0,0.0,,clean
+fact_fees,aum_basis,column,"aum_basis sign rule [0.01, None]",ERROR,Validity,122197,0,0.0,,clean
+fact_fees,bps_charged,column,"bps_charged range [0, 300]",ERROR,Validity,122197,0,0.0,,clean
+fact_fees,amount,column,"amount sign rule [0.01, None]",ERROR,Validity,122197,0,0.0,,clean
+fact_portfolio_snapshot,month,column,"month range [1, 12]",ERROR,Validity,129547,0,0.0,,clean
+fact_portfolio_snapshot,aum,column,"aum sign rule [0.01, None]",ERROR,Validity,129547,0,0.0,,clean
+fact_portfolio_snapshot,return_ytd,column,"return_ytd range [-1.0, None]",ERROR,Validity,129547,0,0.0,,clean
+fact_portfolio_snapshot,benchmark_return_ytd,column,"benchmark_return_ytd range [-1.0, None]",ERROR,Validity,129547,0,0.0,,clean
+fact_portfolio_snapshot,cash_pct,column,"cash_pct range [0, 1]",ERROR,Validity,129547,0,0.0,,clean
+fact_transactions,shares,column,"shares sign rule [1e-07, None]",ERROR,Validity,298572,0,0.0,,clean
+fact_transactions,price,column,"price sign rule [0.01, None]",ERROR,Validity,298572,0,0.0,,clean
+fact_transactions,amount,column,"amount sign rule [0.01, None]",ERROR,Validity,298572,0,0.0,,clean
+dim_advisor,region,column,region in allowed code list,ERROR,Validity / Consistency,25,0,0.0,,clean
+dim_advisor,aum_target_mm,column,aum_target_mm in allowed code list,ERROR,Validity / Consistency,25,0,0.0,,clean
+dim_client,state,column,state in allowed code list,ERROR,Validity / Consistency,2500,0,0.0,,clean
+dim_client,risk_profile,column,risk_profile in allowed code list,ERROR,Validity / Consistency,2500,0,0.0,,clean
+dim_client,client_tier,column,client_tier in allowed code list,ERROR,Validity / Consistency,2500,0,0.0,,clean
+dim_client,primary_account_type,column,primary_account_type in allowed code list,ERROR,Validity / Consistency,2500,0,0.0,,clean
+dim_client,is_active,column,is_active in allowed code list,ERROR,Validity / Consistency,2500,0,0.0,,clean
+dim_security,asset_class,column,asset_class in allowed code list,ERROR,Validity / Consistency,500,0,0.0,,clean
+dim_security,is_etf,column,is_etf in allowed code list,ERROR,Validity / Consistency,500,0,0.0,,clean
+fact_fees,fee_type,column,fee_type in allowed code list,ERROR,Validity / Consistency,122197,0,0.0,,clean
+fact_portfolio_snapshot,account_type,column,account_type in allowed code list,ERROR,Validity / Consistency,129547,0,0.0,,clean
+fact_transactions,txn_type,column,txn_type in allowed code list,ERROR,Validity / Consistency,298572,0,0.0,,clean
+dim_client,client_id,single_table,"near-duplicate client (same person, second ID)",ERROR,Uniqueness,2500,0,0.0,,clean
+dim_client,risk_profile,single_table,risk_profile is blank,ERROR,Completeness,2500,0,0.0,,clean
+dim_client,client_tier,single_table,client_tier disagrees with initial_aum band,ERROR,Consistency,2500,0,0.0,,clean
+dim_date,date,single_table,calendar attributes disagree with the date,ERROR,Consistency,1827,0,0.0,,clean
+dim_security,is_etf,single_table,sector / expense_ratio blank pattern contradicts is_etf,ERROR,Consistency,500,0,0.0,,clean
+fact_fees,amount,single_table,"amount != aum_basis x bps / 10,000 / 12",ERROR,Accuracy,122197,0,0.0,,clean
+fact_portfolio_snapshot,return_ytd,single_table,return_ytd != benchmark_return_ytd + active_alpha_ytd,ERROR,Accuracy,129547,0,0.0,,clean
+fact_portfolio_snapshot,snapshot_date,single_table,year/month columns disagree with snapshot_date,ERROR,Consistency,129547,0,0.0,,clean
+fact_portfolio_snapshot,return_ytd,single_table,|return_ytd| above 100% in one year,WARN,Accuracy/Plausibility,129547,977,0.7542,snapshot_id=1480 return_ytd='2.872312'; snapshot_id=1481 return_ytd='2.946391'; snapshot_id=1482 return_ytd='2.885055',clean
+fact_portfolio_snapshot,aum,single_table,"aum stuck at exactly $1,000.00 (system floor)",WARN,Accuracy/Plausibility,129547,420,0.3242,snapshot_id=1463 aum='1000.0'; snapshot_id=1464 aum='1000.0'; snapshot_id=1727 aum='1000.0',clean
+fact_transactions,txn_type,single_table,security/shares/price blank pattern contradicts txn_type,ERROR,Consistency,298572,0,0.0,,clean
+fact_transactions,amount,single_table,amount != shares x price,ERROR,Accuracy,298572,0,0.0,,clean
+fact_transactions,amount,single_table,Dividend amount equals the full position value (100% yield),INFO,Accuracy/Plausibility,298572,53826,18.0278,txn_id=1 amount='67311.33'; txn_id=7 amount='76811.96'; txn_id=12 amount='23678.26',clean
+fact_fees,advisor_id,cross_table,advisor_id differs from the client's advisor in dim_client,ERROR,Consistency,122197,0,0.0,,clean
+fact_fees,fee_date,cross_table,activity dated before the client relationship began,ERROR,Consistency,122197,0,0.0,,clean
+fact_portfolio_snapshot,advisor_id,cross_table,advisor_id differs from the client's advisor in dim_client,ERROR,Consistency,129547,0,0.0,,clean
+fact_portfolio_snapshot,snapshot_date,cross_table,activity dated before the client relationship began,ERROR,Consistency,129547,0,0.0,,clean
+fact_transactions,advisor_id,cross_table,advisor_id differs from the client's advisor in dim_client,ERROR,Consistency,298572,0,0.0,,clean
+fact_transactions,txn_date,cross_table,activity dated before the client relationship began,ERROR,Consistency,298572,0,0.0,,clean
+fact_portfolio_snapshot,account_type,cross_table,account_type differs from client's primary_account_type,ERROR,Consistency,129547,0,0.0,,clean
+fact_portfolio_snapshot,benchmark_id,cross_table,benchmark_id does not match the client's risk profile,ERROR,Consistency,129547,0,0.0,,clean
+fact_fees,aum_basis,cross_table,aum_basis != snapshot aum for the same client and month,ERROR,Accuracy,122197,0,0.0,,clean
+fact_transactions,txn_date,cross_table,Buy/Sell dated on a non-trading day (markets closed),WARN,Accuracy/Plausibility,298572,40630,13.6081,txn_id=26 txn_date='2020-10-25'; txn_id=43 txn_date='2022-01-02'; txn_id=51 txn_date='2020-05-03',clean
+fact_transactions,txn_date,cross_table,activity after an inactive client's last month on the books,WARN,Accuracy/Plausibility,298572,2410,0.8072,txn_id=1278 txn_date='2023-09-08'; txn_id=1282 txn_date='2023-04-12'; txn_id=1285 txn_date='2023-11-16',clean
