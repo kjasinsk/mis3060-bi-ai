@@ -63,4 +63,4 @@ Each of the 200 orphan rows has a different unknown client ID, and each advisor 
 - **Rows flagged as IQR outliers are not errors.** 10.24% of AUM values and 9.28% of fee amounts sit above the outlier fence, but they are the firm's large HNW/UHNW accounts. They were kept and reviewed, not removed.
 
 ---
-*AI-assisted report — reviewed for factual accuracy on [10/20/2026] by Kaitlyn Jasinski*
+*AI-assisted report — reviewed for factual accuracy on October 20, 2026 by Kaitlyn Jasinski*
