@@ -2,7 +2,7 @@
 
 **Author:** Kaitlyn Jasinski · **Course:** MIS3060 · **Written:** before `02_clean.py` was generated
 
-This log is the prompt I gave Claude Desktop for the cleaning script. Every number comes from `reports/dq_summary_raw.csv`, produced by `scripts/01_profile.py` on the raw files. Issues I decided **not** to fix are logged too (entries 8–17), because deciding to leave something alone is still a decision.
+This log is the prompt I gave Claude Desktop for the cleaning script. Every number comes from `reports/dq_summary_raw.csv`, produced by `scripts/01_profile.py` on the raw files. Issues I decided **not** to fix are logged too (entries 9–21), because deciding to leave something alone is still a decision.
 
 **Rule I followed:** fix a value only when another column or another table proves what the right value is. If nothing proves it, I **flag** it (add a 0/1 column) or **quarantine** it (move the row to a separate file). I never invent a value.
 
@@ -152,15 +152,15 @@ This log is the prompt I gave Claude Desktop for the cleaning script. Every numb
 
 ## Things that look odd but are correct (legitimate structure — left as is)
 
-| # | Table / column | Evidence | Dimension | Decision | Why it is not a defect |
-|---|---|---|---|---|---|
-| 13 | `dim_security.sector`, `expense_ratio_bps` | 219 blank sectors = exactly the 219 ETFs; 281 blank expense ratios = exactly the 281 non-ETFs | Completeness | **Leave as is** | An ETF holds many sectors, and a single stock has no expense ratio. Filling either would invent data. The validator checks the pattern is exact. |
-| 14 | `fact_transactions.security_id`, `shares`, `price` | 101,597 blanks = exactly the Deposit, Withdrawal and Advisory Fee rows | Completeness | **Leave as is** | Cash moving in or out involves no security. |
-| 15 | `dim_advisor.certifications` | 6 advisors have the text `None` | Validity | **Leave as is** | It means "no certification", a real answer. Default `read_csv` would have turned it into a missing value. I documented this so Power BI users don't treat it as blank. |
-| 16 | `dim_client.zip_code` | 232 ZIPs start with 0 (e.g. 02068) | Validity | **Leave as text** | Reading them as numbers would drop the zero. README tells the BI tool to load ZIP as text. |
-| 17 | `fact_portfolio_snapshot` | 7,350 client-months have a snapshot but no fee row | Completeness | **Leave as is** | Spread across all months and clients, consistent with fee waivers. Nothing in the data says what the fee should have been. |
-| 18 | `dim_benchmark` | Benchmark 6 (MSCI Emerging Markets) is used by no client or security | Referential Integrity | **Leave as is** | A dimension may list members that aren't used yet. |
-| 19 | Inactive clients | 175 inactive clients' snapshots stop between Dec-2022 and Nov-2023 | Consistency | **Leave as is** | That's what "inactive" means. Their history is still real. |
+| # | Table / column | Evidence | Dimension | Decision | Why it is not a defect | Risk |
+|---|---|---|---|---|---|---|
+| 13 | `dim_security.sector`, `expense_ratio_bps` | 219 blank sectors = exactly the 219 ETFs; 281 blank expense ratios = exactly the 281 non-ETFs | Completeness | **Leave as is** | An ETF holds many sectors, and a single stock has no expense ratio. Filling either would invent data. The validator checks the pattern is exact. | If some blanks were real missing data, sector or expense reports would leave out those securities. Low: the blanks line up exactly with `is_etf`. |
+| 14 | `fact_transactions.security_id`, `shares`, `price` | 101,597 blanks = exactly the Deposit, Withdrawal and Advisory Fee rows | Completeness | **Leave as is** | Cash moving in or out involves no security. | If a cash-flow row was supposed to carry a security, holdings would be understated. Low: the blanks match the transaction types exactly. |
+| 15 | `dim_advisor.certifications` | 6 advisors have the text `None` | Validity | **Leave as is** | It means "no certification", a real answer. Default `read_csv` would have turned it into a missing value. I documented this so Power BI users don't treat it as blank. | If a BI tool reads `None` as blank, those 6 advisors look like missing data instead of "no certification". |
+| 16 | `dim_client.zip_code` | 232 ZIPs start with 0 (e.g. 02068) | Validity | **Leave as text** | Reading them as numbers would drop the zero. README tells the BI tool to load ZIP as text. | If ZIP is loaded as a number, 232 ZIPs lose their leading zero and won't map to the right location. |
+| 17 | `fact_portfolio_snapshot` | 7,350 client-months have a snapshot but no fee row | Completeness | **Leave as is** | Spread across all months and clients, consistent with fee waivers. Nothing in the data says what the fee should have been. | If these are missed fees rather than waivers, fee revenue is understated for those 7,350 client-months. |
+| 18 | `dim_benchmark` | Benchmark 6 (MSCI Emerging Markets) is used by no client or security | Referential Integrity | **Leave as is** | A dimension may list members that aren't used yet. | Very low: it only shows up as an empty option in a benchmark filter. |
+| 19 | Inactive clients | 175 inactive clients' snapshots stop between Dec-2022 and Nov-2023 | Consistency | **Leave as is** | That's what "inactive" means. Their history is still real. | If some inactive clients still hold money, their AUM is missing after the last snapshot. |
 
 ## Known limitations I am documenting but not fixing
 
