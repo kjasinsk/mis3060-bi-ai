@@ -109,7 +109,7 @@ I marked `dim_date` as the date table using its `date` column.
 
 ### (a) Some transaction rows have no `security_id`. Why? Is that a defect?
 
-No, I don't think it's a defect. The blank rows are exactly the Deposit, Withdrawal and Advisory Fee transactions (all 101,528 of them), and every Buy, Sell and Dividend has a security. A deposit or a fee is just cash moving in or out of the account, so there is no security to link to. That's also why `shares` and `price` are blank on those same rows. In Power BI, these rows show up under "(Blank)" in a visual by security, which is correct. I didn't fill them in with a fake "Cash" security, because the assignment says not to add new rows or columns.
+No, I don't think it's a defect. The blank rows are exactly the Deposit, Withdrawal and Advisory Fee transactions (all 101,528 of them), and every Buy, Sell and Dividend has a security. A deposit or a fee is just cash moving in or out of the account, so there is no security to link to. That's also why `shares` and `price` are blank on those same rows. In Power BI, these rows show up under "(Blank)" in a visual by security, which is correct. I didn't fill them in with a fake "Cash" security, because the assignment says to use the tables as they are, without adding new tables or columns.
 
 ### (b) `advisor_id` is in `dim_client` and on all three facts. Which relationships did I keep active, and why?
 

@@ -2,7 +2,7 @@
 
 **MIS3060 Business Intelligence with AI · Kaitlyn Jasinski**
 
-In this assignment I figured out how the eight clean Wildcat Capital tables fit together (keys, grain and how each number can be added up), checked it with a Python script, and built the star schema in Power BI so it's ready for Assignment 6.
+This assignment looks at how the eight clean Wildcat Capital tables fit together (keys, grain and how each number can be added up), checks it with a Python script, and builds the star schema in Power BI so it's ready for Assignment 6.
 
 ## How I used AI
 
@@ -59,7 +59,7 @@ You need Python 3.9+ and pandas. It takes about 15 seconds to a minute, dependin
 
 - I loaded the instructor's `Wildcat Capital Clean` files and followed `powerbi_guide.md`. All 77 columns were checked with `INFO.VIEW.COLUMNS()`. It showed 78 at the time because of a `dim_advisor[Advisor]` calculated column that was later deleted. Power BI had already picked the right types (whole numbers for IDs, Date for the five date columns, and Text for ZIP and account types).
 - There are no new tables or columns, like the assignment says. The model has one measure, `Total Fees = SUM(fact_fees[amount])`, which is the optional example from the guide.
-- I checked the row counts in Power BI with a DAX query that lists each table's count next to the number in the assignment. All 8 match, and the query is saved in the DAX query view of `hw05.pbix`.
+- The row counts were checked in Power BI with a DAX query that lists each table's count next to the number in the assignment. All 8 match, and the query is saved in the DAX query view of `hw05.pbix`.
 
 ## Review findings and fixes
 
