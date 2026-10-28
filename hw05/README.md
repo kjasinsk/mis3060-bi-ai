@@ -79,6 +79,12 @@ Claude reviewed `scripts/hw05_checks.py`, `star_design.md`, this README and the 
 | 5 | `dim_security → dim_benchmark` was active in the model, while `star_design.md` says both dimension-to-dimension links are inactive; `dim_client → dim_advisor` was missing | **Fixed in the model** to match the design (both inactive) |
 | 6 | `dim_date` was not marked as a date table, so Power BI was still building hidden auto date tables for it | **Fixed:** marked on `date`; the hidden table for `dim_date` was removed |
 
+### Claude Code review (VS Code)
+
+| # | What Claude Code flagged | What I did |
+|---|---|---|
+| 1 | The `advisor_id` agreement check (fact vs. `dim_client`) recorded pass/fail in the report but never stopped the script, unlike every other check, even though Part E(b) relies on it | **Fixed.** Added `assert agree == 1`; the script still passes (100% agreement on all three facts). |
+
 ## Commit plan
 
 1. `HW5 Parts A-C: key, integrity and grain checks - 13/13 FKs 100%, fact dates join on dim_date[date]`

@@ -202,6 +202,7 @@ def main():
         rows.append({"check": "advisor_id agrees with dim_client", "table": f,
                      "column": "advisor_id", "rows": len(m), "match_rate": agree,
                      "passed": agree == 1})
+        assert agree == 1, f"{f}.advisor_id disagrees with dim_client"
     # benchmark_id on the snapshot: one per client?
     snap = tables["fact_portfolio_snapshot"]
     bench_per_client = snap.groupby("client_id")["benchmark_id"].nunique().max()
