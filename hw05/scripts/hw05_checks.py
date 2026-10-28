@@ -178,7 +178,7 @@ def main():
         by_id = check_referential_integrity(tables[child], ck, tables["dim_date"], "date_id")
         by_date = check_referential_integrity(tables[child], ck, tables["dim_date"], "date")
         print(f"    {child}.{ck:<14} vs date_id: {by_id['match_rate']:.0%}   vs date: {by_date['match_rate']:.0%}")
-        assert by_id["match_rate"] == 0 and by_date["match_rate"] == 1
+        assert by_id["match_rate"] == 0 and by_date["match_rate"] == 1, f"{child}.{ck} date join"
 
     # Blank security_id must be exactly the cash-flow rows
     tx = tables["fact_transactions"]
@@ -187,10 +187,12 @@ def main():
     print("\n  Share of rows with blank security_id, by txn_type:")
     for typ, share in by_type.items():
         print(f"    {typ:<14}{share:>7.0%}")
-    assert set(tx.loc[blank, "txn_type"]) == CASH_FLOW_TYPES
-    assert not tx.loc[tx["txn_type"].isin(CASH_FLOW_TYPES), "security_id"].str.strip().ne("").any()
+    only_cash = set(tx.loc[blank, "txn_type"]) == CASH_FLOW_TYPES
+    all_cash_blank = not tx.loc[tx["txn_type"].isin(CASH_FLOW_TYPES), "security_id"].str.strip().ne("").any()
     rows.append({"check": "blank security_id only on cash flows", "table": "fact_transactions",
-                 "column": "security_id", "rows": len(tx), "blank": int(blank.sum()), "passed": True})
+                 "column": "security_id", "rows": len(tx), "blank": int(blank.sum()),
+                 "passed": only_cash and all_cash_blank})
+    assert only_cash and all_cash_blank, "blank security_id is not exactly the cash-flow rows"
 
     # advisor_id appears twice on every path (fact and dim_client): do they agree?
     cl = tables["dim_client"][["client_id", "advisor_id"]]
@@ -207,13 +209,14 @@ def main():
     snap = tables["fact_portfolio_snapshot"]
     bench_per_client = snap.groupby("client_id")["benchmark_id"].nunique().max()
     print(f"\n  Most benchmarks any one client has across snapshots: {bench_per_client}")
+    assert bench_per_client == 1, "a client has more than one benchmark"
     pd.DataFrame(rows).to_csv(REPORTS / "keys_check.csv", index=False)
 
     # ------------------------------------------------------------ Part B
     section("Part B - grain (no duplicate rows at the stated grain)")
     grows = []
     for f, cols in GRAIN.items():
-        d = int(tables[f].duplicated(cols).sum())
+        d = int(tables[f][cols].apply(lambda c: c.str.strip()).duplicated().sum())
         print(f"  {f:<26}{' + '.join(cols):<28} rows={len(tables[f]):>7,}  duplicates={d}")
         grows.append({"table": f, "grain_columns": " + ".join(cols),
                       "rows": len(tables[f]), "duplicates": d, "passed": d == 0})
@@ -227,8 +230,12 @@ def main():
     print(f"  account types per client (max): "
           f"{snap.groupby('client_id')['account_type'].nunique().max()}")
     biz = ["client_id", "security_id", "txn_date", "txn_type"]
-    print(f"  fact_transactions duplicates on {' + '.join(biz)}: {int(tx.duplicated(biz).sum()):,} "
-          f"(so txn_id, one event, is the grain)")
+    shared = tx.duplicated(biz, keep=False)
+    cash_shared = int((shared & tx["txn_type"].isin(CASH_FLOW_TYPES)).sum())
+    print(f"  fact_transactions rows sharing {' + '.join(biz)} with another row: "
+          f"{int(shared.sum()):,} ({int(tx.duplicated(biz).sum()):,} extra copies; "
+          f"{cash_shared:,} cash flows, {int(shared.sum()) - cash_shared:,} trades/dividends), "
+          f"so txn_id, one event, is the grain")
     pd.DataFrame(grows).to_csv(REPORTS / "grain_check.csv", index=False)
 
     # ------------------------------------------------------------ Part C
@@ -242,11 +249,15 @@ def main():
         assert pd.to_numeric(s, errors="coerce").notna().all(), f"{t}.{c} is not numeric"
         print(f"  {t:<26}{c:<24}{role}")
     # every numeric fact column is listed (no column forgotten)
+    classified = {(a, b) for a, b, _ in FACT_NUMERIC}
     for t in ["fact_fees", "fact_portfolio_snapshot", "fact_transactions"]:
         for c in tables[t].columns:
-            s = tables[t][c][tables[t][c].str.strip().ne("")]
-            if pd.to_numeric(s, errors="coerce").notna().all():
-                assert (t, c) in {(a, b) for a, b, _ in FACT_NUMERIC}, f"{t}.{c} not classified"
+            s = tables[t][c].str.strip()
+            s = s[s.ne("")]
+            # "mostly numeric", so one stray text value can't hide a column,
+            # and an all-blank column is not treated as numeric
+            if len(s) and pd.to_numeric(s, errors="coerce").notna().mean() > 0.5:
+                assert (t, c) in classified, f"{t}.{c} not classified"
     pd.DataFrame(present, columns=["table", "column", "class"]).to_csv(
         REPORTS / "measures.csv", index=False)
 
@@ -255,6 +266,7 @@ def main():
                     cash_pct=pd.to_numeric(snap["cash_pct"]))
     dec = s[s["snapshot_date"] == "2024-12-01"]
     q4 = s[s["snapshot_date"].isin(["2024-10-01", "2024-11-01", "2024-12-01"])]
+    assert len(dec) and q4["snapshot_date"].nunique() == 3, "demo snapshot dates not in this data"
     print("\n  aum is semi-additive:")
     print(f"    total AUM on 2024-12-01 (sum across clients, valid):  ${dec['aum'].sum():>16,.0f}")
     print(f"    sum of Oct+Nov+Dec 2024 (sum across months, WRONG):   ${q4['aum'].sum():>16,.0f}")
@@ -266,6 +278,33 @@ def main():
     t2 = tx.assign(amount=pd.to_numeric(tx["amount"]))
     print("  fact_transactions.amount is stored unsigned for every txn_type:")
     print(f"    minimum amount: {t2['amount'].min():,.2f} (no negatives), so a withdrawal adds to a sum")
+
+    # ------------------------------------------------------------ other figures
+    section("Other figures quoted in star_design.md")
+    num = lambda col: pd.to_numeric(col, errors="coerce")
+    dv = tx[tx["txn_type"] == "Dividend"]
+    print(f"  Dividend rows equal to shares x price: "
+          f"{int(((num(dv['amount']) - num(dv['shares']) * num(dv['price'])).abs() < 0.01).sum()):,} of {len(dv):,}")
+    bs = tx[tx["txn_type"].isin(["Buy", "Sell"])]
+    print(f"  Buy/Sell rows where amount = shares x price: "
+          f"{((num(bs['amount']) - num(bs['shares']) * num(bs['price'])).abs() < 0.01).mean():.0%}")
+    implied = num(fees["amount"]) * 12 / num(fees["aum_basis"]) * 10000
+    print(f"  bps_charged vs amount x 12 / aum_basis x 10,000, max difference: "
+          f"{(implied - num(fees['bps_charged'])).abs().max():.2f} bps")
+    print(f"  Total fee revenue (SUM of fact_fees.amount): ${num(fees['amount']).sum():,.0f}")
+    for t, c in [("fact_portfolio_snapshot", "is_return_suspect"),
+                 ("fact_transactions", "is_post_departure_txn")]:
+        if c in tables[t].columns:
+            print(f"  {c} = 1: {int(tables[t][c].str.strip().eq('1').sum()):,} rows")
+    dd = tables["dim_date"]
+    for flag in ["is_month_end", "is_quarter_end"]:
+        on = int(snap["snapshot_date"].isin(dd.loc[dd[flag].str.strip() == "1", "date"]).sum())
+        print(f"  snapshots dated on an {flag} day: {on:,} of {len(snap):,}")
+    sec = tables["dim_security"]
+    etf = sec["is_etf"].str.strip().str.lower().eq("true")      # stored as True / False
+    blank_er = sec["expense_ratio_bps"].str.strip().eq("")
+    print(f"  expense_ratio_bps blank: {int((blank_er & ~etf).sum())} of {int((~etf).sum())} non-ETFs, "
+          f"{int((blank_er & etf).sum())} of {int(etf.sum())} ETFs")
 
     print("\nAll HW5 checks passed.")
 

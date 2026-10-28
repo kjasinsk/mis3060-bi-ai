@@ -36,7 +36,7 @@ Built on the instructor's release (`Data/Wildcat_Capital_Clean/`, the same files
 
 - **fact_fees:** One row represents the fee charged to one client for one month (`client_id` + `fee_date` is unique; `fee_date` is always the 1st, and each client-month has exactly one fee type).
 - **fact_portfolio_snapshot:** One row represents one client's account position (AUM, returns, cash) as of the 1st of one month (`client_id` + `snapshot_date` is unique; each client has one account).
-- **fact_transactions:** One row represents one individual transaction event (a buy, sell, dividend, deposit, withdrawal or advisory-fee debit) for one client on one date (`txn_id`; no business-key combination is unique, since 622 rows share client + security + date + type with another row).
+- **fact_transactions:** One row represents one individual transaction event (a buy, sell, dividend, deposit, withdrawal or advisory-fee debit) for one client on one date (`txn_id`; no business-key combination is unique: 1,238 rows share client + security + date + type with another row (622 extra copies), mostly same-day cash flows where `security_id` is blank, plus 188 trades and dividends).
 
 ---
 

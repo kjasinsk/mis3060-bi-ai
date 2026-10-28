@@ -31,7 +31,7 @@ python hw05/scripts/hw05_checks.py
 python hw05/scripts/hw05_checks.py --data hw04/data/clean
 ```
 
-Needs Python 3.9+ and pandas. Runs in about 20 seconds. It reads the instructor's release from `Data/Wildcat_Capital_Clean/` by default (the CSVs are git-ignored by the repo-root `.gitignore`; download them from the course site to rerun) and reuses `check_referential_integrity()` and `load_tables()` from `hw04/scripts/03_validate.py`, so HW4 and HW5 measure integrity the same way. It stops with an `AssertionError` if any check fails.
+Needs Python 3.9+ and pandas. Runs in about 15 seconds to a minute, depending on the computer. It reads the instructor's release from `Data/Wildcat_Capital_Clean/` by default (the CSVs are git-ignored by the repo-root `.gitignore`; download them from the course site to rerun) and reuses `check_referential_integrity()` and `load_tables()` from `hw04/scripts/03_validate.py`, so HW4 and HW5 measure integrity the same way. It stops with an `AssertionError` if any check fails.
 
 **Data note:** everything (script and Power BI) uses the instructor's `Wildcat Capital Clean` release, as the brief requires. My own HW4 output has identical row counts and passes every check too (`--data hw04/data/clean`); it differs only in its flag columns.
 
@@ -51,7 +51,7 @@ Needs Python 3.9+ and pandas. Runs in about 20 seconds. It reads the instructor'
 
 ## Power BI notes
 
-- Loaded from the instructor's `Wildcat Capital Clean` files, following `powerbi_guide.md`. Column types were checked for all 78 columns with `INFO.VIEW.COLUMNS()`; Power BI's guesses were already correct (IDs whole number, the five dates Date, ZIP and account types Text).
+- Loaded from the instructor's `Wildcat Capital Clean` files, following `powerbi_guide.md`. Column types were checked for all 77 columns of the eight files with `INFO.VIEW.COLUMNS()` (it listed 78 at the time, including the `dim_advisor[Advisor]` calculated column I later deleted); Power BI's guesses were already correct (IDs whole number, the five dates Date, ZIP and account types Text).
 - No new tables or columns, as the brief requires. The model has one measure, `Total Fees = SUM(fact_fees[amount])` (the guide's optional additive example), stored on `fact_fees`.
 - Row counts were reconciled inside Power BI with a DAX query (`EVALUATE {("dim_advisor", COUNTROWS(dim_advisor), 25), …}`) that lists each table's count next to the number in the brief; it is saved in the DAX query view of `hw05.pbix`.
 
@@ -61,7 +61,7 @@ Needs Python 3.9+ and pandas. Runs in about 20 seconds. It reads the instructor'
 
 | # | What came up | What I did |
 |---|---|---|
-| 1 | My first guess for the transaction grain was client + security + date + type, but 622 rows share that combination with another row | Grain stated as one row per transaction event (`txn_id`); the script prints the duplicate count as evidence |
+| 1 | My first guess for the transaction grain was client + security + date + type, but 1,238 rows share that combination with another row (622 extra copies) | Grain stated as one row per transaction event (`txn_id`); the script prints both counts as evidence |
 | 2 | The obvious fix for quarterly AUM is to filter `dim_date[is_quarter_end]`, but snapshots are dated the **1st** and the flag marks the **last** day: 0 of 129,547 snapshots match | Used as the Part F example of a question the schema can't answer in one visual, with a proposed fix |
 | 3 | `fact_transactions.amount` has no negative values, so SUM adds withdrawals to deposits | Classified as additive **within one `txn_type`** and used in Part F |
 | 4 | The script could silently skip a numeric column I forgot to classify | It now asserts that every numeric fact column appears in the Part C list |
@@ -83,10 +83,22 @@ Claude reviewed `scripts/hw05_checks.py`, `star_design.md`, this README and the 
 
 | # | What Claude Code flagged | What I did |
 |---|---|---|
-| 1 | The `advisor_id` agreement check (fact vs. `dim_client`) recorded pass/fail in the report but never stopped the script, unlike every other check, even though Part E(b) relies on it | **Fixed.** Added `assert agree == 1`; the script still passes (100% agreement on all three facts). |
+| 1 | The `advisor_id` agreement check (fact vs. `dim_client`) and the one-benchmark-per-client check printed results but never stopped the script, even though Part E(b) relies on them | **Fixed.** Both now assert; the script still passes (100% agreement, 1 benchmark per client). |
+| 2 | "622 rows share client + security + date + type" was wrong: `duplicated()` counts only the extra copies. 1,238 rows share a combination; 1,050 of them are cash flows with a blank `security_id` | **Fixed.** The script prints both counts and the cash/trade split; `star_design.md` and finding #1 above now say 1,238 (622 extra copies). |
+| 3 | "Every claim below is checked in the script" overstated it: the dividend, flag-count, month-end, bps and price figures were checked separately, not in the script (all correct) | **Fixed.** Added an "Other figures quoted in star_design.md" section that computes each one: 53,826 of 53,826 dividends = shares × price, 3,875 suspect returns, 2,410 post-departure transactions, 0 snapshots on month-end/quarter-end days, bps within 0.60, Buy/Sell amount = shares × price on 100% of rows, expense ratio blank on 281 of 281 non-ETFs. |
+| 4 | The blank-`security_id` result was written to the report as a hard-coded `passed: True` | **Fixed.** It is now computed from the two conditions, and asserted with a message. |
+| 5 | The "no column forgotten" check could miss a numeric column with one stray text value, and would treat an all-blank column as numeric | **Fixed.** A column now counts as numeric when most of its non-blank values parse as numbers; blank-only columns are skipped. |
+| 6 | The grain check didn't strip spaces, unlike the primary-key check | **Fixed.** Values are stripped before testing (no number changes; the data has no stray spaces). |
+| 7 | The AUM and cash demos used hard-coded dates and would silently print $0 on data without them | **Fixed.** The script now stops if those snapshot dates are missing. |
+| 8 | The date-join assert had no message | **Fixed.** It now names the table and column. |
+| 9 | README said "about 20 seconds" (it took 63 s on my laptop), "78 columns" (the files have 77), and the commit plan didn't match the real commit messages | **Fixed** all three. |
 
-## Commit plan
+Claude Code could not open the .pbix, so the Power BI items (relationships, date table, measure, row counts) rest on the Power BI checks above and `row_counts.png`.
+
+## Commits
 
 1. `HW5 Parts A-C: key, integrity and grain checks - 13/13 FKs 100%, fact dates join on dim_date[date]`
-2. `HW5 Parts A-C, E, F: star_design.md`
-3. `HW5 Part D: Power BI model - 11 active + 2 inactive relationships, dim_date marked`
+2. `HW5 Parts A-C, E, F: star_design.md and README with review findings`
+3. `HW5 Part D: Power BI model - 11 active + 2 inactive relationships, dim_date marked, row counts reconcile`
+4. `HW5: Claude Code review - enforce advisor_id agreement check with an assert`
+5. `HW5: Claude Code review fixes - assert every check, compute every quoted figure`
