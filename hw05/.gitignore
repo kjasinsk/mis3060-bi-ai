@@ -1,0 +1,4 @@
+# Repo-root .gitignore ignores *.csv; re-include the HW5 check reports.
+!*.csv
+!**/*.csv
+__pycache__/

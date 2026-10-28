@@ -1,0 +1,27 @@
+table,column,class
+fact_fees,fee_id,key
+fact_fees,client_id,key
+fact_fees,advisor_id,key
+fact_fees,aum_basis,semi-additive
+fact_fees,bps_charged,non-additive
+fact_fees,amount,additive
+fact_portfolio_snapshot,snapshot_id,key
+fact_portfolio_snapshot,client_id,key
+fact_portfolio_snapshot,advisor_id,key
+fact_portfolio_snapshot,benchmark_id,key
+fact_portfolio_snapshot,year,date part
+fact_portfolio_snapshot,month,date part
+fact_portfolio_snapshot,aum,semi-additive
+fact_portfolio_snapshot,return_ytd,non-additive
+fact_portfolio_snapshot,benchmark_return_ytd,non-additive
+fact_portfolio_snapshot,active_alpha_ytd,non-additive
+fact_portfolio_snapshot,cash_pct,non-additive
+fact_portfolio_snapshot,is_return_suspect,flag
+fact_transactions,txn_id,key
+fact_transactions,client_id,key
+fact_transactions,advisor_id,key
+fact_transactions,security_id,key
+fact_transactions,shares,additive
+fact_transactions,price,non-additive
+fact_transactions,amount,additive
+fact_transactions,is_post_departure_txn,flag

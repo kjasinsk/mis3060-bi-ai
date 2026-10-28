@@ -1,0 +1,4 @@
+table,grain_columns,rows,duplicates,passed
+fact_fees,client_id + fee_date,122197,0,True
+fact_portfolio_snapshot,client_id + snapshot_date,129547,0,True
+fact_transactions,txn_id,298572,0,True

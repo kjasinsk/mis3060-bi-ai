@@ -1,0 +1,27 @@
+check,table,column,rows,blank,duplicates,passed,points_to,orphans,match_rate
+primary key,dim_advisor,advisor_id,25,0.0,0.0,True,,,
+primary key,dim_benchmark,benchmark_id,8,0.0,0.0,True,,,
+primary key,dim_client,client_id,2500,0.0,0.0,True,,,
+primary key,dim_date,date_id,1827,0.0,0.0,True,,,
+primary key,dim_security,security_id,500,0.0,0.0,True,,,
+primary key,fact_fees,fee_id,122197,0.0,0.0,True,,,
+primary key,fact_portfolio_snapshot,snapshot_id,129547,0.0,0.0,True,,,
+primary key,fact_transactions,txn_id,298572,0.0,0.0,True,,,
+primary key,dim_date (alternate),date,1827,0.0,0.0,True,,,
+foreign key,dim_client,advisor_id,2500,0.0,,True,dim_advisor[advisor_id],0.0,1.0
+foreign key,dim_security,benchmark_id,500,0.0,,True,dim_benchmark[benchmark_id],0.0,1.0
+foreign key,fact_fees,client_id,122197,0.0,,True,dim_client[client_id],0.0,1.0
+foreign key,fact_fees,advisor_id,122197,0.0,,True,dim_advisor[advisor_id],0.0,1.0
+foreign key,fact_fees,fee_date,122197,0.0,,True,dim_date[date],0.0,1.0
+foreign key,fact_portfolio_snapshot,client_id,129547,0.0,,True,dim_client[client_id],0.0,1.0
+foreign key,fact_portfolio_snapshot,advisor_id,129547,0.0,,True,dim_advisor[advisor_id],0.0,1.0
+foreign key,fact_portfolio_snapshot,benchmark_id,129547,0.0,,True,dim_benchmark[benchmark_id],0.0,1.0
+foreign key,fact_portfolio_snapshot,snapshot_date,129547,0.0,,True,dim_date[date],0.0,1.0
+foreign key,fact_transactions,client_id,298572,0.0,,True,dim_client[client_id],0.0,1.0
+foreign key,fact_transactions,advisor_id,298572,0.0,,True,dim_advisor[advisor_id],0.0,1.0
+foreign key,fact_transactions,security_id,298572,101528.0,,True,dim_security[security_id],0.0,1.0
+foreign key,fact_transactions,txn_date,298572,0.0,,True,dim_date[date],0.0,1.0
+blank security_id only on cash flows,fact_transactions,security_id,298572,101528.0,,True,,,
+advisor_id agrees with dim_client,fact_fees,advisor_id,122197,,,True,,,1.0
+advisor_id agrees with dim_client,fact_portfolio_snapshot,advisor_id,129547,,,True,,,1.0
+advisor_id agrees with dim_client,fact_transactions,advisor_id,298572,,,True,,,1.0
