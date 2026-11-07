@@ -2,14 +2,14 @@
 
 **MIS3060 Business Intelligence with AI · Kaitlyn Jasinski**
 
-This assignment builds 12 DAX measures on the Wildcat Capital portfolio snapshot (how much the firm manages, how it grows, what it earns and how clients do against their benchmarks). It then proves every number in pandas, answers four design questions, and tests one Claude-drafted measure.
+For this assignment I built 12 DAX measures on the Wildcat Capital portfolio snapshot, covering how much the firm manages, how it grows, what it earns and how clients do against their benchmarks. Then I checked every number in pandas, answered the four design questions and tested one measure that Claude drafted.
 
 ## How I used AI
 
-- **Drafting:** Claude (in the Claude app, linked to my computer and my Apporto session) drafted both scripts, the DAX, `measures.md`, the Part D files and this README.
-- **Power BI:** Claude opened the starting model in Power BI on Apporto, saved it as `hw06.pbix`, added the `_Measures` table and all 16 measures (in one TMDL script), marked `dim_date` as the date table, built the **Measures** page, and ran the export, metadata and test queries in DAX query view.
-- **Part D:** the Claude session for `Top 10 Client Share` was in the same Claude app chat, not a separate Claude Desktop window (see `claude/dax_session.md`).
-- **Review:** the scripts were reviewed twice. First by Claude in the app (like in HW5), then by the Claude Code extension in VS Code, which is the review the assignment asks for. The findings and fixes from both are below.
+- **Drafting:** Claude (in the Claude app, connected to my computer and my Apporto session) drafted both scripts, the DAX, `measures.md`, the Part D files and this README. I rewrote the explanations in my own words.
+- **Power BI:** Claude opened the starting model in Power BI on Apporto and saved it as `hw06.pbix`. Then it added the `_Measures` table and all 16 measures (with one TMDL script), marked `dim_date` as the date table, built the **Measures** page, and ran the export, metadata and test queries in DAX query view.
+- **Part D:** I did the Claude session for `Top 10 Client Share` in the same Claude app chat, not in a separate Claude Desktop window (see `claude/dax_session.md`).
+- **Review:** the scripts got reviewed twice. First Claude reviewed them in the app (like in HW5), and then I ran the Claude Code extension in VS Code, which is the review the assignment asks for. The findings and fixes from both are below.
 
 ## Folder structure
 
@@ -43,9 +43,9 @@ python hw06/scripts/01_reconcile_measures.py
 python hw06/scripts/02_design_questions.py
 ```
 
-You need Python 3.9+ and pandas. Each one takes about 10 seconds. They read the instructor's CSVs from `Data/Wildcat_Capital_Clean/` (not in GitHub, same as HW5). Use `--data <folder>` to point somewhere else. `01_reconcile_measures.py` computes every measure in pandas **before** it opens `powerbi_values.csv`, and it stops with an error if any required row is missing or doesn't match.
+You need Python 3.9+ and pandas, and each script takes about 10 seconds. They read the instructor's CSVs from `Data/Wildcat_Capital_Clean/`, which aren't in GitHub (same as HW5). You can use `--data <folder>` to point them somewhere else. `01_reconcile_measures.py` works out every measure in pandas **before** it opens `powerbi_values.csv`, and it stops with an error if a required row is missing or doesn't match.
 
-**Getting the Power BI numbers:** open `reports/powerbi_values_query.dax` in DAX query view (it's also saved in `hw06.pbix` as **Query 2**), run it, then **Copy → Entire table** and save the result as `reports/powerbi_values.csv` with headers `measure,slice,value`. The query converts every number to text with `CONVERT ( …, STRING )`, so nothing gets rounded by a format string.
+**Getting the Power BI numbers:** I opened `reports/powerbi_values_query.dax` in DAX query view (it's also saved in `hw06.pbix` as **Query 2**), ran it, used **Copy → Entire table**, and saved the result as `reports/powerbi_values.csv` with the headers `measure,slice,value`. The query turns every number into text with `CONVERT ( …, STRING )`, so a format string can't round anything.
 
 ## Results at a glance
 
@@ -61,14 +61,14 @@ You need Python 3.9+ and pandas. Each one takes about 10 seconds. They read the 
 
 ## Mismatches
 
-**None.** All 91 rows matched on the first run, and the biggest difference on a currency row is $0.0001 (from floating-point rounding). Two things helped. Both sides use the same "last snapshot date with data" rule. And the export converts to text before copying, so Power BI's formatting doesn't round anything.
+**None.** All 91 rows matched the first time I ran it, and the biggest difference on a currency row is $0.0001, which is just rounding. I think two things helped. Both sides use the same "last snapshot date with data" rule, and the export turns numbers into text before copying them, so Power BI's formatting doesn't round anything.
 
 ## Power BI notes
 
-- **Starting file.** The HW6 starter `.pbix` from Brightspace (22 MB) was too big to upload to Apporto from the Claude app, so I used my copy of `Wildcat_Star_Model.pbix` that was already in my Apporto Downloads (downloaded Oct 26, same size). In that copy `dim_date` was **not** marked as a date table yet, so I marked it on `dim_date[date]` to match the assignment ("validated successfully"). It also has `dim_security → dim_benchmark` active (see `claude/model_metadata.md`). That doesn't affect any of these measures. I re-ran the export after marking the date table and got exactly the same 91 values.
-- **`_Measures` table.** Instead of **Enter data**, I created it as a small calculated table with one hidden column, using one TMDL script that defines all 16 measures and their formats. It works the same way: it only holds measures.
-- **Measures page.** The two tables render with all values. In the Apporto session the four cards drew as blank boxes (that seems to be a display problem in the virtual desktop, since tables on the same page draw fine). The cards are set up with the right measures, and their values are the same as the grand-total rows in the reconciliation.
-- **Saved DAX queries** in `hw06.pbix`: Query 1 = measure list, Query 2 = reconciliation export, Query 3 = the three `INFO.VIEW` metadata queries + the Part C(a) SUMX check, Query 4 = Part D test.
+- **Starting file.** The HW6 starter `.pbix` from Brightspace (22 MB) was too big to upload to Apporto from the Claude app, so I used my copy of `Wildcat_Star_Model.pbix` that was already in my Apporto Downloads (downloaded Oct 26, same size). In that copy, `dim_date` **wasn't** marked as a date table yet, so I marked it on `dim_date[date]` to match the assignment, and it said "validated successfully." That copy also has `dim_security → dim_benchmark` active (see `claude/model_metadata.md`), but that doesn't affect any of these measures. I re-ran the export after marking the date table and got the exact same 91 values.
+- **`_Measures` table.** Instead of using **Enter data**, I made it a small calculated table with one hidden column, using one TMDL script that creates all 16 measures and their formats. It works the same way, since it only holds measures.
+- **Measures page.** The two tables show all their values. In Apporto, the four cards showed up as blank boxes, but I think that's a display problem in the virtual desktop, since the tables on the same page show up fine. The cards have the right measures, and their values are the same as the grand-total rows in the reconciliation.
+- **Saved DAX queries** in `hw06.pbix`: Query 1 is the measure list, Query 2 is the reconciliation export, Query 3 has the three `INFO.VIEW` metadata queries plus the Part C(a) SUMX check, and Query 4 is the Part D test.
 
 ## Review findings and fixes
 
@@ -92,7 +92,7 @@ You need Python 3.9+ and pandas. Each one takes about 10 seconds. They read the 
 
 ### Claude Code review in VS Code
 
-Claude Code re-ran both scripts (still 91 of 91 match, and the Part C output was the same) and checked the data assumptions they rely on. It found no bug that changes a number, but flagged four smaller things:
+Claude Code re-ran both scripts (still 91 of 91 match, and the Part C output was the same) and checked the data assumptions they depend on. It didn't find any bug that changes a number, but it flagged four smaller things:
 
 | # | What Claude Code flagged | What was done |
 |---|---|---|
@@ -107,3 +107,4 @@ Claude Code re-ran both scripts (still 91 of 91 match, and the Part C output was
 2. `HW6 Part B: re-ran reconciliation in VS Code - 91/91 match (Windows line endings)`
 3. `HW6: Claude Code review — 4 small fixes, still 91/91 match, README updated`
 4. `HW6: README - list all commits`
+5. `HW6: rewrite measures.md, verification and README notes in my own writing style`

@@ -1,10 +1,10 @@
 # Model metadata (exported from `hw06.pbix`)
 
-I ran the three `INFO.VIEW` queries from guide §2 in DAX query view (they're saved in the file as **Query 3**), copied each result grid and pasted it below. I ran them after adding the `_Measures` table and marking `dim_date` as the date table, so they describe the final model.
+I ran the three `INFO.VIEW` queries from guide §2 in DAX query view (they're saved in the file as **Query 3**), then copied each result and pasted it below. I ran them after adding the `_Measures` table and marking `dim_date` as the date table, so they show the final model.
 
-**What I left out:** the hidden auto date/time tables Power BI makes by itself (`LocalDateTable_…` and `DateTableTemplate_…`, 14 columns). They aren't part of the star schema. I also shortened the relationship names, which are long auto-generated IDs.
+**What I left out:** the hidden date tables Power BI makes on its own (`LocalDateTable_…` and `DateTableTemplate_…`, 14 columns), since they aren't part of the star schema. I also shortened the relationship names, which are just long IDs.
 
-**One quirk:** `INFO.VIEW.COLUMNS` shows a few date columns capitalized (`dim_date[Date]`, `[Year]`, `[Quarter]`, `[Month]` and `fact_portfolio_snapshot[Year]`, `[Month]`), but the Data pane and the CSVs use lower case. DAX doesn't care about case, so `dim_date[date]` and `dim_date[year]` work in every measure.
+**One weird thing:** `INFO.VIEW.COLUMNS` shows a few date columns with capital letters (`dim_date[Date]`, `[Year]`, `[Quarter]`, `[Month]` and `fact_portfolio_snapshot[Year]`, `[Month]`), but the Data pane and the CSVs use lower case. DAX doesn't care about capital letters, so `dim_date[date]` and `dim_date[year]` still work in every measure.
 
 ## 1. Columns
 
@@ -120,7 +120,7 @@ EVALUATE INFO.VIEW.RELATIONSHIPS ()
 | (ID) | true | OneDirection | dim_client | client_since | Many | LocalDateTable | date | One | Ready |
 | (ID) | true | OneDirection | dim_security | benchmark_id | Many | dim_benchmark | benchmark_id | One | Ready |
 
-The 11 fact-to-dimension relationships from Assignment 5 are all there (many-to-one, single direction). There are two extras. `dim_client[client_since] → LocalDateTable` is Power BI's hidden auto date table. `dim_security → dim_benchmark` is active in this starting file (in my HW5 design it was inactive). Neither one affects these measures: `fact_portfolio_snapshot` connects straight to `dim_benchmark`, and the extra link only filters from `dim_benchmark` toward `dim_security`.
+All 11 fact-to-dimension relationships from Assignment 5 are there (many-to-one, single direction), plus two extras. `dim_client[client_since] → LocalDateTable` is Power BI's hidden date table. `dim_security → dim_benchmark` is active in this starting file, even though it was inactive in my HW5 design. Neither one affects these measures, because `fact_portfolio_snapshot` connects straight to `dim_benchmark`, and the extra link only filters from `dim_benchmark` to `dim_security`.
 
 ## 3. Measures
 
@@ -132,7 +132,7 @@ SELECTCOLUMNS (
 )
 ```
 
-All 16 measures are in `_Measures` and every one has **State = Valid**. The full DAX for each is in `powerbi/measures.md`. The `[FormatString]` column came back blank for all of them, even though the formats are set (the TMDL view shows `formatString: \$#,0.00;(\$#,0.00);\$#,0.00` on `Total Fees`, for example). As far as I can tell, this column only fills in for dynamic format strings.
+All 16 measures are in `_Measures`, and every one has **State = Valid**. The full DAX for each one is in `powerbi/measures.md`. The `[FormatString]` column came back blank for all of them, even though the formats are set. For example, the TMDL view shows `formatString: \$#,0.00;(\$#,0.00);\$#,0.00` on `Total Fees`. I think this column only fills in for dynamic format strings.
 
 | Table | Measure | State |
 |---|---|---|

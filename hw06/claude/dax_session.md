@@ -1,6 +1,6 @@
 # Part D: Claude session for measure 11, `Top 10 Client Share`
 
-**How this was run:** I used Claude in the Claude app (the same chat I used for the rest of HW6, which can see my repo and my Apporto session), not a separate Claude Desktop window. Below is the full prompt and Claude's full answer. The prompt includes the metadata from `model_metadata.md` plus the things the metadata can't say: the grain, that `aum` is a balance and `active_alpha_ytd` is year-to-date, and the exact business definition from the assignment.
+**How I ran this:** I used Claude in the Claude app (the same chat I used for the rest of HW6, which can see my repo and my Apporto session), not a separate Claude Desktop window. Below are the full prompt and Claude's full answer. The prompt has the metadata from `model_metadata.md`, plus the things the metadata can't show: the grain, that `aum` is a balance, that `active_alpha_ytd` is year-to-date, and the exact business definition from the assignment.
 
 ---
 
