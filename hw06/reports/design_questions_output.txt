@@ -23,7 +23,7 @@
     simple mean, suspects included:            15.5624%
     suspect rows: alpha from -120.9% to 7133.8%, return_ytd up to 7152.9%
     if every 2024 month is mixed in (wrong): 0.3225%
-    weighted alpha by 2024 month (YTD builds up): {1: np.float64(-0.0001), 2: np.float64(-0.0002), 3: np.float64(-0.0002), 4: np.float64(0.0001), 5: np.float64(0.0003), 6: np.float64(0.0003), 7: np.float64(0.0009), 8: np.float64(0.0028), 9: np.float64(0.0033), 10: np.float64(0.0057), 11: np.float64(0.0083), 12: np.float64(0.0145)}
+    weighted alpha by 2024 month (YTD builds up): {1: -0.0001, 2: -0.0002, 3: -0.0002, 4: 0.0001, 5: 0.0003, 6: 0.0003, 7: 0.0009, 8: 0.0028, 9: 0.0033, 10: 0.0057, 11: 0.0083, 12: 0.0145}
 
 (d) 2024 Organic Growth Rate vs AUM YoY %, by tier
         net_flows_$M  aum_ly_$M  aum_end_$M  aum_change_$M  change_not_from_flows_$M  organic_growth  aum_yoy  flows_share_of_change  clients_ly  clients_end

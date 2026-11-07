@@ -35,6 +35,10 @@ def main():
     snap["client_tier"] = snap["client_id"].map(tier)
     txn["client_tier"] = txn["client_id"].map(tier)
     last_date = snap["snapshot_date"].max()
+    # (b) merges snapshots to fees on client + month, which only works if each
+    # table has one row per client-month
+    for df, col in ((snap, "snapshot_date"), (fees, "fee_date")):
+        assert not df.duplicated(["client_id", col]).any(), f"more than one row per client-month ({col})"
 
     # ------------------------------------------------------------------ (a)
     print("(a) Ending AUM vs SUMX over clients")
@@ -92,20 +96,22 @@ def main():
     s24c = s24[s24["is_return_suspect"] == 0]
     print(f"    if every 2024 month is mixed in (wrong): {wavg(s24c):.4%}")
     print("    weighted alpha by 2024 month (YTD builds up):",
-          {mo: round(wavg(g), 4) for mo, g in s24c.groupby("month")})
+          {mo: round(float(wavg(g)), 4) for mo, g in s24c.groupby("month")})
 
     # ------------------------------------------------------------------ (d)
     print("\n(d) 2024 Organic Growth Rate vs AUM YoY %, by tier")
     t24 = txn[txn["txn_date"].dt.year == 2024]
-    prev = snap["snapshot_date"][snap["snapshot_date"].dt.year == 2023].max()
     rows = []
     for t in ["Retail", "HNW", "UHNW"]:
         tt = t24[t24["client_tier"] == t]
         net = tt.loc[tt["txn_type"] == "Deposit", "amount"].sum() - tt.loc[tt["txn_type"] == "Withdrawal", "amount"].sum()
-        ly = snap.loc[(snap["snapshot_date"] == prev) & (snap["client_tier"] == t), "aum"].sum()
-        end = snap.loc[(snap["snapshot_date"] == last_date) & (snap["client_tier"] == t), "aum"].sum()
-        n_ly = snap.loc[(snap["snapshot_date"] == prev) & (snap["client_tier"] == t), "client_id"].nunique()
-        n_end = snap.loc[(snap["snapshot_date"] == last_date) & (snap["client_tier"] == t), "client_id"].nunique()
+        # Same rule as the DAX (LASTNONBLANK): the last snapshot date with data
+        # for THIS tier in each year, not one date shared by all tiers
+        st = snap[snap["client_tier"] == t]
+        at_ly = st[st["snapshot_date"] == st.loc[st["snapshot_date"].dt.year == 2023, "snapshot_date"].max()]
+        at_end = st[st["snapshot_date"] == st.loc[st["snapshot_date"].dt.year == 2024, "snapshot_date"].max()]
+        ly, end = at_ly["aum"].sum(), at_end["aum"].sum()
+        n_ly, n_end = at_ly["client_id"].nunique(), at_end["client_id"].nunique()
         rows.append({"tier": t, "net_flows_$M": net / 1e6, "aum_ly_$M": ly / 1e6, "aum_end_$M": end / 1e6,
                      "aum_change_$M": (end - ly) / 1e6, "change_not_from_flows_$M": (end - ly - net) / 1e6,
                      "organic_growth": net / ly, "aum_yoy": (end - ly) / ly,

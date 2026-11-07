@@ -136,6 +136,14 @@ def div(a, b):
     return a / b
 
 
+def growth(cur, prev):
+    """DIVIDE([cur] - [prev], [prev]). A blank [cur] counts as 0 in the
+    subtraction, because in DAX BLANK - x = -x, so the result is -100%."""
+    if pd.isna(prev):
+        return np.nan
+    return div((0 if pd.isna(cur) else cur) - prev, prev)
+
+
 # ---------------------------------------------------------------------------
 # The measures, one pandas function each
 # ---------------------------------------------------------------------------
@@ -208,11 +216,9 @@ def compute_all(snap, fees, txn, all_dates, sl: Slice):
     v["Ending Clients"] = ending_clients(snap, sl)
     v["Avg AUM per Client"] = div(v["Ending AUM"], v["Ending Clients"])
     v["Ending AUM LY"] = ending_aum(snap, ly)
-    v["AUM YoY %"] = div(v["Ending AUM"] - v["Ending AUM LY"], v["Ending AUM LY"]) \
-        if not pd.isna(v["Ending AUM LY"]) else np.nan
+    v["AUM YoY %"] = growth(v["Ending AUM"], v["Ending AUM LY"])
     v["Ending AUM PM"] = ending_aum(snap, pm)
-    v["AUM MoM %"] = div(v["Ending AUM"] - v["Ending AUM PM"], v["Ending AUM PM"]) \
-        if not pd.isna(v["Ending AUM PM"]) else np.nan
+    v["AUM MoM %"] = growth(v["Ending AUM"], v["Ending AUM PM"])
     v["Avg Monthly AUM"] = div(s["aum"].sum(), s["snapshot_date"].nunique()) if len(s) else np.nan
     v["Total Fees"] = total_fees(fees, sl)
     v["Net Flows"] = net_flows(txn, sl)

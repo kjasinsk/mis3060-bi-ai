@@ -9,7 +9,7 @@ This assignment builds 12 DAX measures on the Wildcat Capital portfolio snapshot
 - **Drafting:** Claude (in the Claude app, linked to my computer and my Apporto session) drafted both scripts, the DAX, `measures.md`, the Part D files and this README.
 - **Power BI:** Claude opened the starting model in Power BI on Apporto, saved it as `hw06.pbix`, added the `_Measures` table and all 16 measures (in one TMDL script), marked `dim_date` as the date table, built the **Measures** page, and ran the export, metadata and test queries in DAX query view.
 - **Part D:** the Claude session for `Top 10 Client Share` was in the same Claude app chat, not a separate Claude Desktop window (see `claude/dax_session.md`).
-- **Review:** the script review was also done by Claude in the app, like in HW5, not by the Claude Code extension in VS Code. The findings and fixes are below.
+- **Review:** the scripts were reviewed twice. First by Claude in the app (like in HW5), then by the Claude Code extension in VS Code, which is the review the assignment asks for. The findings and fixes from both are below.
 
 ## Folder structure
 
@@ -89,6 +89,17 @@ You need Python 3.9+ and pandas. Each one takes about 10 seconds. They read the 
 | 3 | For the text measure (Alpha Signal), `abs_diff` was written as an empty string, so the column mixed text and numbers | **Fixed:** 0 when the text matches, blank when it doesn't |
 | 4 | Checked that the pandas side never reads anything from Power BI | **OK.** All 91 pandas values are computed and saved to `pandas_values.csv` before `powerbi_values.csv` is opened |
 | 5 | Checked that every number quoted in `measures.md` Part C comes from a script | **OK.** All of them are printed by `02_design_questions.py`, and (a) was also run in Power BI (Query 3) |
+
+### Claude Code review in VS Code
+
+Claude Code re-ran both scripts (still 91 of 91 match, and the Part C output was the same) and checked the data assumptions they rely on. It found no bug that changes a number, but flagged four smaller things:
+
+| # | What Claude Code flagged | What was done |
+|---|---|---|
+| 1 | `AUM YoY %` and `AUM MoM %`: when `Ending AUM` is blank but last year's isn't, DAX gives −100% (BLANK − x = −x), but pandas gave blank | **Fixed.** Added a `growth()` helper in `01_reconcile_measures.py` that copies the DAX rule. No required slice has this case, so all 91 rows are the same |
+| 2 | Part C(d) in `02_design_questions.py` used one "last 2023 date" for all tiers instead of the last date **for each tier**, which is what `LASTNONBLANK` does | **Fixed.** It now finds the last date per tier. Every tier's last date is 2023-12-01 in this data, so the (d) numbers didn't change |
+| 3 | Part C(b) merges snapshots and fees on client + month, which double-counts if a client ever has two rows in a month | **Fixed.** Added an `assert` that both tables have one row per client-month (they do: 0 duplicates) |
+| 4 | The monthly alpha line printed `np.float64(-0.0001)` instead of `-0.0001` | **Fixed.** Re-ran and saved `design_questions_output.txt`. Only that line changed |
 
 ## Commits
 
