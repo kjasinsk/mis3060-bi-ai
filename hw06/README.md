@@ -104,3 +104,6 @@ Claude Code re-ran both scripts (still 91 of 91 match, and the Part C output was
 ## Commits
 
 1. `HW6 Parts A-D: 16 measures, Measures page, reconciliation 91/91 match, design answers, Claude-assisted Top 10 Client Share`
+2. `HW6 Part B: re-ran reconciliation in VS Code - 91/91 match (Windows line endings)`
+3. `HW6: Claude Code review — 4 small fixes, still 91/91 match, README updated`
+4. `HW6: README - list all commits`
