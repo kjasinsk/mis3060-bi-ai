@@ -108,3 +108,6 @@ Claude Code re-ran both scripts (still 91 of 91 match, and the Part C output was
 3. `HW6: Claude Code review — 4 small fixes, still 91/91 match, README updated`
 4. `HW6: README - list all commits`
 5. `HW6: rewrite measures.md, verification and README notes in my own writing style`
+6. `Update README.md` (an empty commit made on github.com by mistake; it changes no files)
+7. `HW6: README - confirmed starting model matches posted file`
+8. `HW6: README - complete the commit list`
