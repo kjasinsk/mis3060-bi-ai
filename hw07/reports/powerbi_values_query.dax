@@ -1,0 +1,71 @@
+// HW7 Part D: export every value reconciled in scripts/01_reconcile_kpis.py
+// Run in DAX query view (saved in hw07.pbix as Query 7; Query 5 is the first version, one ROW per
+// value; both return the same 43 rows), then Results > Copy > Entire table,
+// and save as reports/powerbi_values.csv with the header  measure,slice,value
+// CONVERT ( ..., STRING ) turns every number into text so no format string can round it.
+
+DEFINE
+    VAR _y = 2024
+EVALUATE
+UNION (
+    // ---- Page 1 cards, firm level ----
+    ROW ( "measure", "Ending AUM",          "slice", "year=2024", "value", CONVERT ( CALCULATE ( [Ending AUM],          dim_date[year] = _y ), STRING ) ),
+    ROW ( "measure", "Ending AUM LY",       "slice", "year=2024", "value", CONVERT ( CALCULATE ( [Ending AUM LY],       dim_date[year] = _y ), STRING ) ),
+    ROW ( "measure", "AUM YoY %",           "slice", "year=2024", "value", CONVERT ( CALCULATE ( [AUM YoY %],           dim_date[year] = _y ), STRING ) ),
+    ROW ( "measure", "Net Flows",           "slice", "year=2024", "value", CONVERT ( CALCULATE ( [Net Flows],           dim_date[year] = _y ), STRING ) ),
+    ROW ( "measure", "Market Change",       "slice", "year=2024", "value", CONVERT ( CALCULATE ( [Market Change],       dim_date[year] = _y ), STRING ) ),
+    ROW ( "measure", "Organic Growth Rate", "slice", "year=2024", "value", CONVERT ( CALCULATE ( [Organic Growth Rate], dim_date[year] = _y ), STRING ) ),
+
+    // ---- flows / market split by client tier ----
+    SELECTCOLUMNS (
+        CROSSJOIN (
+            DATATABLE ( "t", STRING, { { "Retail" }, { "HNW" }, { "UHNW" } } ),
+            DATATABLE ( "m", STRING, { { "Ending AUM" }, { "Ending AUM LY" }, { "Net Flows" }, { "Market Change" } } )
+        ),
+        "measure", [m],
+        "slice", "year=2024|tier=" & [t],
+        "value",
+            VAR t = [t]
+            RETURN
+                CONVERT (
+                    SWITCH (
+                        [m],
+                        "Ending AUM",    CALCULATE ( [Ending AUM],    dim_date[year] = _y, dim_client[client_tier] = t ),
+                        "Ending AUM LY", CALCULATE ( [Ending AUM LY], dim_date[year] = _y, dim_client[client_tier] = t ),
+                        "Net Flows",     CALCULATE ( [Net Flows],     dim_date[year] = _y, dim_client[client_tier] = t ),
+                        "Market Change", CALCULATE ( [Market Change], dim_date[year] = _y, dim_client[client_tier] = t )
+                    ),
+                    STRING
+                )
+    ),
+
+    // ---- flows / market split by region (dim_advisor[region]) ----
+    SELECTCOLUMNS (
+        CROSSJOIN (
+            DATATABLE ( "r", STRING, { { "Mid-Atlantic" }, { "Midwest" }, { "Northeast" }, { "Southeast" }, { "West" } } ),
+            DATATABLE ( "m", STRING, { { "Ending AUM" }, { "Ending AUM LY" }, { "Net Flows" }, { "Market Change" } } )
+        ),
+        "measure", [m],
+        "slice", "year=2024|region=" & [r],
+        "value",
+            VAR r = [r]
+            RETURN
+                CONVERT (
+                    SWITCH (
+                        [m],
+                        "Ending AUM",    CALCULATE ( [Ending AUM],    dim_date[year] = _y, dim_advisor[region] = r ),
+                        "Ending AUM LY", CALCULATE ( [Ending AUM LY], dim_date[year] = _y, dim_advisor[region] = r ),
+                        "Net Flows",     CALCULATE ( [Net Flows],     dim_date[year] = _y, dim_advisor[region] = r ),
+                        "Market Change", CALCULATE ( [Market Change], dim_date[year] = _y, dim_advisor[region] = r )
+                    ),
+                    STRING
+                )
+    ),
+
+    // ---- Page 2 cards for one tier (Retail) ----
+    ROW ( "measure", "Ending Clients",     "slice", "year=2024|tier=Retail", "value", CONVERT ( CALCULATE ( [Ending Clients],     dim_date[year] = _y, dim_client[client_tier] = "Retail" ), STRING ) ),
+    ROW ( "measure", "Avg AUM per Client", "slice", "year=2024|tier=Retail", "value", CONVERT ( CALCULATE ( [Avg AUM per Client], dim_date[year] = _y, dim_client[client_tier] = "Retail" ), STRING ) ),
+    ROW ( "measure", "Fee Yield (bps)",    "slice", "year=2024|tier=Retail", "value", CONVERT ( CALCULATE ( [Fee Yield (bps)],    dim_date[year] = _y, dim_client[client_tier] = "Retail" ), STRING ) ),
+    ROW ( "measure", "AUM-Weighted Alpha", "slice", "year=2024|tier=Retail", "value", CONVERT ( CALCULATE ( [AUM-Weighted Alpha], dim_date[year] = _y, dim_client[client_tier] = "Retail" ), STRING ) ),
+    ROW ( "measure", "Alpha Signal",       "slice", "year=2024|tier=Retail", "value", CONVERT ( CALCULATE ( [Alpha Signal],       dim_date[year] = _y, dim_client[client_tier] = "Retail" ), STRING ) )
+)

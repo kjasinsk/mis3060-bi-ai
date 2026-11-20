@@ -47,3 +47,6 @@ Thumbs.db
 .mypy_cache/
 .ipynb_checkpoints
 !hw*/*.csv
+
+# HW7 deliverables (data extract + reconciliation CSVs are graded)
+!hw07/**/*.csv

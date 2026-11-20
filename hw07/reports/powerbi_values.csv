@@ -1,0 +1,44 @@
+measure,slice,value
+Ending AUM,year=2024,12729572078.86
+Ending AUM LY,year=2024,10644971737
+AUM YoY %,year=2024,0.19582957976434
+Net Flows,year=2024,77513055.26
+Market Change,year=2024,2007087286.59999
+Organic Growth Rate,year=2024,7.28165909455434E-03
+Ending AUM,year=2024|tier=Retail,533452497.89
+Ending AUM LY,year=2024|tier=Retail,447795648.67
+Net Flows,year=2024|tier=Retail,44184047.61
+Market Change,year=2024|tier=Retail,41472801.61
+Ending AUM,year=2024|tier=HNW,2548521154.33
+Ending AUM LY,year=2024|tier=HNW,2130154150.42
+Net Flows,year=2024|tier=HNW,25227406.26
+Market Change,year=2024|tier=HNW,393139597.650001
+Ending AUM,year=2024|tier=UHNW,9647598426.64
+Ending AUM LY,year=2024|tier=UHNW,8067021937.91
+Net Flows,year=2024|tier=UHNW,8101601.39
+Market Change,year=2024|tier=UHNW,1572474887.34
+Ending AUM,year=2024|region=Mid-Atlantic,3763923872
+Ending AUM LY,year=2024|region=Mid-Atlantic,3142940677.46
+Net Flows,year=2024|region=Mid-Atlantic,22187226.96
+Market Change,year=2024|region=Mid-Atlantic,598795967.58
+Ending AUM,year=2024|region=Midwest,355799580.84
+Ending AUM LY,year=2024|region=Midwest,295338729.53
+Net Flows,year=2024|region=Midwest,1799229.7
+Market Change,year=2024|region=Midwest,58661621.6100001
+Ending AUM,year=2024|region=Northeast,4530738631.38
+Ending AUM LY,year=2024|region=Northeast,3795456741.84
+Net Flows,year=2024|region=Northeast,32200393.44
+Market Change,year=2024|region=Northeast,703081496.1
+Ending AUM,year=2024|region=Southeast,3064446334.69
+Ending AUM LY,year=2024|region=Southeast,2568402938.22
+Net Flows,year=2024|region=Southeast,16770096.18
+Market Change,year=2024|region=Southeast,479273300.29
+Ending AUM,year=2024|region=West,1014663659.95
+Ending AUM LY,year=2024|region=West,842832649.95
+Net Flows,year=2024|region=West,4556108.98
+Market Change,year=2024|region=West,167274901.02
+Ending Clients,year=2024|tier=Retail,1394
+Avg AUM per Client,year=2024|tier=Retail,382677.545114778
+Fee Yield (bps),year=2024|tier=Retail,82.8105364654355
+AUM-Weighted Alpha,year=2024|tier=Retail,2.40410089238248E-02
+Alpha Signal,year=2024|tier=Retail,Outperforming
