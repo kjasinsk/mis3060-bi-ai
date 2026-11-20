@@ -22,7 +22,7 @@
 
 ## One claim Claude made that was wrong
 
-When Claude built the top-10 table on Page 2, its **Total** row said the top 10 clients held **$12,729,572,079** and **100.00%** of the tier. That's wrong. It's the whole firm's AUM, because at the total level the rank measure doesn't filter to 10 clients. The real top 10 are each under 1% of the tier (for UHNW, $82.4M = 0.85% for the largest). Claude didn't catch it in its own build. I turned the total row off, so the table can't show the whole tier's AUM under a "top 10" title. This is also noted in the README filter audit.
+When Claude built the top-10 table on Page 2, its **Total** row said the top 10 clients held **$12,729,572,079** and **100.00%** of the tier. That's wrong. It's the whole firm's AUM, because at the total level the rank measure doesn't filter to 10 clients. In the UHNW drill-through, for example, the largest client is $82.4M, only 0.85% of the tier. Claude didn't catch it in its own build. I turned the total row off, so the table can't show the whole tier's AUM under a "top 10" title. This is also noted in the README filter audit.
 
 ## Before / after (suggestion 1)
 

@@ -2,13 +2,13 @@
 
 Wildcat Capital ended 2024 with **$12.73B** in AUM, up **$2.08B (+19.6%)** from $10.64B a year earlier. Almost all of that growth came from markets. Market change added **$2.01B**, about **96%** of the increase, while net new money added only **$77.5M**, an organic growth rate of **0.73%**.
 
-By client tier, UHNW clients drove the dollars: their AUM rose **$1.58B**, and less than 1% of that came from new money. Retail is the exception. Net flows of **$44.2M** were about **52%** of Retail's $85.7M increase, so Retail is the only tier where clients are adding money at a pace that matters. By region, the Northeast added the most AUM (**$735M**, 96% from markets), followed by the Mid-Atlantic ($621M) and the Southeast ($496M).
+By client tier, UHNW clients drove the dollars: their AUM rose **$1.58B**, and less than 1% of that came from new money. Retail is the exception. Net flows of **$44.2M** were about **52%** of Retail's $85.7M increase, the only tier where new money really matters. By region, the Northeast added the most AUM (**$735M**, 96% from markets), followed by the Mid-Atlantic ($621M) and the Southeast ($496M).
 
 The takeaway: 2024 looked strong because markets were strong, not because the firm won much new money. If markets flatten, growth will depend on net new money, which is currently under 1% of last year's AUM.
 
-**Limitation:** Market Change is a leftover: everything that net flows don't explain. It includes investment returns, but also fees taken out of accounts and any other cash movements, so it overstates "pure" market performance and is not the same thing as client returns.
+**Limitation:** Market Change is a leftover: everything that net flows don't explain. It includes investment returns, but fees taken out of accounts make it smaller than the true return, and other cash movements can push it either way, so it is not a clean measure of client returns.
 
-*(199 words, not counting this note)*
+*(196 words, not counting this note)*
 
 ## Audit table
 
