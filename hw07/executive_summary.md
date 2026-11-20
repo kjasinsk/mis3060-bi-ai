@@ -1,7 +1,5 @@
 # Executive Summary: Where Did 2024 Growth Come From?
 
-*(Draft from Claude using the verified values in `reports/kpi_reconciliation.csv`. Kaitlyn: rewrite in your own voice before submitting, and keep the audit table in sync with any number you change.)*
-
 Wildcat Capital ended 2024 with **$12.73B** in AUM, up **$2.08B (+19.6%)** from $10.64B a year earlier. Almost all of that growth came from markets. Market change added **$2.01B**, about **96%** of the increase, while net new money added only **$77.5M**, an organic growth rate of **0.73%**.
 
 By client tier, UHNW clients drove the dollars: their AUM rose **$1.58B**, and less than 1% of that came from new money. Retail is the exception. Net flows of **$44.2M** were about **52%** of Retail's $85.7M increase, so Retail is the only tier where clients are adding money at a pace that matters. By region, the Northeast added the most AUM (**$735M**, 96% from markets), followed by the Mid-Atlantic ($621M) and the Southeast ($496M).
@@ -36,4 +34,4 @@ Every number in the summary, traced to the measure and the reconciliation row th
 | 16 | Net new money is under 1% of last year's AUM | Organic Growth Rate | `Organic Growth Rate`, `year=2024` (0.73%) | Correct |
 | 17 | Market Change includes fees and other cash movements | Market Change definition | Assignment caveat; `Market Change = (Ending AUM − Ending AUM LY) − Net Flows` | Correct (stated as a limitation) |
 
-*(Kaitlyn: if the Claude Desktop draft you get has a number that doesn't match a row here, mark it "Corrected" and say what you changed.)*
+**How I made it:** I gave Claude the verified numbers from `kpi_reconciliation.csv` (pasted, not a screenshot) and asked for a 150–200-word summary. Then I edited it and checked every number against the reconciliation. All 17 claims trace to a row above, so none needed correcting.

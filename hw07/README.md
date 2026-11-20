@@ -78,11 +78,13 @@ Key 2024 values: Ending AUM $12,729,572,078.86 · Ending AUM LY $10,644,971,737.
 
 ### Claude Code review in VS Code
 
-*(TO DO, Kaitlyn: open both scripts in VS Code, ask Claude Code to review them, then list what it flagged and what you changed here, the same way as in HW6.)*
+Claude Code re-ran both scripts (still 75 rows, 43 of 43 match, 32 of 32 in the extract check) and read them line by line against the DAX. It didn't find anything that changes a reported number, but it flagged three things that could hide a problem later:
 
 | # | Script | What Claude Code flagged | What I changed |
 |---|---|---|---|
-| | | | |
+| 1 | `01_reconcile_kpis.py` | `Market Change` in pandas was blank whenever there's no prior-year balance, but in DAX `BLANK` acts like 0 inside a subtraction, so Power BI shows `Ending AUM − Net Flows` for 2020 instead of blank. The two tools would disagree if 2020 were ever reconciled | **Fixed.** Pandas now copies the DAX rule (blank only if every part is blank). No 2024 row changed |
+| 2 | `01_reconcile_kpis.py` | The extract check used `groupby().sum()`, which turns a missing cell into **0**, so a gap in the extract would be hidden instead of failing | **Fixed.** It now uses `sum(min_count=1)` and first asserts there are exactly 15 rows for 2024 with no blanks. Still 32 of 32 |
+| 3 | `00_make_extract.py` | The total check only compared the **2024** balance to the firm total; a wrong year or wrong flow sign in any other year wouldn't be caught | **Fixed.** It now checks every year's December balance **and** every year's net flows against the raw files. All 5 years pass; the CSV didn't change |
 
 ## Filter audit (Part D.4)
 
@@ -110,4 +112,5 @@ When you open Page 2 directly (without drilling through), it shows all tiers and
 
 ## Commits
 
-*(to fill in after pushing)*
+1. `HW7: two-page growth dashboard, reconciliation 43/43, extract check 32/32`
+2. `HW7: Claude Code review fixes, docs finalized, add hw07.pbix`

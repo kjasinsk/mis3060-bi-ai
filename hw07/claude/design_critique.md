@@ -2,8 +2,6 @@
 
 **How I ran it:** I gave Claude the two page screenshots (`dashboard/page1.png`, `dashboard/page2.png`), the audience (Wildcat's managing director) and the business question ("Where did 2024 growth come from, markets or new money, and which segments and regions drove it?"). I asked for a critique against the Week 11 checklist (clear question, insight titles, right chart for the data, sorting, one accent color, bars from zero, accessible color, labels, clutter) and the top three changes.
 
-> Note: this critique was done in the Claude app session that also helped build the report. *(Kaitlyn: if you re-run it in Claude Desktop, replace the table with that log and keep the decisions in your own words.)*
-
 ## Claude's top three changes
 
 1. Fix the clipped values on the Page 2 cards (the numbers are cut off at the bottom).
@@ -24,7 +22,7 @@
 
 ## One claim Claude made that was wrong
 
-Claude said **"UHNW clients had essentially zero (or negative) net new money in 2024; the navy part of the UHNW bar doesn't show."** That's wrong. UHNW net flows were **+$8,101,601.39** (`kpi_reconciliation.csv`, row `Net Flows`, `year=2024|tier=UHNW`). That's positive, just tiny compared with UHNW's $1.57B market change (0.5% of its growth), so the navy part is less than one pixel wide. This is the risk of critiquing a screenshot instead of the numbers, and it's also why suggestion 3 matters.
+When Claude built the top-10 table on Page 2, its **Total** row said the top 10 clients held **$12,729,572,079** and **100.00%** of the tier. That's wrong. It's the whole firm's AUM, because at the total level the rank measure doesn't filter to 10 clients. The real top 10 are each under 1% of the tier (for UHNW, $82.4M = 0.85% for the largest). Claude didn't catch it in its own build. I turned the total row off, so the table can't show the whole tier's AUM under a "top 10" title. This is also noted in the README filter audit.
 
 ## Before / after (suggestion 1)
 

@@ -186,11 +186,13 @@ def compute_all(snap, fees, txn, all_dates, sl: Slice):
     v["Ending AUM LY"] = ending_aum(snap, ly)
     v["AUM YoY %"] = growth(v["Ending AUM"], v["Ending AUM LY"])
     v["Net Flows"] = net_flows(txn, sl)
-    # DAX: (BLANK - x) - y works like 0 - x - y; with no LY the visuals show it, so keep NaN only
-    # when there is no LY balance at all (the measure is not shown for 2020)
-    v["Market Change"] = (np.nan if pd.isna(v["Ending AUM LY"]) else
-                          (0 if pd.isna(v["Ending AUM"]) else v["Ending AUM"]) - v["Ending AUM LY"]
-                          - (0 if pd.isna(v["Net Flows"]) else v["Net Flows"]))
+    # DAX blank rules: BLANK acts as 0 inside - , and the result is BLANK only if
+    # every part is blank. So with no LY balance (2020) DAX returns Ending AUM - Net Flows,
+    # not blank. (Claude Code review finding #1)
+    parts = [v["Ending AUM"], v["Ending AUM LY"], v["Net Flows"]]
+    v["Market Change"] = (np.nan if all(pd.isna(x) for x in parts) else
+                          (0 if pd.isna(parts[0]) else parts[0]) - (0 if pd.isna(parts[1]) else parts[1])
+                          - (0 if pd.isna(parts[2]) else parts[2]))
     v["Organic Growth Rate"] = div(v["Net Flows"], v["Ending AUM LY"])
     if sl.region is None:                       # fees and alpha are only shown without a region
         f = rows(fees, "fee_date", sl)
@@ -246,11 +248,15 @@ def extract_check(rec):
     reconciled tier / region rows (pandas side, which already matches Power BI)."""
     ext = pd.read_csv(EXTRACT)
     e24 = ext[ext["year"] == 2024]
+    # groupby().sum() would turn a missing cell into 0 and hide it (Claude Code review finding #2)
+    assert len(e24) == 15, f"expected 15 rows for 2024 in the extract, got {len(e24)}"
+    assert e24[["ending_aum", "ending_aum_ly", "net_flows", "market_change"]].notna().all().all(), \
+        "blank value in the 2024 rows of growth_extract.csv"
     col = {"Ending AUM": "ending_aum", "Ending AUM LY": "ending_aum_ly",
            "Net Flows": "net_flows", "Market Change": "market_change"}
     checks = []
     for dim, key in (("client_tier", "tier"), ("region", "region")):
-        sums = e24.groupby(dim)[list(col.values())].sum()
+        sums = e24.groupby(dim)[list(col.values())].sum(min_count=1)
         for member, row in sums.iterrows():
             for m, c in col.items():
                 target = rec[(rec.measure == m) & (rec.slice == f"year=2024|{key}={member}")]

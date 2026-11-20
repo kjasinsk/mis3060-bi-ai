@@ -102,8 +102,14 @@ def main():
     assert later[["ending_aum", "ending_aum_ly", "net_flows", "market_change"]].notna().all().all(), \
         "a year x tier x region cell has no December balance or no flows"
     # the 75 cells add back up to the firm totals (no row lost or double counted)
-    dec_total = snap.loc[snap["snapshot_date"] == "2024-12-01", "aum"].sum()
-    assert abs(out.loc[out["year"] == 2024, "ending_aum"].sum() - dec_total) < 0.01
+    # every year, not just 2024 (Claude Code review finding #3)
+    for yr in YEARS:
+        dec_total = snap.loc[snap["snapshot_date"] == f"{yr}-12-01", "aum"].sum()
+        assert abs(out.loc[out["year"] == yr, "ending_aum"].sum() - dec_total) < 0.01, f"{yr} balance"
+        t_yr = txn[(txn["txn_date"].dt.year == yr) & txn["txn_type"].isin(["Deposit", "Withdrawal"])]
+        flow_total = (t_yr.loc[t_yr["txn_type"] == "Deposit", "amount"].sum()
+                      - t_yr.loc[t_yr["txn_type"] == "Withdrawal", "amount"].sum())
+        assert abs(out.loc[out["year"] == yr, "net_flows"].sum() - flow_total) < 0.01, f"{yr} flows"
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     out.to_csv(OUT, index=False, float_format="%.2f")

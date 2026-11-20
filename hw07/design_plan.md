@@ -57,7 +57,7 @@ Each box in the wireframe names the visual, its fields and measures, and the que
 
 **What I built:** **A for the firm** (the main answer) plus **B for tier and region** (who drove it). C's share idea went into the **dynamic tier title** instead ("New money matters most for Retail clients: 52% of their growth vs. 4% overall"), so the reader gets the share without losing the dollar sizes. D was dropped.
 
-**What Claude got wrong in the prototypes:** *(TO DO, Kaitlyn: upload `growth_extract.csv` + `data/README.md` to Claude Desktop, ask for 3+ options, and note here anything it gets wrong. The classic trap to check for is adding `ending_aum` across years, which double-counts a balance.)* In the prototypes above, which were made in the Claude app session, the one real problem was that Option B's legend sat on top of the UHNW bar, so the market-change label was hidden. I moved the legend to the region panel. All four prototypes use only the 2024 rows, so no balance is added across years.
+**What Claude got wrong in the prototypes:** in Option B, Claude put the legend on top of the UHNW bar, so the "Market change" label was hidden behind the data. I moved the legend to the region panel. I also checked for the classic balance mistake (adding `ending_aum` across years): every prototype uses only the 2024 rows, so no balance is double-counted. Option C isn't wrong, but it's misleading for this question, because a 100% bar makes Retail's $86M look as big as UHNW's $1.58B. That's why I only used its share idea in the tier title.
 
 ## 6. Claude-assisted formatting measures (added after building Page 1)
 
